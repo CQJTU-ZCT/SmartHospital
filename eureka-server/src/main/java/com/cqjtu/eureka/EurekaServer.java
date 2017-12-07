@@ -1,4 +1,4 @@
-package com.zjh.eureka;
+package com.cqjtu.eureka;
 
 
 import org.springframework.boot.SpringApplication;
