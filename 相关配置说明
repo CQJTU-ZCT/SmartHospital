@@ -1,3 +1,16 @@
+模块说明：
+    appointment-provider:预约服务提供模块
+    common：公共组件模块，用于编写pojo,tools等
+    eureka-server:注册中心服务模块
+    provider-security:为所有的*-provider提供安全认证模块
+    user-provider:用户相关服务提供模块
+    validate-provider:验证服务提供模块
+
+
+
+
+
+
 eureka-server.jar启动说明：
     内置两个配置文件application-one.yml(7777)和application-two.yml(5555)，也可以指定外置配置文件。
     java -jar XXX.jar --spring.profiles.active=one/two

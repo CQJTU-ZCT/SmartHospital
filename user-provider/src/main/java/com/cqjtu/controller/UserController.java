@@ -20,7 +20,7 @@ public class UserController {
 
 
     @RequestMapping()
-    public User getUser(){
+    public User getUserInfo(){
         System.out.println("主机被调用");
         User user = new User();
         user.setPassword("bfdkjhfkbds");
