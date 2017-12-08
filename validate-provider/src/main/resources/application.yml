@@ -18,5 +18,5 @@ spring:
 
 mail:
   mailUsername: 799243917@qq.com
-  mailPassword: juqvkoritwppbaih
+  mailPassword:
   smtpServer: smtp.qq.com
