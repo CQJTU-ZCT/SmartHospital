@@ -5,6 +5,7 @@
     provider-security:为所有的*-provider提供安全认证模块
     user-provider:用户相关服务提供模块
     validate-provider:验证服务提供模块
+    exception-handler:全局异常处理模块
 
 
 

@@ -14,6 +14,7 @@
         <module>provider-security</module>
         <module>appointment-provider</module>
         <module>validate-provider</module>
+        <module>exception-handler</module>
     </modules>
 
     <packaging>pom</packaging>

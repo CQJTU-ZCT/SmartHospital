@@ -55,7 +55,4 @@ public class MailController {
     public MailMessage getAndSendMailVerifyCodeWithoutMail(){
         return MailMessage.getMailAddressNotAllowedNull();
     }
-
-
-
 }
