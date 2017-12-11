@@ -1,0 +1,25 @@
+
+
+spring:
+  application:
+    name: ApiGateway
+
+
+server:
+  port: 8089
+eureka:
+  client:
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8888/eureka
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+
+server:
+  port: 8888
+
+
+eureka:
+  server:
+    enable-self-preservation: false #eureka的自我保护
+
+  instance:
+    hostname: eureka-server
+
+  client:
+    fetch-registry: false
+    register-with-eureka: false  #false是不自己注册到自己
+spring:
+  application:
+    name: smart-hospital-eureka-server
+

@@ -3,10 +3,12 @@ server:
 
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     fetch-registry: true
     serviceUrl:
-      defaultZone: http:127.0.0.1:5555/eureka,http:127.0.0.1:7777/eureka
+      defaultZone: http://127.0.0.1:8888/eureka/
 spring:
   application:
     name: ValidateProvider

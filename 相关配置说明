@@ -6,6 +6,7 @@
     user-provider:用户相关服务提供模块
     validate-provider:验证服务提供模块
     exception-handler:全局异常处理模块
+    api-gateway:api网关模块
 
 
 
