@@ -93,6 +93,13 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>com.cqitu</groupId>
+            <artifactId>exception-handler</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
     </dependencies>
 
 

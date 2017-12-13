@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
 
 
-    @RequestMapping()
+    @RequestMapping("/get")
     public User getUserInfo(){
         System.out.println("主机被调用");
         User user = new User();
