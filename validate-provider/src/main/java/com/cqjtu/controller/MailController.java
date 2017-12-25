@@ -2,17 +2,14 @@ package com.cqjtu.controller;
 
 import com.cqjtu.domain.MailServerInfo;
 import com.cqjtu.messages.MailMessage;
-import com.cqjtu.tools.MailToos;
+import com.cqjtu.tools.MailTool;
 import com.cqjtu.tools.NumberVerifyCodeTool;
 import com.cqjtu.tools.RegularTool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.Base64;
 
 /**
@@ -36,7 +33,7 @@ public class MailController {
             //邮箱格式正确
             String verifyCode = NumberVerifyCodeTool.getNumberVerifyCode(6);
 
-            mailMessage = MailToos.sendMail(receiverMail, "验证码："+ verifyCode, "大吉大利，你吃不到鸡",
+            mailMessage = MailTool.sendMail(receiverMail, "验证码："+ verifyCode, "大吉大利，你吃不到鸡",
                     mailServerInfo.getMailUsername(), mailServerInfo.getMailPassword(),mailServerInfo.getSmtpServer());
             if (mailMessage.getCode() != 1){
 

@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMessage;
  * @Desc
  * @date 2017/12/8.
  */
-public class MailToos {
+public class MailTool {
 
 
     /**
