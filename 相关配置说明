@@ -7,6 +7,7 @@
     validate-provider:验证服务提供模块
     exception-handler:全局异常处理模块
     api-gateway:api网关模块
+    sso-client:单点登录客户端功能模块，相关模块引入即可
 
 
 

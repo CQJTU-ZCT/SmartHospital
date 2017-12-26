@@ -16,6 +16,8 @@
         <module>validate-provider</module>
         <module>exception-handler</module>
         <module>api-gateway</module>
+        <module>sso-client</module>
+        <module>sso-server-provider</module>
     </modules>
 
     <packaging>pom</packaging>
