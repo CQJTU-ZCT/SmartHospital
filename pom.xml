@@ -25,6 +25,7 @@
         <module>medicalprogressmanagement-provider</module>
         <module>healthmonitor-provider</module>
         <module>feedbackplatform-provider</module>
+        <module>payplatform-provider</module>
     </modules>
 
     <packaging>pom</packaging>
