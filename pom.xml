@@ -18,6 +18,7 @@
         <module>api-gateway</module>
         <module>sso-client</module>
         <module>sso-server-provider</module>
+        <module>emr-provider</module>
     </modules>
 
     <packaging>pom</packaging>

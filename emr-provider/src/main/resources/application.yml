@@ -1,17 +1,13 @@
+
+
 server:
-  port: 8084
+  port: 8085
 
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    serviceUrl:
-      defaultZone: http://127.0.0.1:7777/eureka/,http://127.0.0.1:5555/eureka/
+
 spring:
-  datasource:
-        name: sso
+    datasource:
+        name: UserProvider
         url: jdbc:mysql:///UserManager?characterEncoding=utf8&useSSL=true
         username: root
         password: 123456
@@ -23,15 +19,26 @@ spring:
               initial-size: 5  #初始化的连接数
               max-total: 5 #最大的连接数
               max-wait-millis: 200 #对大等待时间
-  application:
-    name: SsoServerProvider
-  mvc:
-    throw-exception-if-no-handler-found: true #出现错误时, 直接抛出异常
-  resources:
-    add-mappings: false #不要为我们工程中的资源文件建立映射
+    application:
+      name: EmrProvider
+    mvc:
+      throw-exception-if-no-handler-found: true #当出现404的时候直接抛出异常
+    resources:
+      add-mappings: false
+
 
 mybatis:
   config-location: classpath:mybatis.xml  #mybatis配置文件路径
   type-aliases-package: com.cqjtu.domain
   mapper-locations:
-  - classpath:template/mapper.xml
+  - classpath:mapper/*.xml
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    serviceUrl:
+          defaultZone: http://127.0.0.1:5555/eureka/,http://127.0.0.1:7777/eureka/ #eureka服务注册中心地址

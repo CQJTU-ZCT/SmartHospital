@@ -21,18 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class ValidateController {
 
 	//originalUrl:.+  是为了防止值中含有.或者。
-	@RequestMapping("/validate/{token}/{originalUrl}")
+	@RequestMapping("/validate/{token}/{originalUrl:.+}")
 	public ValidateMessage validateUser(@PathVariable("token") String token,@PathVariable("originalUrl") String originalUrl) {
 		User user = TokenData.validateToken(token);
 		if (user == null) {
 			ValidateMessage failMeassage = ValidateMessage.getFailMeassage();
-			failMeassage.setOriginalURL(originalUrl);
+			failMeassage.put("originalURL",originalUrl);
 			return failMeassage;
 		}
 		user.setPassword("********刮开查看密码*****");
 		ValidateMessage message = ValidateMessage.getSuccessMeassage();
-		message.setUser(user);
-		message.setOriginalURL(originalUrl);
+		message.put("user",user);
+		message.put("originalUrl",originalUrl);
 		// 防止密码泄露
 		return message;
 	}
@@ -40,25 +40,24 @@ public class ValidateController {
 
 
 	//originalUrl:.+  是为了防止值中含有.或者。
-	@RequestMapping("/validate/{originalUrl}")
+	@RequestMapping("/validate/{originalUrl:.+}")
 	public ValidateMessage validateUserWithoutToken(@PathVariable("originalUrl") String originalUrl,HttpServletRequest request) {
 		String token = request.getHeader("token");
 		User user = TokenData.validateToken(token);
 		if (user == null) {
 			ValidateMessage failMeassage = ValidateMessage.getFailMeassage();
-			failMeassage.setOriginalURL(originalUrl);
+			failMeassage.put("originalUrl",originalUrl);
 			return failMeassage;
 		}
 		user.setPassword("********刮开查看密码*****");
 		ValidateMessage successMeassage = ValidateMessage.getSuccessMeassage();
-		successMeassage.setUser(user);
-		successMeassage.setOriginalURL(originalUrl);
+		successMeassage.put("user",user);
+		successMeassage.put("originalUrl",originalUrl);
 		// 防止密码泄露
 		return successMeassage;
 	}
 
 
-	//originalUrl:.+  是为了防止值中含有.或者。
 	@RequestMapping("/validate")
 	public ValidateMessage validateUserWithoutTokenandOriginalUrl(HttpServletRequest request) {
 		String token = request.getHeader("token");
@@ -69,7 +68,7 @@ public class ValidateController {
 		}
 		user.setPassword("********刮开查看密码*****");
 		ValidateMessage successMeassage = ValidateMessage.getSuccessMeassage();
-		successMeassage.setUser(user);
+		successMeassage.put("user",user);
 		// 防止密码泄露
 		return successMeassage;
 	}

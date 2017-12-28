@@ -7,65 +7,7 @@ import com.cqjtu.domain.User;
  * @Desc 登录信息对象
  * @date 2017/12/2.
  */
-public class LoginMessage {
-
-    private int code;
-
-
-    private String desc;
-
-
-    private String token;
-
-
-    private String originalUrl;
-
-
-
-
-    private User user;
-
-
-    private LoginMessage() {
-    }
-
-
-    public String getOriginalUrl() {
-        return originalUrl;
-    }
-
-    public void setOriginalUrl(String originalUrl) {
-        this.originalUrl = originalUrl;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-
-    public int getCode() {
-        return code;
-    }
-
-
-
-    public String getDesc() {
-        return desc;
-    }
-
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+public class LoginMessage extends Message{
 
 
     /**
@@ -74,8 +16,8 @@ public class LoginMessage {
      */
     public static LoginMessage getSuceesssMessage(){
         LoginMessage message = new LoginMessage();
-        message.code = 1;
-        message.desc = "登录成功";
+        message.setCode(1);
+        message.setInfo("登录成功");
         return message;
     }
 
@@ -86,8 +28,8 @@ public class LoginMessage {
      */
     public static LoginMessage getErrorPasswordMessage(){
         LoginMessage message = new LoginMessage();
-        message.code = -1;
-        message.desc = "登录失败，密码错误";
+        message.setCode(-1);
+        message.setInfo("登录失败，密码错误");
         return message;
     }
 
@@ -98,8 +40,8 @@ public class LoginMessage {
      */
     public static LoginMessage getUserNotExistMessage(){
         LoginMessage message = new LoginMessage();
-        message.code = -2;
-        message.desc = "登录失败，用户不存在";
+        message.setCode(-2);
+        message.setInfo( "登录失败，用户不存在");
         return message;
     }
 
@@ -111,8 +53,8 @@ public class LoginMessage {
      */
     public static LoginMessage getParaErrorMessage(){
         LoginMessage message = new LoginMessage();
-        message.code = -3;
-        message.desc = "登录失败，登录参数错误";
+        message.setCode(-3);
+        message.setInfo("登录失败，登录参数错误");
         return message;
     }
 

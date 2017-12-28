@@ -5,26 +5,7 @@ package com.cqjtu.messages;
  * @Desc
  * @date 2017/12/2.
  */
-public class LogoutMessage {
-
-
-    private int code ;
-
-    private String desc;
-
-    private LogoutMessage() {
-    }
-
-
-    public int getCode() {
-        return code;
-    }
-
-
-
-    public String getDesc() {
-        return desc;
-    }
+public class LogoutMessage  extends Message{
 
 
     /**
@@ -34,8 +15,8 @@ public class LogoutMessage {
     public static LogoutMessage getSuccessMessage(){
         LogoutMessage message = new LogoutMessage();
 
-        message.code =1;
-        message.desc = "退出成功";
+        message.setCode(1);
+        message.setInfo("退出成功");
 
         return  message;
     }
@@ -48,8 +29,8 @@ public class LogoutMessage {
     public static LogoutMessage getParaErrorMessage(){
         LogoutMessage message = new LogoutMessage();
 
-        message.code =-1;
-        message.desc = "退出失败，参数错误";
+        message.setCode(-1);
+        message.setInfo("退出失败，参数错误");
 
         return  message;
     }
@@ -63,9 +44,8 @@ public class LogoutMessage {
     public static LogoutMessage getUserNotLoginMessage(){
         LogoutMessage message = new LogoutMessage();
 
-        message.code =-2;
-        message.desc = "退出失败，用户未登录";
-
+        message.setCode(-2);
+        message.setInfo("退出失败，用户未登录");
         return  message;
     }
 

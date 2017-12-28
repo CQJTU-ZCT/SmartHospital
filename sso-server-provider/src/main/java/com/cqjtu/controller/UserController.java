@@ -40,7 +40,7 @@ public class UserController {
      * 登录
      * @return
      */
-    @RequestMapping(value = "/login/{originalUrl}",method = RequestMethod.POST)
+    @RequestMapping(value = "/login/{originalUrl:.+}",method = RequestMethod.POST)
     public LoginMessage login(String username, String password, @PathVariable("originalUrl")  String originalUrl){
         if(username == null || username.length() <=0
                 ||password == null || password.length() <=0){
@@ -54,9 +54,9 @@ public class UserController {
             return LoginMessage.getErrorPasswordMessage();
         }
         LoginMessage suceesssMessage = LoginMessage.getSuceesssMessage();
-        suceesssMessage.setOriginalUrl(originalUrl);
+        suceesssMessage.put("originalUrl",originalUrl);
         user.setPassword("********刮开查看密码*****");
-        suceesssMessage.setUser(user);
+        suceesssMessage.put("user",user);
 
 
         String token = Token.getToken32WithoutLine();
@@ -64,7 +64,7 @@ public class UserController {
          * 添加token到缓存，这里可以考虑替换成redis
          */
         TokenData.addToken(token,user);
-        suceesssMessage.setToken(token);
+        suceesssMessage.put("token",token);
         return  suceesssMessage;
     }
 
@@ -88,7 +88,7 @@ public class UserController {
         }
         LoginMessage suceesssMessage = LoginMessage.getSuceesssMessage();
         user.setPassword("********刮开查看密码*****");
-        suceesssMessage.setUser(user);
+        suceesssMessage.put("user",user);
 
 
         String token = Token.getToken32WithoutLine();
@@ -96,7 +96,7 @@ public class UserController {
          * 添加token到缓存，这里可以考虑替换成redis
          */
         TokenData.addToken(token,user);
-        suceesssMessage.setToken(token);
+        suceesssMessage.put("token",token);
         return  suceesssMessage;
     }
 

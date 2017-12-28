@@ -7,49 +7,9 @@ import com.cqjtu.domain.User;
  * @Desc
  * @date 2017/12/2.
  */
-public class ValidateMessage {
-
-    private int code;
-
-    private String desc;
+public class ValidateMessage extends Message {
 
 
-    private User user;
-
-
-    private  String originalURL;
-
-
-
-
-    private ValidateMessage(){
-
-    }
-
-
-    public String getOriginalURL() {
-        return originalURL;
-    }
-
-    public void setOriginalURL(String originalURL) {
-        this.originalURL = originalURL;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user){
-        this.user = user;
-    }
 
 
     /**
@@ -58,8 +18,8 @@ public class ValidateMessage {
      */
     public static ValidateMessage getFailMeassage(){
         ValidateMessage message = new ValidateMessage();
-        message.code = -1;
-        message.desc = "验证令牌失败";
+        message.setCode(-1);
+        message.setInfo("验证令牌失败");
         return message;
     }
 
@@ -69,8 +29,8 @@ public class ValidateMessage {
      */
     public static ValidateMessage getSuccessMeassage(){
         ValidateMessage message = new ValidateMessage();
-        message.code = 1;
-        message.desc = "验证令牌成功";
+        message.setCode(1);
+        message.setInfo("验证令牌成功");
         return message;
     }
 
