@@ -19,6 +19,7 @@
         <module>sso-client</module>
         <module>sso-server-provider</module>
         <module>emr-provider</module>
+        <module>onlinediagnose-provider</module>
     </modules>
 
     <packaging>pom</packaging>

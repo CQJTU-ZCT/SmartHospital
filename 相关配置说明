@@ -10,6 +10,7 @@
     sso-client:单点登录客户端功能模块，相关模块引入即可
     sso-server-provider:单点登录服务提供模块
     emr-provider:电子病历管理服务提供模块    electronic medical record
+    onlinediagnose—provider:在线诊断服务提供模块
 
 
 
