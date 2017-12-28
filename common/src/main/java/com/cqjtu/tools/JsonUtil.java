@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
  * @Desc
  * @date 2017/12/3.
  */
-public class JSONUtil {
+public class JsonUtil {
 
 
     /**

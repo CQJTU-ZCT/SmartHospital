@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ValidateController {
 
-	//originalUrl:.+  是为了防止值中含有.或者。
+	/**
+	 * originalUrl:.+  是为了防止值中含有.或者。
+	 */
 	@RequestMapping("/validate/{token}/{originalUrl:.+}")
 	public ValidateMessage validateUser(@PathVariable("token") String token,@PathVariable("originalUrl") String originalUrl) {
 		User user = TokenData.validateToken(token);
@@ -38,8 +40,11 @@ public class ValidateController {
 	}
 
 
-
-	//originalUrl:.+  是为了防止值中含有.或者。
+	/**
+	 * @param originalUrl originalUrl:.+  是为了防止值中含有.或者。
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/validate/{originalUrl:.+}")
 	public ValidateMessage validateUserWithoutToken(@PathVariable("originalUrl") String originalUrl,HttpServletRequest request) {
 		String token = request.getHeader("token");

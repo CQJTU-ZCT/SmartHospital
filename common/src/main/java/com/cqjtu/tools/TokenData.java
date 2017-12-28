@@ -17,7 +17,9 @@ public class TokenData {
 
 	}
 
-	// 存储Token的MAP
+	/**
+	 * 存储Token的MAP
+	 */
 	private static Map<String, User> dataMap;
 
 	static {

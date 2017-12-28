@@ -1,7 +1,7 @@
 package com.cqjtu.filter;
 
 import com.cqjtu.messages.ValidateMessage;
-import com.cqjtu.tools.JSONUtil;
+import com.cqjtu.tools.JsonUtil;
 
 import com.cqjtu.tools.ServerInfo;
 import org.apache.commons.logging.Log;
@@ -27,6 +27,7 @@ import java.net.URLEncoder;
  */
 public class ValidateFilter implements Filter{
 
+    private int targetResponseCode = 200;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -45,7 +46,7 @@ public class ValidateFilter implements Filter{
 
         String token = null;
         for (Cookie cookie : cookies){
-            if (cookie.getName().equals("token")){
+            if ("token".equals(cookie.getName())){
                 token = cookie.getValue();
                 break;
             }
@@ -70,7 +71,7 @@ public class ValidateFilter implements Filter{
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             int responseCode = connection.getResponseCode();
-            if (responseCode == 200){
+            if (responseCode == targetResponseCode){
                 //验证服务正常
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -81,7 +82,7 @@ public class ValidateFilter implements Filter{
                     line =  reader.readLine();
                 }
                 JSONObject object = new JSONObject(resultBuilder.toString());
-                ValidateMessage message = (ValidateMessage) JSONUtil.praseJsonToBean(object, ValidateMessage.class);
+                ValidateMessage message = (ValidateMessage) JsonUtil.praseJsonToBean(object, ValidateMessage.class);
                 if (message.getCode() != 1){
                     //如果token是失效的，就 重定向 去登录地址
                     response.sendRedirect(ServerInfo.getLoginAddress()+"/"+ URLEncoder.encode(originalUrl,"utf-8"));

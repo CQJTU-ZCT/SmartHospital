@@ -47,7 +47,8 @@ public class VerificationCode {
         String base="ABCDEFGHIGKLMNOPQRATUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         int x=5;
         String yan="";
-        for(int i=0;i<4;i++){
+        int len = 4;
+        for(int i=0;i<len;i++){
             String num=base.charAt(new Random().nextInt(base.length()))+"";
             yan+=num;
             int degree=new Random().nextInt()%30;
@@ -61,7 +62,8 @@ public class VerificationCode {
 
     private  static void drawRandomLine(java.awt.Graphics g) {
         g.setColor(Color.GREEN);
-        for(int i=0;i<5;i++){
+        int len = 5;
+        for(int i=0;i<len;i++){
             int x1=new Random().nextInt(120);
             int y1=new Random().nextInt(35);
             int x2=new Random().nextInt(120);

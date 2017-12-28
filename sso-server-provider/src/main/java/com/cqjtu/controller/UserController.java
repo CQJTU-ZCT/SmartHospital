@@ -31,6 +31,8 @@ import java.io.IOException;
 public class UserController {
 
 
+    private int tokenLength=32;
+
     @Autowired
     private UserService userService;
 
@@ -109,7 +111,7 @@ public class UserController {
      */
     @RequestMapping(value = "/logout/{token}",method = RequestMethod.GET)
     public LogoutMessage logout(@PathVariable("token") String token){
-        if (token == null || token.length() != 32 ){
+        if (token == null || token.length() != tokenLength ){
             return LogoutMessage.getParaErrorMessage();
         }
         if (TokenData.validateToken(token) == null){
@@ -127,7 +129,7 @@ public class UserController {
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public LogoutMessage logoutWithOutToken(HttpServletRequest request){
         String token = request.getHeader("token");
-        if (token == null || token.length() != 32 ){
+        if (token == null || token.length() != tokenLength ){
             return LogoutMessage.getParaErrorMessage();
         }
         if (TokenData.validateToken(token) == null){
