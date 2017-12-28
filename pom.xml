@@ -20,6 +20,7 @@
         <module>sso-server-provider</module>
         <module>emr-provider</module>
         <module>onlinediagnose-provider</module>
+        <module>exclusivedoctor-provider</module>
     </modules>
 
     <packaging>pom</packaging>
