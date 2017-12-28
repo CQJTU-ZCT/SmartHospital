@@ -25,7 +25,7 @@ public class ProviderSecurity  extends WebSecurityConfigurerAdapter{
         builder.inMemoryAuthentication()
                 .withUser("test").password("test").roles("test")
                 .and()
-                .withUser("userConsumer").password("userConsumer").roles("userConsumer");
+                .withUser("smartHospital").password("smartHospital").roles("smartHospital");
     }
 
     @Override

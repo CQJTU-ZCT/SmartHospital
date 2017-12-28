@@ -1,4 +1,4 @@
-package com.cqitu.controller;
+package com.cqjtu.controller;
 
 import com.cqjtu.messages.Message;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmrController {
 
-    @RequestMapping(value = {"/getEmrByUsername/{username}"})
+    @RequestMapping(value = "/getEmrByUsername/{username}")
     public Message getEmrByUsername(@PathVariable(value = "username")String username){
         return new Message().put("username",username);
     }
+
 
 
 }

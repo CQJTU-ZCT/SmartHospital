@@ -88,7 +88,7 @@ public class ValidateFilter implements Filter{
                 }else {
                     //token是有效的
                     request.setAttribute("token",token);
-                    request.setAttribute("user",message.getUser());
+                    request.setAttribute("user",message.getMap().get("user"));
                     filterChain.doFilter(request,response);
                 }
             }else {
