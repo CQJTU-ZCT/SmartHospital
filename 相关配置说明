@@ -14,6 +14,7 @@
     exclusivedoctor-provider:专属医生服务提供模块
     onekeyfirstaid-provider:一键急救服务提供模块
     medicalprogressmanagement-provider:医疗进度管理服务提供模块
+    healthmonitor-provider:健康监测服务提供者
 
 
 

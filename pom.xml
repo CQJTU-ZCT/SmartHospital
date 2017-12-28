@@ -23,6 +23,7 @@
         <module>exclusivedoctor-provider</module>
         <module>onekeyfirstaid-provider</module>
         <module>medicalprogressmanagement-provider</module>
+        <module>healthmonitor-provider</module>
     </modules>
 
     <packaging>pom</packaging>
