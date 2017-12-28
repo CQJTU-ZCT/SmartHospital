@@ -24,6 +24,7 @@
         <module>onekeyfirstaid-provider</module>
         <module>medicalprogressmanagement-provider</module>
         <module>healthmonitor-provider</module>
+        <module>feedbackplatform-provider</module>
     </modules>
 
     <packaging>pom</packaging>

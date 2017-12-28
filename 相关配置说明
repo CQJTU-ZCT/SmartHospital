@@ -15,6 +15,7 @@
     onekeyfirstaid-provider:一键急救服务提供模块
     medicalprogressmanagement-provider:医疗进度管理服务提供模块
     healthmonitor-provider:健康监测服务提供者
+    feedbackplatform-provider:反馈平台服务提供模块
 
 
 
