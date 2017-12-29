@@ -35,5 +35,15 @@ public class JsonUtil {
         return bean;
     }
 
+    /**
+     * javaBean对象自动封装成json
+     * @return
+     */
+    public static String praseBeanToJson(Object object){
+        JSONObject jsonObject  = new JSONObject(object);
+        return jsonObject.toString();
+    }
+
+
 
 }

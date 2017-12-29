@@ -1,7 +1,9 @@
 package com.cqjtu.controller;
 
 import com.cqjtu.domain.User;
+import com.cqjtu.messages.Message;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +22,12 @@ public class UserController {
 
 
     @RequestMapping("/get")
-    public User getUserInfo(){
-        System.out.println("主机被调用");
+    public Message getUserInfo(){
+        Message message = new Message();
         User user = new User();
         user.setPassword("bfdkjhfkbds");
         user.setUsername("bdfgfkwhgj");
-        return  user;
+        return  message.put("user",user);
     }
 
 
