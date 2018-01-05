@@ -4,9 +4,7 @@ import com.cqjtu.domain.User;
 import com.cqjtu.messages.Message;
 import com.google.zxing.*;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import org.json.JSONObject;
 
 
 import javax.imageio.ImageIO;
@@ -17,14 +15,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Hashtable;
-import java.util.Random;
 
 /**
  * @author zjhfyq
  * @Desc
  * @date 2017/12/29.
  */
-public class QRCodeUtil {
+public class QrCodeUtil {
 
     /**
      * 二维码 添加 logo图标 处理的方法,
@@ -39,7 +36,7 @@ public class QRCodeUtil {
          * @throws IOException
          * @author Administrator sangwenhao
          */
-        public BufferedImage LogoMatrix(BufferedImage matrixImage,String logoPath) throws IOException{
+        public BufferedImage logoMatrix(BufferedImage matrixImage,String logoPath) throws IOException{
             /**
              * 读取二维码图片，并构建绘图对象
              */
@@ -111,7 +108,7 @@ public class QRCodeUtil {
             if (logoPath != null){
                 //设置logo图标
                 LogoConfig logoConfig = new LogoConfig();
-                image = logoConfig.LogoMatrix(image,logoPath);
+                image = logoConfig.logoMatrix(image,logoPath);
             }
             if (!ImageIO.write(image, format, new File(outPath))) {
                 throw new IOException("Could not write an image of format " + format);
@@ -122,7 +119,7 @@ public class QRCodeUtil {
             if (logoPath != null){
                 //设置logo图标
                 LogoConfig logoConfig = new LogoConfig();
-                image = logoConfig.LogoMatrix(image,logoPath);
+                image = logoConfig.logoMatrix(image,logoPath);
             }
             if (!ImageIO.write(image, format, stream)) {
                 throw new IOException("Could not write an image of format " + format);
@@ -131,7 +128,7 @@ public class QRCodeUtil {
     }
 
 
-    public  void CreateQrCodeToFile(String content,String outPath,String logoPath,String outFormat,int width,int height) throws IOException, WriterException{
+    public  void createQrCodeToFile(String content,String outPath,String logoPath,String outFormat,int width,int height) throws IOException, WriterException{
         if (width <= 0 || height <=0){
             // 二维码图片宽度 300
              width = 430;
@@ -169,7 +166,7 @@ public class QRCodeUtil {
 
 
 
-    public  void CreateQrCodeToStream(String content,OutputStream stream,String logoPath,String outFormat,int width,int height) throws IOException, WriterException{
+    public  void createQrCodeToStream(String content,OutputStream stream,String logoPath,String outFormat,int width,int height) throws IOException, WriterException{
         if (width <= 0 || height <=0){
             // 二维码图片宽度 300
             width = 430;
@@ -208,7 +205,7 @@ public class QRCodeUtil {
 
 
     public static void main(String [] args) throws IOException, WriterException {
-        QRCodeUtil util = new QRCodeUtil();
+        QrCodeUtil util = new QrCodeUtil();
         Message message = new Message();
         User user = new User();
         user.setUsername("陈雷");
@@ -217,7 +214,7 @@ public class QRCodeUtil {
         message.setInfo("OK");
         message.put("user",user);
 
-        util.CreateQrCodeToFile(JsonUtil.praseBeanToJson(message),"/Users/zjhfyq/code.jpg",null,"jpg",430,430);
+        util.createQrCodeToFile(JsonUtil.praseBeanToJson(message),"/Users/zjhfyq/code.jpg",null,"jpg",430,430);
     }
 
 
