@@ -26,6 +26,7 @@
         <module>healthmonitor-provider</module>
         <module>feedbackplatform-provider</module>
         <module>payplatform-provider</module>
+        <module>hospital-provider</module>
     </modules>
 
     <packaging>pom</packaging>

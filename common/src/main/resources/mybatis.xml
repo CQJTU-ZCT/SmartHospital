@@ -11,7 +11,7 @@
 	
 	<!-- 别名 -->
 	<typeAliases>
-  		<package name="com.cqjtu.domain"/>
+  		<package name="com.cqjtu.model"/>
 	</typeAliases>
 	
 	<!-- 引入分页插件pageHelper -->
