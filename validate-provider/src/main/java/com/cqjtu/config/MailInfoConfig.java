@@ -1,17 +1,15 @@
-package com.cqjtu.domain;
+package com.cqjtu.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
  * @author zjhfyq
  * @Desc
- * @date 2017/12/8.
+ * @date 2018/1/10.
  */
-@Component("mailServerInfo")
-public class MailServerInfo {
+@Component("mailInfoConfig")
+public class MailInfoConfig {
 
     @Value("${mail.mailUsername}")
     private  String mailUsername;

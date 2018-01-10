@@ -1,6 +1,6 @@
 package com.cqjtu.controller;
 
-import com.cqjtu.domain.MailServerInfo;
+import com.cqjtu.config.MailInfoConfig;
 import com.cqjtu.messages.MailMessage;
 import com.cqjtu.tools.MailTool;
 import com.cqjtu.tools.NumberVerifyCodeTool;
@@ -21,7 +21,7 @@ import java.util.Base64;
 public class MailController {
 
     @Autowired
-    private MailServerInfo mailServerInfo ;
+    private MailInfoConfig mailInfoConfig ;
 
     @RequestMapping(value = "/getAndSendMailVerifyCode/{receiverMail:.+}")
     public MailMessage getAndSendMailVerifyCode(@PathVariable("receiverMail") String receiverMailBeforeDecode){
@@ -34,7 +34,7 @@ public class MailController {
             String verifyCode = NumberVerifyCodeTool.getNumberVerifyCode(6);
 
             mailMessage = MailTool.sendMail(receiverMail, "验证码："+ verifyCode, "大吉大利，你吃不到鸡",
-                    mailServerInfo.getMailUsername(), mailServerInfo.getMailPassword(),mailServerInfo.getSmtpServer());
+                    mailInfoConfig.getMailUsername(), mailInfoConfig.getMailPassword(), mailInfoConfig.getSmtpServer());
             if (mailMessage.getCode() != 1){
 
             }else {

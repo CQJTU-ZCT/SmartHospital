@@ -1,22 +1,22 @@
 package com.cqjtu.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zjhfyq
  * @Desc
  * @date 2018/1/10.
  */
-@Configuration
-@PropertySource(value = {"classpath:file.properties"},encoding="utf-8")
+@Component("fileConfig")
+@PropertySource(value = {"classpath:/file.properties"},encoding="utf-8")
 public class FileConfig {
-    @Value("homePath")
+    @Value("${homePath}")
     private String homePath;
-    @Value("tempSize")
+    @Value("${tempSize}")
     private String tempSize;
-    @Value("maxFileSize")
+    @Value("${maxFileSize}")
     private String maxFileSize;
 
 

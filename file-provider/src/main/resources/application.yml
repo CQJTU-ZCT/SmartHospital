@@ -1,6 +1,13 @@
 server:
   port: 4321
 
+spring:
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 2Mb
+      max-request-size: 20Mb
+      file-size-threshold: 10Mb
 
 
 

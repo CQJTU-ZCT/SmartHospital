@@ -2,6 +2,7 @@ package com.cqjtu.exceptionhandler;
 
 import com.cqjtu.exception.ServiceException;
 import com.cqjtu.messages.ExceptionMessage;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
@@ -39,7 +41,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ExceptionMessage handleMissingServletRequestParameterException(MissingServletRequestParameterException exception){
-        logger.error("缺少请求参数异常", exception.getMessage());
+        logger.error("缺少请求参数异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,exception.getMessage());
         return  message;
     }
@@ -54,7 +56,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     public ExceptionMessage handleBindException(BindException exception){
-        logger.error("参数绑定异常", exception.getMessage());
+        logger.error("参数绑定异常"+exception.getMessage());
         BindingResult result = exception.getBindingResult();
         FieldError error = result.getFieldError();
         String field = error.getField();
@@ -74,7 +76,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ExceptionMessage handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
-        logger.error("请求参数验证失败", exception.getMessage());
+        logger.error("请求参数验证失败"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,exception.getMessage());
         return  message;
     }
@@ -89,18 +91,11 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ExceptionMessage handleHttpMessageNotReadableException(HttpMessageNotReadableException exception){
-        logger.error("请求参数解析失败", exception.getMessage());
+        logger.error("请求参数解析失败"+exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,exception.getMessage());
         return  message;
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(FileUploadException.class)
-    public ExceptionMessage handleFileUploadException(FileUploadException exception){
-        logger.error("文件服务异常", exception.getMessage());
-        ExceptionMessage message = ExceptionMessage.getExceptionMessage(500,exception.getMessage());
-        return  message;
-    }
 
 
 
@@ -112,7 +107,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ExceptionMessage handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException exception){
-        logger.error("请求方法不被允许异常", exception.getMessage());
+        logger.error("请求方法不被允许异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(405,exception.getMessage());
         return  message;
     }
@@ -125,25 +120,34 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public ExceptionMessage handleNoHandlerFoundException(NoHandlerFoundException exception){
-        logger.error("请求地址未找到异常", exception.getMessage());
+        logger.error("请求地址未找到异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(404,exception.getMessage());
         return  message;
     }
 
 
     /**
-     * 处理请求地址未找到异常
+     * 其他异常
      * @param exception
      * @return
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ExceptionMessage handleServiceException(Exception exception){
-        logger.error("处理逻辑异常", exception.getMessage());
+        System.out.println(exception.getClass().getName());
+        logger.error("处理逻辑异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(500,exception.getMessage());
         return  message;
     }
 
+    //SizeLimitExceededException
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(MultipartException.class)
+    public ExceptionMessage handleSizeLimitExceededException(MultipartException exception){
+        logger.error("文件大小异常"+exception.getMessage());
+        ExceptionMessage message = ExceptionMessage.getExceptionMessage(204,"文件过大");
+        return  message;
+    }
 
 
 }
