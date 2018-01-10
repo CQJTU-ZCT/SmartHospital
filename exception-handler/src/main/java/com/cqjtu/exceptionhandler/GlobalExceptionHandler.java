@@ -2,6 +2,7 @@ package com.cqjtu.exceptionhandler;
 
 import com.cqjtu.exception.ServiceException;
 import com.cqjtu.messages.ExceptionMessage;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -90,6 +91,14 @@ public class GlobalExceptionHandler {
     public ExceptionMessage handleHttpMessageNotReadableException(HttpMessageNotReadableException exception){
         logger.error("请求参数解析失败", exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,exception.getMessage());
+        return  message;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(FileUploadException.class)
+    public ExceptionMessage handleFileUploadException(FileUploadException exception){
+        logger.error("文件服务异常", exception.getMessage());
+        ExceptionMessage message = ExceptionMessage.getExceptionMessage(500,exception.getMessage());
         return  message;
     }
 

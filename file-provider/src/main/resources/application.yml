@@ -1,0 +1,13 @@
+server:
+  port: 4321
+
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    serviceUrl:
+          defaultZone: http://127.0.0.1:5555/eureka/,http://127.0.0.1:7777/eureka/#eureka服务注册中心地址

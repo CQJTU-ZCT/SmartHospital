@@ -17,6 +17,7 @@
     healthmonitor-provider:健康监测服务提供者
     feedbackplatform-provider:反馈平台服务提供模块
     payplatform-provider:支付服务提供模块
+    hospital-provider：医院信息服务提供模块
 
 
 

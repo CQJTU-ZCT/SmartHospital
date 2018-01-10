@@ -27,6 +27,7 @@
         <module>feedbackplatform-provider</module>
         <module>payplatform-provider</module>
         <module>hospital-provider</module>
+        <module>file-provider</module>
     </modules>
 
     <packaging>pom</packaging>
