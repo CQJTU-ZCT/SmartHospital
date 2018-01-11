@@ -8,8 +8,12 @@ spring:
       max-file-size: 2Mb
       max-request-size: 20Mb
       file-size-threshold: 10Mb
+  mvc:
+    static-path-pattern: /images/**
   resources:
         add-mappings: true
+        static-locations: file:/Users/zjhfyq/Dev/Ftp/
+
 
 
 smartHospital:

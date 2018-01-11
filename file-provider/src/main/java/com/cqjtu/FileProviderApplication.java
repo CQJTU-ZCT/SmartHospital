@@ -1,7 +1,6 @@
 package com.cqjtu;
 
 
-import com.cqjtu.config.FileConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
