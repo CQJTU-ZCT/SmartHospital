@@ -36,7 +36,6 @@ public class FileController {
 
     @RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
     public Message uploadFile(@RequestParam("files")MultipartFile [] files)  {
-        //User user = (User)request.getAttribute("user");
         Message message = new Message();
         if (files == null || files.length <= 0){
             message.setCode(203);
@@ -49,37 +48,38 @@ public class FileController {
                 homeFile.mkdirs();
             }
             List<Zfile> zfiles= new ArrayList<>();
-            for (MultipartFile file :files){
-                Zfile zfile = new Zfile();
-                //是一个文件控件时
-                zfile.setFileName(file.getOriginalFilename());
-                zfile.setSize(file.getSize());
-                //zfile.setUserId(user.getUsername());
-                zfile.setFileType(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
-                String filePath =fileHome+File.separator+datePath+File.separator+
-                        UUID.randomUUID().toString().replaceAll("-","")+zfile.getFileType();
-                zfile.setFilePath(filePath);
-                try {
+            try {
+                for (MultipartFile file :files){
+                    Zfile zfile = new Zfile();
+                    //是一个文件控件时
+                    zfile.setFileName(file.getOriginalFilename());
+                    zfile.setSize(file.getSize());
+                    zfile.setFileType(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+                    String filePath =fileHome+File.separator+datePath+File.separator+
+                            UUID.randomUUID().toString().replaceAll("-","")+zfile.getFileType();
+                    zfile.setFilePath(filePath);
                     file.transferTo(new File(filePath));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    zfile.setMd5(Md5Tool.fileMd5(new File(filePath)));
+                    LoggerTool.getLogger(FileController.class).info("上传文件名:"+zfile.getFileName()+"     上传文件大小:"
+                            +zfile.getSize()+"      文件类型:"+zfile.getFileType()+"       新的文件路径:"
+                            +zfile.getFilePath()+"   md5值:"+zfile.getMd5());
+                    //TODO 将Zfile存进数据库
+                    zfiles.add(zfile);
+                    message.setCode(200);
+                    message.setInfo("文件上传成功");
+                    message.put("files",zfiles);
                 }
-                zfile.setMd5(Md5Tool.fileMd5(new File(filePath)));
-                LoggerTool.getLogger(FileController.class).info("上传文件名:"+zfile.getFileName()+"     上传文件大小:"
-                        +zfile.getSize()+"      文件类型:"+zfile.getFileType()+"       新的文件路径:"
-                        +zfile.getFilePath()+"   md5值:"+zfile.getMd5());
-                //TODO 将Zfile存进数据库
-                zfiles.add(zfile);
+            } catch (Exception e) {
+                message.setCode(501);
+                message.setInfo("文件服务器忙...");
+                e.printStackTrace();
             }
-            message.setCode(200);
-            message.setInfo("文件上传成功");
-            message.put("files",zfiles);
         }
         return message;
     }
 
 
-    @RequestMapping(value = "/downloadFile/{fileName}")
+    //@RequestMapping(value = "/downloadFile/{fileName}")
     public Message downloadFile(@PathVariable("fileName")String fileName, HttpServletResponse response){
         Message message = new Message();
         boolean success =false;

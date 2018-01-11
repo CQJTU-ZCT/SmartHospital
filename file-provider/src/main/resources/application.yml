@@ -9,7 +9,7 @@ spring:
       max-request-size: 20Mb
       file-size-threshold: 10Mb
   mvc:
-    static-path-pattern: /images/**
+    static-path-pattern: /files/**
   resources:
         add-mappings: true
         static-locations: file:/Users/zjhfyq/Dev/Ftp/
