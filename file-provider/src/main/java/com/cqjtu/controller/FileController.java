@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -75,6 +76,59 @@ public class FileController {
             message.put("files",zfiles);
         }
         return message;
+    }
+
+
+    @RequestMapping(value = "/downloadFile/{fileName}")
+    public Message downloadFile(@PathVariable("fileName")String fileName, HttpServletResponse response){
+        Message message = new Message();
+        boolean success =false;
+        if (fileName == null || fileName.length() <= 0) {
+            message.setCode(203);
+            message.setInfo("文件名不合法");
+        }else{
+            //TODO 去数据库寻找文件路径
+            String filePath ="";
+            if (filePath == null || filePath.length() <=0){
+                message.setCode(203);
+                message.setInfo("文件不存在");
+            }else {
+                //文件存在
+                File file = new File(filePath);
+                // 设置强制下载不打开
+                response.setContentType("application/force-download");
+                // 设置文件名
+                response.addHeader("Content-Disposition",
+                        "attachment;fileName=" +  fileName);
+                byte [] bytes = new byte[1024];
+                FileInputStream fileInputStream =null;
+                BufferedInputStream bis = null;
+                BufferedOutputStream bos = null;
+                try {
+                    fileInputStream = new FileInputStream(file);
+                    bis = new BufferedInputStream(fileInputStream);
+                    OutputStream os = response.getOutputStream();
+                    bos = new BufferedOutputStream(os);
+
+                    int len = bis.read(bytes);
+                    while (len != -1){
+                        bos.write(bytes,0,len);
+                        len = bis.read(bytes);
+                    }
+                    bis.close();
+                    bos.close();
+                }catch (FileNotFoundException e){
+
+                }catch (IOException e){
+
+                }
+            }
+        }
+        if (success){
+            return  null;
+        }else {
+            return  message;
+        }
     }
 
 }
