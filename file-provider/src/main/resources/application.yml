@@ -8,6 +8,12 @@ spring:
       max-file-size: 2Mb
       max-request-size: 20Mb
       file-size-threshold: 10Mb
+  resources:
+        add-mappings: true
+
+
+smartHospital:
+  filePath: /Users/zjhfyq/Dev/Ftp
 
 
 

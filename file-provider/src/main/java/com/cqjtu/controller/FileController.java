@@ -1,6 +1,6 @@
 package com.cqjtu.controller;
 
-import com.cqjtu.config.FileConfig;
+
 import com.cqjtu.domain.User;
 import com.cqjtu.domain.Zfile;
 import com.cqjtu.messages.Message;
@@ -11,6 +11,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,9 +30,8 @@ import java.util.*;
 @RestController
 public class FileController {
 
-    @Autowired
-    private FileConfig fileConfig ;
-
+    @Value("${smartHospital.filePath}")
+    private String fileHome;
 
 
     @RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
@@ -44,7 +44,7 @@ public class FileController {
         }else {
             //设置日期目录
             String datePath = new SimpleDateFormat("yyyyMMDD").format(new Date());
-            File homeFile = new File(fileConfig.getHomePath()+File.separator+datePath);
+            File homeFile = new File(fileHome+File.separator+datePath);
             if (!homeFile.exists()){
                 homeFile.mkdirs();
             }
@@ -56,7 +56,7 @@ public class FileController {
                 zfile.setSize(file.getSize());
                 //zfile.setUserId(user.getUsername());
                 zfile.setFileType(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
-                String filePath = fileConfig.getHomePath()+File.separator+datePath+File.separator+
+                String filePath =fileHome+File.separator+datePath+File.separator+
                         UUID.randomUUID().toString().replaceAll("-","")+zfile.getFileType();
                 zfile.setFilePath(filePath);
                 try {
