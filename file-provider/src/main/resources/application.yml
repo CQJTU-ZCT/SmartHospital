@@ -10,6 +10,7 @@ spring:
       file-size-threshold: 10Mb
   mvc:
     static-path-pattern: /files/**
+    throw-exception-if-no-handler-found: true
   resources:
         add-mappings: true
         static-locations: file:/Users/zjhfyq/Dev/Ftp/
@@ -17,7 +18,7 @@ spring:
 
 
 smartHospital:
-  filePath: /Users/zjhfyq/Dev/Ftp
+  filePath: /Users/zjhfyq/Dev/Ftp/
 
 
 
@@ -27,4 +28,4 @@ eureka:
   client:
     fetch-registry: true
     serviceUrl:
-          defaultZone: http://127.0.0.1:5555/eureka/,http://127.0.0.1:7777/eureka/#eureka服务注册中心地址
+          defaultZone: http://127.0.0.1:5555/eureka/,http://127.0.0.1:7777/eureka/  #eureka服务注册中心地址

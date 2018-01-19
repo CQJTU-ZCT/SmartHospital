@@ -1,22 +1,15 @@
 package com.cqjtu.controller;
 
 
-import com.cqjtu.domain.User;
 import com.cqjtu.domain.Zfile;
 import com.cqjtu.messages.Message;
 import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.Md5Tool;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -33,6 +26,9 @@ public class FileController {
     @Value("${smartHospital.filePath}")
     private String fileHome;
 
+    @Value("${spring.mvc.static-path-pattern}")
+    private String staticPathPattern ;
+
 
     @RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
     public Message uploadFile(@RequestParam("files")MultipartFile [] files)  {
@@ -43,10 +39,17 @@ public class FileController {
         }else {
             //设置日期目录
             String datePath = new SimpleDateFormat("yyyyMMDD").format(new Date());
-            File homeFile = new File(fileHome+File.separator+datePath);
+            File homeFile = null;
+            if (fileHome.endsWith(File.separator)){
+                homeFile = new File(fileHome+datePath);
+            }else {
+                homeFile = new File(fileHome+File.separator+datePath);
+            }
             if (!homeFile.exists()){
                 homeFile.mkdirs();
             }
+
+
             List<Zfile> zfiles= new ArrayList<>();
             try {
                 for (MultipartFile file :files){
@@ -55,11 +58,19 @@ public class FileController {
                     zfile.setFileName(file.getOriginalFilename());
                     zfile.setSize(file.getSize());
                     zfile.setFileType(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+                    String newFileName = UUID.randomUUID().toString().replaceAll("-","")+zfile.getFileType();
                     String filePath =fileHome+File.separator+datePath+File.separator+
-                            UUID.randomUUID().toString().replaceAll("-","")+zfile.getFileType();
-                    zfile.setFilePath(filePath);
+                            newFileName;
+
+                    //保存文件
                     file.transferTo(new File(filePath));
                     zfile.setMd5(Md5Tool.fileMd5(new File(filePath)));
+
+                    //部署时  返回文件URL
+                    String fileUrl = staticPathPattern.substring(0,staticPathPattern.lastIndexOf("/"))+File.separator+datePath
+                            +File.separator+newFileName;
+                    zfile.setFilePath(fileUrl);
+
                     LoggerTool.getLogger(FileController.class).info("上传文件名:"+zfile.getFileName()+"     上传文件大小:"
                             +zfile.getSize()+"      文件类型:"+zfile.getFileType()+"       新的文件路径:"
                             +zfile.getFilePath()+"   md5值:"+zfile.getMd5());

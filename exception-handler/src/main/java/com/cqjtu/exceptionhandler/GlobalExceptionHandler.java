@@ -115,15 +115,18 @@ public class GlobalExceptionHandler {
 
     /**
      * 处理请求地址未找到异常
+     * Controller没有找到
      * @param exception
      * @return
      */
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)
     public ExceptionMessage handleNoHandlerFoundException(NoHandlerFoundException exception){
         logger.error("请求地址未找到异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(404,exception.getMessage());
         return  message;
     }
+
 
 
     /**
@@ -140,7 +143,11 @@ public class GlobalExceptionHandler {
         return  message;
     }
 
-    //SizeLimitExceededException
+    /**
+     * 文件过大异常处理
+     * @param exception
+     * @return
+     */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(MultipartException.class)
     public ExceptionMessage handleSizeLimitExceededException(MultipartException exception){

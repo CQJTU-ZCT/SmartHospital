@@ -11,7 +11,7 @@ public class Zfile {
     private long   size;
     private String filePath;
     private String md5;
-    private String    useType;
+    private String useType;
     private String userId;
 
 
