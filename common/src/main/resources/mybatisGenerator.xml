@@ -22,23 +22,23 @@
     
     <jdbcConnection
     	driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://localhost:3306/LewayIpManager"
-        userId="root"
+        connectionURL="jdbc:mysql://10.0.0.13:3306/smarthospital_test"
+        userId="zct"
         password="123456">
     </jdbcConnection>
-    
-   
-    
-    
 
-    <javaTypeResolver >
-      <property name="forceBigDecimals" value="false" />
-    </javaTypeResolver>
 
-	<!-- 指定bean生成的位置 -->
+    <!-- 生成 JavaBean 对象重写 toString方法 -->
+    <!-- <plugin type="org.mybatis.generator.plugins.ToStringPlugin" /> -->
+    <!-- 生成 JavaBean 对象继承 Serializable 类 -->
+    <!-- <plugin type="org.mybatis.generator.plugins.SerializablePlugin" /> -->
+    <!-- 生成 JavaBean 对象重写 equals 和 hashCode 方法 -->
+    <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> -->
+
+    <!-- 指定bean生成的位置 -->
     <javaModelGenerator
     		targetPackage="com.cqjtu.model"
-    		targetProject="./src/main/java">
+    		targetProject="./common/src/main/java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
@@ -46,7 +46,7 @@
 	<!-- 指定sql映射文件生成的位置 -->
     <sqlMapGenerator 
     		targetPackage="mapper"
-    	    targetProject="./src/main/resources">
+    	    targetProject="./common/src/main/resources">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
@@ -54,16 +54,46 @@
     <javaClientGenerator 
     		type="XMLMAPPER" 
     		targetPackage="com.cqjtu.mapper"
-    		targetProject="./src/main/java">
+    		targetProject="./common/src/main/java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
 	<!-- 指定每个表的生成策略 -->
-  	<table tableName="account"  domainObjectName="Account"></table>
-  	<table tableName="group"  domainObjectName="Group"></table>
-      <table tableName="project"  domainObjectName="Project"></table>
-      <table tableName="ip"  domainObjectName="Ip"></table>
-  	
-  	
+      <table tableName="account_status"  domainObjectName="AccountStatus"></table>
+      <table tableName="branch"  domainObjectName="Branch"></table>
+      <table tableName="branch_doctor_position"  domainObjectName="BranchDoctorPosition"></table>
+      <table tableName="branch_doctor_title"  domainObjectName="BranchDoctorTitle"></table>
+
+      <table tableName="doctor"  domainObjectName="Doctor"></table>
+      <table tableName="doctor_detail"  domainObjectName="DoctorDetail"></table>
+      <table tableName="emr"  domainObjectName="Emr"></table>
+      <table tableName="emr_record"  domainObjectName="EmrRecord"></table>
+
+
+      <table tableName="feedback"  domainObjectName="Feedback"></table>
+      <table tableName="feedback_status"  domainObjectName="FeedbackStatus"></table>
+      <table tableName="file"  domainObjectName="File"></table>
+      <table tableName="fileuse"  domainObjectName="FileUse"></table>
+
+      <table tableName="hospital"  domainObjectName="Hospital"></table>
+      <table tableName="pay_kind"  domainObjectName="PayKind"></table>
+      <table tableName="pay_record"  domainObjectName="PayRecord"></table>
+      <table tableName="pay_record_detail"  domainObjectName="PayRecordDetail"></table>
+
+      <table tableName="pay_status"  domainObjectName="PayStatus"></table>
+      <table tableName="picture"  domainObjectName="Picture"></table>
+      <table tableName="position"  domainObjectName="Position"></table>
+      <table tableName="preorder_status"  domainObjectName="PreorderStatus"></table>
+
+      <table tableName="preorders"  domainObjectName="PreOrders"></table>
+      <table tableName="role"  domainObjectName="Role"></table>
+      <table tableName="role_action"  domainObjectName="RoleAction"></table>
+      <table tableName="sos_record"  domainObjectName="SosRecord"></table>
+
+      <table tableName="title"  domainObjectName="Title"></table>
+      <table tableName="users"  domainObjectName="Users"></table>
+      <table tableName="users_detail"  domainObjectName="UsersDetail"></table>
+
+
   </context>
 </generatorConfiguration>
