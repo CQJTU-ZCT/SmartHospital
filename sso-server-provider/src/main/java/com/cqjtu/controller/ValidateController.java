@@ -53,23 +53,30 @@ public class ValidateController {
 	@RequestMapping("/validate")
 	public ValidateMessage validateUserWithoutToken(HttpServletRequest request) {
 		String token = request.getHeader("token");
-		Users user = TokenData.validateToken(token);
-		if (user == null) {
-			ValidateMessage failMeassage = ValidateMessage.getFailMessage();
+		ValidateMessage message;
+		if (token == null){
+			 message = ValidateMessage.getFailMessage();
 			if (request.getHeader(originalUrl)!=null){
-				failMeassage.put("originalUrl",request.getHeader(originalUrl));
+				message.put(originalUrl,request.getHeader(originalUrl));
 			}
-			return failMeassage;
+		}else {
+			Users user = TokenData.validateToken(token);
+			if (user == null) {
+				message = ValidateMessage.getFailMessage();
+				if (request.getHeader(originalUrl)!=null){
+					message.put(originalUrl,request.getHeader(originalUrl));
+				}
+			}else {
+				// 防止密码泄露
+				user.setPassword("********刮开查看密码*****");
+				message = ValidateMessage.getSuccessMessage();
+				message.put("user",user);
+				if (request.getHeader(originalUrl)!=null){
+					message.put(originalUrl,request.getHeader(originalUrl));
+				}
+			}
 		}
-		// 防止密码泄露
-		user.setPassword("********刮开查看密码*****");
-		ValidateMessage successMessage = ValidateMessage.getSuccessMessage();
-		successMessage.put("user",user);
-		if (request.getHeader(originalUrl)!=null){
-			successMessage.put(originalUrl,request.getHeader(originalUrl));
-		}
-
-		return successMessage;
+		return message;
 	}
 
 

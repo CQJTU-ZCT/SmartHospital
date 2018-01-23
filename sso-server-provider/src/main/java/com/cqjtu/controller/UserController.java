@@ -82,7 +82,7 @@ public class UserController {
      * 登出
      * @return
      */
-    @RequestMapping("/signout/{token}")
+    @RequestMapping(value= "/signout/{token}",method = RequestMethod.GET)
     public LogoutMessage logout(@PathVariable("token") String token){
         if (token == null || token.length() != tokenLength ){
             return LogoutMessage.getParaErrorMessage();
@@ -99,7 +99,7 @@ public class UserController {
      * 登出 token放在了头部
      * @return
      */
-    @RequestMapping("/signout")
+    @RequestMapping(value= "/signout",method = RequestMethod.GET)
     public LogoutMessage logoutWithOutToken(HttpServletRequest request){
         String token = request.getHeader("token");
         if (token == null || token.length() != tokenLength ){

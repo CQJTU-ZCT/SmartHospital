@@ -137,7 +137,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ExceptionMessage handleServiceException(Exception exception){
-        System.out.println(exception.getClass().getName());
         logger.error("处理逻辑异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(500,exception.getMessage());
         return  message;

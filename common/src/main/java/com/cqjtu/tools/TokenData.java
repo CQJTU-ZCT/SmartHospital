@@ -27,8 +27,9 @@ public class TokenData {
 
 	private static Map<String,Long> dataLife;
 
+
 	static {
-		dataMap = new HashMap<String, Users>();
+		dataMap = new HashMap<>();
 		dataLife = new HashMap<>();
 	}
 
@@ -87,7 +88,7 @@ public class TokenData {
 					sleep(5000);
 					LoggerTool.getLogger(TokenData.class).info("用户令牌生命周期检测");
 					ArrayList<String> keys = new ArrayList<>();
-					Set<Map.Entry<String, Long>> entries = dataLife.entrySet();
+					Set<Map.Entry<String, Long>> entries =dataLife.entrySet();
 					for (Map.Entry<String , Long> entry : entries){
 						LoggerTool.getLogger(TokenData.class).info("用户令牌："+entry.getKey()+"   上次操作时间："+entry.getValue());
 						if (System.currentTimeMillis()>entry.getValue()+30*60*1000){
@@ -97,8 +98,8 @@ public class TokenData {
 					}
 					for (String key :keys){
 						LoggerTool.getLogger(TokenData.class).info("删除用户令牌："+key);
-						dataLife.remove(key);
 						dataMap.remove(key);
+						dataLife.remove(key);
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
