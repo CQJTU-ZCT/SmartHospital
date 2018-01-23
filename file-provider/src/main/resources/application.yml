@@ -28,4 +28,4 @@ eureka:
   client:
     fetch-registry: true
     serviceUrl:
-          defaultZone: http://127.0.0.1:5555/eureka/,http://127.0.0.1:7777/eureka/  #eureka服务注册中心地址
+          defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/

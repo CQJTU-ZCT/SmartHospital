@@ -24,6 +24,15 @@
 
 
 
+服务器配置说明：
+    10.0.0.12 eurekaServer
+    10.0.0.13 ubuntuMysql
+
+
+
+
+
+
 eureka-server.jar启动说明：
     内置两个配置文件application-one.yml(7777)和application-two.yml(5555)，也可以指定外置配置文件。
     java -jar XXX.jar --spring.profiles.active=one/two
