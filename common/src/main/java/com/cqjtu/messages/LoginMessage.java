@@ -14,7 +14,7 @@ public class LoginMessage extends Message{
      * 获取登录成功的消息
      * @return
      */
-    public static LoginMessage getSuceesssMessage(){
+    public static LoginMessage getSuccessMessage(){
         LoginMessage message = new LoginMessage();
         message.setCode(1);
         message.setInfo("登录成功");

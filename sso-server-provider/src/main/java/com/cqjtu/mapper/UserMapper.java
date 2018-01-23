@@ -1,7 +1,7 @@
 package com.cqjtu.mapper;
 
 
-import com.cqjtu.domain.User;
+import com.cqjtu.model.Users;
 
 /**
  * @author zjhfyq
@@ -15,5 +15,5 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    public User findUserByUsername(String username);
+    public Users findUserByUsername(String username);
 }

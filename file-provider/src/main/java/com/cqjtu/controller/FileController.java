@@ -30,7 +30,7 @@ public class FileController {
     private String staticPathPattern ;
 
 
-    @RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
+    //@RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
     public Message uploadFile(@RequestParam("files")MultipartFile [] files)  {
         Message message = new Message();
         if (files == null || files.length <= 0){

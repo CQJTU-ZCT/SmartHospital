@@ -12,8 +12,8 @@ eureka:
 spring:
   datasource:
         name: sso
-        url: jdbc:mysql:///UserManager?characterEncoding=utf8&useSSL=true
-        username: root
+        url: jdbc:mysql://10.0.0.13:3306/smarthospital_test?characterEncoding=utf8&useSSL=true
+        username: zct
         password: 123456
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
@@ -35,3 +35,4 @@ mybatis:
   type-aliases-package: com.cqjtu.domain
   mapper-locations:
   - classpath:template/mapper.xml
+  - classpath:mapper/*.xml

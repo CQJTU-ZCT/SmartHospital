@@ -42,9 +42,6 @@ public class ErrorController extends AbstractErrorController {
         }else if(status == HttpStatus.BAD_GATEWAY){
             message.setCode(502);
             message.setInfo("网关错误");
-        }else{
-            message.setCode(110);
-            message.setInfo("未知错误，请稍后再试...");
         }
         return message;
     }

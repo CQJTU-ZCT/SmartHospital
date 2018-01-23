@@ -1,7 +1,9 @@
 package com.cqjtu.service;
 
 
-import com.cqjtu.domain.User;
+
+
+import com.cqjtu.model.Users;
 
 /**
  * @author zjhfyq
@@ -17,5 +19,5 @@ public interface UserService {
      * @param username
      * @return
      */
-    public User findUserByUsername(String username);
+    public Users findUserByUsername(String username);
 }

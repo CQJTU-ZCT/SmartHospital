@@ -16,7 +16,7 @@ public class ValidateMessage extends Message {
      * 获取验证失败的验证信息
      * @return
      */
-    public static ValidateMessage getFailMeassage(){
+    public static ValidateMessage getFailMessage(){
         ValidateMessage message = new ValidateMessage();
         message.setCode(-1);
         message.setInfo("验证令牌失败");
@@ -27,7 +27,7 @@ public class ValidateMessage extends Message {
      * 获取验证成功的验证信息
      * @return
      */
-    public static ValidateMessage getSuccessMeassage(){
+    public static ValidateMessage getSuccessMessage(){
         ValidateMessage message = new ValidateMessage();
         message.setCode(1);
         message.setInfo("验证令牌成功");
