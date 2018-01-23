@@ -29,6 +29,9 @@ public class ValidateFilter implements Filter{
 
     private int targetResponseCode = 200;
 
+
+    private  String originalUrlTag ="originalUrl";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -39,8 +42,17 @@ public class ValidateFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
 
+
+        //本次请求的完整路径
+        String originalUrl = request.getRequestURL().toString();
+        String queryString = request.getQueryString();
+
+
         Cookie[] cookies = request.getCookies();
         if(cookies == null){
+            //token不存在
+            response.addHeader(originalUrlTag,originalUrl);
+            response.sendRedirect(ServerInfo.getLoginAddress());
             return;
         }
 
@@ -51,12 +63,6 @@ public class ValidateFilter implements Filter{
                 break;
             }
         }
-
-        //本次请求的完整路径
-        String originalUrl = request.getRequestURL().toString();
-        String method = request.getMethod();
-        String queryString = request.getQueryString();
-
         if (queryString!=null){
             originalUrl += queryString;
         }
@@ -64,7 +70,8 @@ public class ValidateFilter implements Filter{
 
         if (token == null){
             //token不存在
-            response.sendRedirect(ServerInfo.getLoginAddress()+"/"+ URLEncoder.encode(originalUrl,"UTF-8"));
+            response.addHeader(originalUrlTag,originalUrl);
+            response.sendRedirect(ServerInfo.getLoginAddress());
         }else {
             //token存在
             URL url = new URL(ServerInfo.getValidateAddress()+"/"+token);
@@ -85,7 +92,8 @@ public class ValidateFilter implements Filter{
                 ValidateMessage message = (ValidateMessage) JsonUtil.praseJsonToBean(object, ValidateMessage.class);
                 if (message.getCode() != 1){
                     //如果token是失效的，就 重定向 去登录地址
-                    response.sendRedirect(ServerInfo.getLoginAddress()+"/"+ URLEncoder.encode(originalUrl,"utf-8"));
+                    response.addHeader(originalUrlTag,originalUrl);
+                    response.sendRedirect(ServerInfo.getLoginAddress());
                 }else {
                     //token是有效的
                     request.setAttribute("token",token);
