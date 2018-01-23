@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class ProfileController {
     private String picFormats ;
 
     @RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
-    public Message uploadProfile(@RequestParam("profile")MultipartFile[] files)  {
+    public Message uploadProfile(@RequestParam("profile")MultipartFile[] files, HttpServletRequest request)  {
+        System.out.println(request.getAttribute("token"));
         Message message = new Message();
         if (files == null || files.length <= 0){
             message.setCode(203);
@@ -65,7 +67,7 @@ public class ProfileController {
                     zfile.setFileType(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
 
                     String []supportFormats = picFormats.split(",");
-                    if (supportFormats != null){
+                    if (supportFormats.length > 0){
                         boolean isSupport = false;
                         for (String f: supportFormats){
                             if (zfile.getFileType().replace(".","").equals(f)){

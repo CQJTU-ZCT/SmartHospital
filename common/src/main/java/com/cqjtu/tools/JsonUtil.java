@@ -1,8 +1,9 @@
 package com.cqjtu.tools;
 
-import org.json.JSONObject;
 
-import java.lang.reflect.Field;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 
 /**
  * @author zjhfyq
@@ -14,11 +15,12 @@ public class JsonUtil {
 
     /**
      * json对象自动封装成javaBean
-     * @param object
+     * @param json
      * @param clazz
      * @return
      */
-    public static Object praseJsonToBean(JSONObject object , Class clazz){
+    public static Object praseJsonToBean(String json , Class clazz){
+        /*
         Field[] fields = clazz.getDeclaredFields();
         Object bean = null;
         try {
@@ -30,9 +32,13 @@ public class JsonUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
-        return bean;
+        /*
+        JSON js = JSON.parseObject(json);
+        Object bean =js.toJavaObject(clazz);
+        */
+        return JSON.parseObject(json,clazz);
     }
 
     /**
@@ -40,8 +46,7 @@ public class JsonUtil {
      * @return
      */
     public static String praseBeanToJson(Object object){
-        JSONObject jsonObject  = new JSONObject(object);
-        return jsonObject.toString();
+        return JSON.toJSONString(object);
     }
 
 

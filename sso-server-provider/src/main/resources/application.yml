@@ -29,6 +29,8 @@ spring:
     throw-exception-if-no-handler-found: true #出现错误时, 直接抛出异常
   resources:
     add-mappings: false #不要为我们工程中的资源文件建立映射
+  profiles:
+    include: sso
 
 mybatis:
   config-location: classpath:mybatis.xml  #mybatis配置文件路径
@@ -36,3 +38,4 @@ mybatis:
   mapper-locations:
   - classpath:template/mapper.xml
   - classpath:mapper/*.xml
+
