@@ -20,6 +20,10 @@ spring:
     - eureka
     - datesource
     - mybatis
+  application:
+      name: FileProvider
+
+
 
 
 
