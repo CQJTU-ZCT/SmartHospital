@@ -20,7 +20,7 @@ import java.util.*;
  * @Desc
  * @date 2018/1/10.
  */
-@RestController
+//@RestController
 public class FileController {
 
     @Value("${smartHospital.filePath}")

@@ -1,6 +1,7 @@
 package com.cqjtu.controller;
 
 
+import com.cqjtu.messages.Message;
 import com.cqjtu.service.UserService;
 import com.cqjtu.model.Users;
 import com.cqjtu.messages.LoginMessage;
@@ -45,31 +46,42 @@ public class UserController {
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public LoginMessage login(String username, String password,HttpServletRequest request){
+        LoginMessage message = null;
         if(username == null || username.length() <=0
                 ||password == null || password.length() <=0){
-            return LoginMessage.getParaErrorMessage();
-        }
-        Users user = userService.findUserByUsername(username);
-        if(user == null){
-            return LoginMessage.getUserNotExistMessage();
-        }
-        if(!user.getPassword().equals(password)){
-            return LoginMessage.getErrorPasswordMessage();
-        }
-        LoginMessage successMessage = LoginMessage.getSuccessMessage();
-        if (request.getHeader(originalUrl) != null){
-            successMessage.put(originalUrl,request.getHeader(originalUrl));
-        }
-        user.setPassword("********刮开查看密码*****");
-        successMessage.put("user",user);
+            message= LoginMessage.getParaErrorMessage();
+        }else {
 
-        String token = Token.getToken32WithoutLine();
-        /**
-         * 添加token到缓存，这里可以考虑替换成redis
-         */
-        TokenData.addToken(token,user);
-        successMessage.put("token",token);
-        return  successMessage;
+            //限制不允许重复登录
+            if (TokenData.isLogin(username,request.getSession().getId())){
+                message = LoginMessage.getRepeatLoginMessage();
+            }else {
+                Users user = userService.findUserByUsername(username);
+                if(user == null){
+                    message = LoginMessage.getUserNotExistMessage();
+                }else{
+                    if(!user.getPassword().equals(password)){
+                        message=  LoginMessage.getErrorPasswordMessage();
+                    }else {
+                        message = LoginMessage.getSuccessMessage();
+                        if (request.getHeader(originalUrl) != null){
+                            message.put(originalUrl,request.getHeader(originalUrl));
+                        }
+                        user.setPassword("********刮开查看密码*****");
+                        message.put("user",user);
+
+                        String token = Token.getToken32WithoutLine();
+                        /**
+                         * 添加token到缓存，这里可以考虑替换成redis
+                         */
+                        TokenData.addToken(token,user,request.getSession().getId());
+                        message.put("token",token);
+                    }
+                }
+            }
+        }
+
+        return  message;
     }
 
 

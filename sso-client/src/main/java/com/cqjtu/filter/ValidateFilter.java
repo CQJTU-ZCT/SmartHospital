@@ -52,83 +52,68 @@ public class ValidateFilter implements Filter{
 
         Message responseMessage;
 
-        Cookie[] cookies = request.getCookies();
-        if(cookies == null){
+        String token = request.getHeader("token");
+        if (token == null ||token.length()<=0){
+            LoggerTool.getLogger(this.getClass()).info("token不存在 2");
             //token不存在
-            LoggerTool.getLogger(this.getClass()).info("cookie不存在 1");
             responseMessage =  FilterMessage.getNoTokenMessage();
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
             //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
         }else {
-            String token = null;
-            for (Cookie cookie : cookies){
-                if ("token".equals(cookie.getName())){
-                    token = cookie.getValue();
-                    break;
+            //token存在
+            URL url = new URL(serverInfo.getValidateAddress()+"/"+token);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            if (responseCode == targetResponseCode){
+                //验证服务正常
+                InputStream inputStream = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = reader.readLine();
+                StringBuilder resultBuilder = new StringBuilder();
+                while (line != null){
+                    resultBuilder.append(line);
+                    line =  reader.readLine();
                 }
-            }
-            if (token == null ||token.length()<=0){
-                LoggerTool.getLogger(this.getClass()).info("token不存在 2");
-                //token不存在
-                responseMessage =  FilterMessage.getNoTokenMessage();
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
-                //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
-            }else {
-                //token存在
-                URL url = new URL(serverInfo.getValidateAddress()+"/"+token);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                int responseCode = connection.getResponseCode();
-                if (responseCode == targetResponseCode){
-                    //验证服务正常
-                    InputStream inputStream = connection.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                    String line = reader.readLine();
-                    StringBuilder resultBuilder = new StringBuilder();
-                    while (line != null){
-                        resultBuilder.append(line);
-                        line =  reader.readLine();
-                    }
-                    Message message =  (Message) JsonUtil.praseJsonToBean(resultBuilder.toString(), Message.class);
+                Message message =  (Message) JsonUtil.praseJsonToBean(resultBuilder.toString(), Message.class);
 
-                    if (message.getCode() != 1){
-                        LoggerTool.getLogger(this.getClass()).info("token无效");
-                        //如果token是失效的
-                        responseMessage =  FilterMessage.getTokenIllegalMessage();
-                        response.setContentType("application/json;charset=utf-8");
-                        response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
-                        //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
-                    }else {
-                        LoggerTool.getLogger(this.getClass()).info("token有效");
-                        //token是有效的
-                        request.setAttribute("token",token);
-                        request.setAttribute("user",JsonUtil.praseJsonToBean(message.getMap().get("user").toString(), Users.class));
-                        filterChain.doFilter(request,response);
-                    }
-                }else {
-                    LoggerTool.getLogger(this.getClass()).info("token验证服务器出错");
-                    //验证服务出错
-                    InputStream errorStream = connection.getErrorStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
-                    String line = reader.readLine();
-                    StringBuilder resultBulider = new StringBuilder();
-                    while (line != null){
-                        resultBulider.append(line);
-                        line = reader.readLine();
-                    }
-                    Log log = LogFactory.getLog(this.getClass());
-                    log.info("验证服务时服务出错："+resultBulider.toString());
-                    //如果验证服务出错，比如验证服务器宕机之类
-                    responseMessage =  FilterMessage.getTimeoutMessage();
+                if (message.getCode() != 1){
+                    LoggerTool.getLogger(this.getClass()).info("token无效");
+                    //如果token是失效的
+                    responseMessage =  FilterMessage.getTokenIllegalMessage();
                     response.setContentType("application/json;charset=utf-8");
                     response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
                     //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
+                }else {
+                    LoggerTool.getLogger(this.getClass()).info("token有效");
+                    //token是有效的
+                    request.setAttribute("token",token);
+                    request.setAttribute("user",JsonUtil.praseJsonToBean(message.getMap().get("user").toString(), Users.class));
+                    filterChain.doFilter(request,response);
                 }
-
+            }else {
+                LoggerTool.getLogger(this.getClass()).info("token验证服务器出错");
+                //验证服务出错
+                InputStream errorStream = connection.getErrorStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
+                String line = reader.readLine();
+                StringBuilder resultBulider = new StringBuilder();
+                while (line != null){
+                    resultBulider.append(line);
+                    line = reader.readLine();
+                }
+                Log log = LogFactory.getLog(this.getClass());
+                log.info("验证服务时服务出错："+resultBulider.toString());
+                //如果验证服务出错，比如验证服务器宕机之类
+                responseMessage =  FilterMessage.getTimeoutMessage();
+                response.setContentType("application/json;charset=utf-8");
+                response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
+                //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
             }
         }
+
+
     }
 
     @Override

@@ -21,16 +21,25 @@ public class TokenData {
 	}
 
 	/**
-	 * 存储Token的MAP
+	 * 存储Token的MAP key token，value user
 	 */
 	private static Map<String, Users> dataMap;
 
+	/**
+	 * 存放token生命周期的MAP key token ,value 上次操作的时间
+	 */
 	private static Map<String,Long> dataLife;
+
+	/**
+	 * 存放用户登录信息的MAP key token,key sessionID
+	 */
+	private static Map<String , String > loginInfo;
 
 
 	static {
 		dataMap = new HashMap<>();
 		dataLife = new HashMap<>();
+		loginInfo = new HashMap<>();
 	}
 
 	/**
@@ -43,9 +52,10 @@ public class TokenData {
 	 * @author ZJH
 	 * @date 2017年5月29日上午11:32:29
 	 */
-	public static void addToken(String token, Users user) {
+	public static void addToken(String token, Users user,String sessionID) {
 		dataMap.put(token, user);
 		dataLife.put(token,System.currentTimeMillis());
+		loginInfo.put(user.getIdCard(),sessionID);
 	}
 
 	/**
@@ -78,7 +88,40 @@ public class TokenData {
 	public static void removeToken(String token) {
 		dataLife.remove(token);
 		dataMap.remove(token);
+		loginInfo.remove(token);
 	}
+
+
+	/**
+	 * 判断用户是否已经登录
+	 * @param username
+	 * @return
+	 */
+	public  static boolean isLogin(String username,String sessionID){
+		boolean result = false;
+		Set<String> keySet = dataMap.keySet();
+		for (String key :keySet){
+			String idCard = dataMap.get(key).getIdCard();
+			if (idCard.equals(username)){
+				if (loginInfo.get(key).equals(sessionID)){
+					//如果是同一个会话重复登录
+					result = true;
+				}else {
+					//如果不是同一个会话登录，异地登录，则这次登录为准，清除之前的登录信息
+					dataMap.remove(key);
+					dataLife.remove(key);
+					loginInfo.remove(key);
+					result = false;
+				}
+				break;
+			}
+		}
+		return  result;
+	}
+
+
+
+
 
 	public static class TokenLife extends Thread{
 		@Override
@@ -90,7 +133,9 @@ public class TokenData {
 					ArrayList<String> keys = new ArrayList<>();
 					Set<Map.Entry<String, Long>> entries =dataLife.entrySet();
 					for (Map.Entry<String , Long> entry : entries){
-						LoggerTool.getLogger(TokenData.class).info("用户令牌："+entry.getKey()+"   上次操作时间："+entry.getValue());
+						LoggerTool.getLogger(TokenData.class).info("用户令牌："+entry.getKey()
+								+"   上次操作时间："+entry.getValue()
+								+"	 上次操作sessionID："+loginInfo.get(entry.getKey()));
 						if (System.currentTimeMillis()>entry.getValue()+30*60*1000){
 							//超过三十分钟没有操作
 							keys.add(entry.getKey());
@@ -100,6 +145,7 @@ public class TokenData {
 						LoggerTool.getLogger(TokenData.class).info("删除用户令牌："+key);
 						dataMap.remove(key);
 						dataLife.remove(key);
+						loginInfo.remove(key);
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();

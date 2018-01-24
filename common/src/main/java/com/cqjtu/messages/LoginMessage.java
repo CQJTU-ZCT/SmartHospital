@@ -57,4 +57,16 @@ public class LoginMessage extends Message{
         return message;
     }
 
+
+    /**
+     * 不允许重复登录的消息
+     * @return
+     */
+    public static LoginMessage getRepeatLoginMessage(){
+        LoginMessage message = new LoginMessage();
+        message.setCode(-4);
+        message.setInfo("用户已经登录，不允许重复登录");
+        return message;
+    }
+
 }
