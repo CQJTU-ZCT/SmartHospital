@@ -1,6 +1,5 @@
 package com.cqjtu.messages;
 
-import com.cqjtu.domain.User;
 
 /**
  * @author zjhfyq

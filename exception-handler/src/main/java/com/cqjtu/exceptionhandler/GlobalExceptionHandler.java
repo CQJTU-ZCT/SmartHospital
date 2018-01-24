@@ -151,7 +151,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MultipartException.class)
     public ExceptionMessage handleSizeLimitExceededException(MultipartException exception){
         logger.error("文件大小异常"+exception.getMessage());
-        ExceptionMessage message = ExceptionMessage.getExceptionMessage(204,"文件过大");
+        ExceptionMessage message = ExceptionMessage.getExceptionMessage(204,"文件大小异常");
         return  message;
     }
 

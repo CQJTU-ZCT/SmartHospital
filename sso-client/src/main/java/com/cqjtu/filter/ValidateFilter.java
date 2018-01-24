@@ -3,6 +3,7 @@ package com.cqjtu.filter;
 import com.cqjtu.messages.FilterMessage;
 import com.cqjtu.messages.Message;
 import com.cqjtu.messages.ValidateMessage;
+import com.cqjtu.model.Users;
 import com.cqjtu.tools.JsonUtil;
 
 import com.cqjtu.tools.LoggerTool;
@@ -103,7 +104,7 @@ public class ValidateFilter implements Filter{
                         LoggerTool.getLogger(this.getClass()).info("token有效");
                         //token是有效的
                         request.setAttribute("token",token);
-                        request.setAttribute("user",message.getMap().get("user"));
+                        request.setAttribute("user",JsonUtil.praseJsonToBean(message.getMap().get("user").toString(), Users.class));
                         filterChain.doFilter(request,response);
                     }
                 }else {

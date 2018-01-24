@@ -3,6 +3,8 @@ package com.cqjtu.mapper;
 import com.cqjtu.model.Picture;
 import com.cqjtu.model.PictureExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface PictureMapper {

@@ -15,5 +15,5 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    public Users findUserByUsername(String username);
+    Users findUserByUsername(String username);
 }

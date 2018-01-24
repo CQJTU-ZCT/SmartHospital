@@ -99,6 +99,7 @@
   <insert id="insert" parameterType="com.cqjtu.model.Picture">
     insert into picture (picture_id, picture_path)
     values (#{pictureId,jdbcType=VARCHAR}, #{picturePath,jdbcType=VARCHAR})
+
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.Picture">
     insert into picture
