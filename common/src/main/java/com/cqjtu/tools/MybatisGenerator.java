@@ -22,6 +22,7 @@ public class MybatisGenerator {
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
 		File configFile = new File(MybatisGenerator.class.getResource("/").getPath() + "mybatisGenerator.xml");
+		System.out.println(configFile.toString());
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
 		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
