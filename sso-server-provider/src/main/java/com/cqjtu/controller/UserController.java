@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -45,7 +46,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public LoginMessage login(String username, String password,HttpServletRequest request){
+    public LoginMessage login(String username, String password, HttpServletRequest request){
         LoginMessage message = null;
         if(username == null || username.length() <=0
                 ||password == null || password.length() <=0){
@@ -55,6 +56,10 @@ public class UserController {
             //限制不允许重复登录
             if (TokenData.isLogin(username,request.getSession().getId())){
                 message = LoginMessage.getRepeatLoginMessage();
+                String tokenByUsername = TokenData.getTokenByUsername(username);
+                Users userByToken = TokenData.getUserByToken(tokenByUsername);
+                message.put("user",userByToken);
+                message.put("token",tokenByUsername);
             }else {
                 Users user = userService.findUserByUsername(username);
                 if(user == null){

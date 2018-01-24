@@ -55,7 +55,7 @@ public class TokenData {
 	public static void addToken(String token, Users user,String sessionID) {
 		dataMap.put(token, user);
 		dataLife.put(token,System.currentTimeMillis());
-		loginInfo.put(user.getIdCard(),sessionID);
+		loginInfo.put(token,sessionID);
 	}
 
 	/**
@@ -89,6 +89,33 @@ public class TokenData {
 		dataLife.remove(token);
 		dataMap.remove(token);
 		loginInfo.remove(token);
+	}
+
+	/**
+	 * 根据token 返回user
+	 * @param token
+	 * @return
+	 */
+	public static Users getUserByToken(String token){
+		return dataMap.get(token);
+	}
+
+	/**
+	 * 根据username 返回 token
+	 * @param username
+	 * @return
+	 */
+	public static String getTokenByUsername(String username){
+		Set<String> keySet = dataMap.keySet();
+		String token = null;
+		for (String key :keySet){
+			Users user = dataMap.get(key);
+			if (user.getIdCard().equals(username)){
+				token = key;
+				break;
+			}
+		}
+		return  token;
 	}
 
 
