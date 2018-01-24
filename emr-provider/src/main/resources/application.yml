@@ -7,10 +7,10 @@ server:
 
 spring:
     datasource:
-        name: UserProvider
-        url: jdbc:mysql:///UserManager?characterEncoding=utf8&useSSL=true
+        name: EmrProvider
+        url: jdbc:mysql://localhost/sh?characterEncoding=utf8&useSSL=true
         username: root
-        password: 123456
+        password: kele991146
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
