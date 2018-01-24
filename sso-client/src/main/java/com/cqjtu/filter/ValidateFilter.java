@@ -1,14 +1,19 @@
 package com.cqjtu.filter;
 
+import com.cqjtu.messages.FilterMessage;
+import com.cqjtu.messages.Message;
 import com.cqjtu.messages.ValidateMessage;
+import com.cqjtu.model.Users;
 import com.cqjtu.tools.JsonUtil;
 
+import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.ServerInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,16 +23,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
  * @author zjhfyq
  * @Desc
  * @date 2017/12/26.
  */
+@WebFilter(filterName = "AuthenticationFilter",urlPatterns = "/*")
 public class ValidateFilter implements Filter{
 
     private int targetResponseCode = 200;
+
+
+    private  String originalUrlTag ="originalUrl";
+
+    @Autowired
+    private  ServerInfo serverInfo;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -39,35 +50,19 @@ public class ValidateFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
 
-        Cookie[] cookies = request.getCookies();
-        if(cookies == null){
-            return;
-        }
+        Message responseMessage;
 
-        String token = null;
-        for (Cookie cookie : cookies){
-            if ("token".equals(cookie.getName())){
-                token = cookie.getValue();
-                break;
-            }
-        }
-
-        //本次请求的完整路径
-        String originalUrl = request.getRequestURL().toString();
-        String method = request.getMethod();
-        String queryString = request.getQueryString();
-
-        if (queryString!=null){
-            originalUrl += queryString;
-        }
-
-
-        if (token == null){
+        String token = request.getHeader("token");
+        if (token == null ||token.length()<=0){
+            LoggerTool.getLogger(this.getClass()).info("token不存在 2");
             //token不存在
-            response.sendRedirect(ServerInfo.getLoginAddress()+"/"+ URLEncoder.encode(originalUrl,"UTF-8"));
+            responseMessage =  FilterMessage.getNoTokenMessage();
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
+            //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
         }else {
             //token存在
-            URL url = new URL(ServerInfo.getValidateAddress()+"/"+token);
+            URL url = new URL(serverInfo.getValidateAddress()+"/"+token);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             int responseCode = connection.getResponseCode();
@@ -81,18 +76,24 @@ public class ValidateFilter implements Filter{
                     resultBuilder.append(line);
                     line =  reader.readLine();
                 }
-                JSONObject object = new JSONObject(resultBuilder.toString());
-                ValidateMessage message = (ValidateMessage) JsonUtil.praseJsonToBean(object, ValidateMessage.class);
+                Message message =  (Message) JsonUtil.praseJsonToBean(resultBuilder.toString(), Message.class);
+
                 if (message.getCode() != 1){
-                    //如果token是失效的，就 重定向 去登录地址
-                    response.sendRedirect(ServerInfo.getLoginAddress()+"/"+ URLEncoder.encode(originalUrl,"utf-8"));
+                    LoggerTool.getLogger(this.getClass()).info("token无效");
+                    //如果token是失效的
+                    responseMessage =  FilterMessage.getTokenIllegalMessage();
+                    response.setContentType("application/json;charset=utf-8");
+                    response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
+                    //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
                 }else {
+                    LoggerTool.getLogger(this.getClass()).info("token有效");
                     //token是有效的
                     request.setAttribute("token",token);
-                    request.setAttribute("user",message.getMap().get("user"));
+                    request.setAttribute("user",JsonUtil.praseJsonToBean(message.getMap().get("user").toString(), Users.class));
                     filterChain.doFilter(request,response);
                 }
             }else {
+                LoggerTool.getLogger(this.getClass()).info("token验证服务器出错");
                 //验证服务出错
                 InputStream errorStream = connection.getErrorStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
@@ -104,12 +105,13 @@ public class ValidateFilter implements Filter{
                 }
                 Log log = LogFactory.getLog(this.getClass());
                 log.info("验证服务时服务出错："+resultBulider.toString());
-                //如果验证服务出错，比如验证服务器宕机之类，就直接 重定向 去登录
-                response.sendRedirect(ServerInfo.getLoginAddress()+"/"+URLEncoder.encode(originalUrl,"utf-8"));
+                //如果验证服务出错，比如验证服务器宕机之类
+                responseMessage =  FilterMessage.getTimeoutMessage();
+                response.setContentType("application/json;charset=utf-8");
+                response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
+                //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
             }
-
         }
-
 
 
     }

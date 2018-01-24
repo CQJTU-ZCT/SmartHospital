@@ -1,6 +1,5 @@
 package com.cqjtu.messages;
 
-import com.cqjtu.domain.User;
 
 /**
  * @author zjhfyq
@@ -14,7 +13,7 @@ public class LoginMessage extends Message{
      * 获取登录成功的消息
      * @return
      */
-    public static LoginMessage getSuceesssMessage(){
+    public static LoginMessage getSuccessMessage(){
         LoginMessage message = new LoginMessage();
         message.setCode(1);
         message.setInfo("登录成功");
@@ -55,6 +54,18 @@ public class LoginMessage extends Message{
         LoginMessage message = new LoginMessage();
         message.setCode(-3);
         message.setInfo("登录失败，登录参数错误");
+        return message;
+    }
+
+
+    /**
+     * 不允许重复登录的消息
+     * @return
+     */
+    public static LoginMessage getRepeatLoginMessage(){
+        LoginMessage message = new LoginMessage();
+        message.setCode(-4);
+        message.setInfo("用户已经登录，不允许重复登录");
         return message;
     }
 

@@ -1,6 +1,6 @@
 package com.cqjtu.tools;
 
-import com.cqjtu.domain.User;
+
 import com.cqjtu.messages.Message;
 import com.google.zxing.*;
 import com.google.zxing.common.BitMatrix;
@@ -203,7 +203,7 @@ public class QrCodeUtil {
     }
 
 
-
+    /*
     public static void main(String [] args) throws IOException, WriterException {
         QrCodeUtil util = new QrCodeUtil();
         Message message = new Message();
@@ -215,7 +215,7 @@ public class QrCodeUtil {
         message.put("user",user);
 
         util.createQrCodeToFile(JsonUtil.praseBeanToJson(message),"/Users/zjhfyq/code.jpg",null,"jpg",430,430);
-    }
+    }*/
 
 
 

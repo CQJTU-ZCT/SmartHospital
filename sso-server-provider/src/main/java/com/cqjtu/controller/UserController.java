@@ -1,8 +1,9 @@
 package com.cqjtu.controller;
 
 
+import com.cqjtu.messages.Message;
 import com.cqjtu.service.UserService;
-import com.cqjtu.domain.User;
+import com.cqjtu.model.Users;
 import com.cqjtu.messages.LoginMessage;
 import com.cqjtu.messages.LogoutMessage;
 import com.cqjtu.tools.ImageCut;
@@ -18,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -27,7 +29,6 @@ import java.io.IOException;
  * @date 2017/12/2.
  */
 @RestController
-@RequestMapping("/")
 public class UserController {
 
 
@@ -37,38 +38,7 @@ public class UserController {
     private UserService userService;
 
 
-
-    /**
-     * 登录
-     * @return
-     */
-    @RequestMapping(value = "/login/{originalUrl:.+}",method = RequestMethod.POST)
-    public LoginMessage login(String username, String password, @PathVariable("originalUrl")  String originalUrl){
-        if(username == null || username.length() <=0
-                ||password == null || password.length() <=0){
-            return LoginMessage.getParaErrorMessage();
-        }
-        User user = userService.findUserByUsername(username);
-        if(user == null){
-            return LoginMessage.getUserNotExistMessage();
-        }
-        if(!user.getPassword().equals(password)){
-            return LoginMessage.getErrorPasswordMessage();
-        }
-        LoginMessage suceesssMessage = LoginMessage.getSuceesssMessage();
-        suceesssMessage.put("originalUrl",originalUrl);
-        user.setPassword("********刮开查看密码*****");
-        suceesssMessage.put("user",user);
-
-
-        String token = Token.getToken32WithoutLine();
-        /**
-         * 添加token到缓存，这里可以考虑替换成redis
-         */
-        TokenData.addToken(token,user);
-        suceesssMessage.put("token",token);
-        return  suceesssMessage;
-    }
+    private String originalUrl ="originalUrl";
 
 
     /**
@@ -76,31 +46,51 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public LoginMessage loginWithoutOriginalUrl(String username, String password){
+    public LoginMessage login(String username, String password, HttpServletRequest request){
+        LoginMessage message = null;
         if(username == null || username.length() <=0
                 ||password == null || password.length() <=0){
-            return LoginMessage.getParaErrorMessage();
-        }
-        User user = userService.findUserByUsername(username);
-        if(user == null){
-            return LoginMessage.getUserNotExistMessage();
-        }
-        if(!user.getPassword().equals(password)){
-            return LoginMessage.getErrorPasswordMessage();
-        }
-        LoginMessage suceesssMessage = LoginMessage.getSuceesssMessage();
-        user.setPassword("********刮开查看密码*****");
-        suceesssMessage.put("user",user);
+            message= LoginMessage.getParaErrorMessage();
+        }else {
 
+            //限制不允许重复登录
+            if (TokenData.isLogin(username,request.getSession().getId())){
+                message = LoginMessage.getRepeatLoginMessage();
+                String tokenByUsername = TokenData.getTokenByUsername(username);
+                Users userByToken = TokenData.getUserByToken(tokenByUsername);
+                message.put("user",userByToken);
+                message.put("token",tokenByUsername);
+            }else {
+                Users user = userService.findUserByUsername(username);
+                if(user == null){
+                    message = LoginMessage.getUserNotExistMessage();
+                }else{
+                    if(!user.getPassword().equals(password)){
+                        message=  LoginMessage.getErrorPasswordMessage();
+                    }else {
+                        message = LoginMessage.getSuccessMessage();
+                        if (request.getHeader(originalUrl) != null){
+                            message.put(originalUrl,request.getHeader(originalUrl));
+                        }
+                        user.setPassword("********刮开查看密码*****");
+                        message.put("user",user);
 
-        String token = Token.getToken32WithoutLine();
-        /**
-         * 添加token到缓存，这里可以考虑替换成redis
-         */
-        TokenData.addToken(token,user);
-        suceesssMessage.put("token",token);
-        return  suceesssMessage;
+                        String token = Token.getToken32WithoutLine();
+                        /**
+                         * 添加token到缓存，这里可以考虑替换成redis
+                         */
+                        TokenData.addToken(token,user,request.getSession().getId());
+                        message.put("token",token);
+                    }
+                }
+            }
+        }
+
+        return  message;
     }
+
+
+
 
 
 
@@ -109,7 +99,7 @@ public class UserController {
      * 登出
      * @return
      */
-    @RequestMapping(value = "/logout/{token}",method = RequestMethod.GET)
+    @RequestMapping(value= "/signout/{token}",method = RequestMethod.GET)
     public LogoutMessage logout(@PathVariable("token") String token){
         if (token == null || token.length() != tokenLength ){
             return LogoutMessage.getParaErrorMessage();
@@ -126,7 +116,7 @@ public class UserController {
      * 登出 token放在了头部
      * @return
      */
-    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    @RequestMapping(value= "/signout",method = RequestMethod.GET)
     public LogoutMessage logoutWithOutToken(HttpServletRequest request){
         String token = request.getHeader("token");
         if (token == null || token.length() != tokenLength ){
@@ -135,6 +125,7 @@ public class UserController {
         if (TokenData.validateToken(token) == null){
             return LogoutMessage.getUserNotLoginMessage();
         }
+        TokenData.removeToken(token);
         return  LogoutMessage.getSuccessMessage();
     }
 

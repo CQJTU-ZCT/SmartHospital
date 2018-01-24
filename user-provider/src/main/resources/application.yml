@@ -9,7 +9,7 @@ spring:
     datasource:
         name: UserProvider
         url: jdbc:mysql:///UserManager?characterEncoding=utf8&useSSL=true
-        username: root
+        username: zct
         password: 123456
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource

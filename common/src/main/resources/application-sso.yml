@@ -1,0 +1,4 @@
+SSOServer:
+  loginAddress: http://localhost:8084/login
+  validateAddress: http://localhost:8084/validate
+  logoutAddress: http://localhost:8084/signout

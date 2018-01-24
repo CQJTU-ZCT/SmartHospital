@@ -14,6 +14,12 @@ spring:
   resources:
         add-mappings: true
         static-locations: file:/Users/zjhfyq/Dev/Ftp/
+  profiles:
+    include:
+    - sso
+    - eureka
+    - datesource
+    - mybatis
 
 
 
@@ -22,10 +28,8 @@ smartHospital:
 
 
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    serviceUrl:
-          defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/
+
+
+picture:
+  format: bmp,jpg,png
+

@@ -2,7 +2,8 @@ package com.cqjtu.service;
 
 import com.cqjtu.mapper.UserMapper;
 
-import com.cqjtu.domain.User;
+
+import com.cqjtu.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findUserByUsername(String username) {
+    public Users findUserByUsername(String username) {
         return  mapper.findUserByUsername(username);
     }
 }

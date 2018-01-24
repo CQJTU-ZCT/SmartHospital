@@ -20,7 +20,7 @@ import java.util.*;
  * @Desc
  * @date 2018/1/10.
  */
-@RestController
+//@RestController
 public class FileController {
 
     @Value("${smartHospital.filePath}")
@@ -30,7 +30,7 @@ public class FileController {
     private String staticPathPattern ;
 
 
-    @RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
+    //@RequestMapping(value = "/fileUpload",method = {RequestMethod.POST})
     public Message uploadFile(@RequestParam("files")MultipartFile [] files)  {
         Message message = new Message();
         if (files == null || files.length <= 0){

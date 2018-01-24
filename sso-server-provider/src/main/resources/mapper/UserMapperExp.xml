@@ -3,7 +3,7 @@
 
 <mapper  namespace="com.cqjtu.mapper.UserMapper">
 
-    <select id="findUserByUsername"  parameterType="java.lang.String"  resultType="com.cqjtu.domain.User">
-
+    <select id="findUserByUsername"  parameterType="java.lang.String"  resultType="com.cqjtu.model.Users">
+        SELECT * from users where id_card =#{value}
     </select>
 </mapper>

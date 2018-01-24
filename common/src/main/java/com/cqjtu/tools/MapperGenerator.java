@@ -1,7 +1,8 @@
 package com.cqjtu.tools;
 
 
-import com.cqjtu.domain.User;
+
+import com.cqjtu.model.Users;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
@@ -26,12 +27,12 @@ public class MapperGenerator {
      * mapper生成器，根据传入的
      * @return
      */
-    public void mapperGenerator(User user, String tableName , String primaryKey) throws Exception {
+    public void mapperGenerator(Users user, String tableName , String primaryKey) throws Exception {
         if (tableName == null || tableName.length()<=0){
             throw new Exception("数据库表名不能为空");
         }
         if (user != null){
-            Class<? extends User> userClass = user.getClass();
+            Class<? extends Users> userClass = user.getClass();
             /*
              * 获取所有属性
              */
