@@ -3,3 +3,4 @@ mybatis:
   type-aliases-package: com.cqjtu.model
   mapper-locations:
   - classpath:mapper/*.xml
+  - classpath:mapperexp/*.xml

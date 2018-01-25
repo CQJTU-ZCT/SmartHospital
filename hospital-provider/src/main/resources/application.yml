@@ -7,7 +7,7 @@ server:
 
 spring:
     application:
-      name: UserProvider
+      name: HospitalProvider
     mvc:
       throw-exception-if-no-handler-found: true #当出现404的时候直接抛出异常
     resources:
@@ -17,3 +17,12 @@ spring:
       - datasource
       - mybatis
       - eureka
+      - sso
+
+
+sendTokenToAdminMail:
+  adminMail: 799243917@qq.com
+  keepTime: 60000 #毫秒 60秒
+  sendMail: 1727078617@qq.com
+  sendPass: ryjculxdnrwmcbba
+  smtpServer: smtp.qq.com

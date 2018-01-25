@@ -60,6 +60,11 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>com.cqjtu</groupId>
+            <artifactId>provider-security</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <!--mybatis和SpringBoot整合-->
         <dependency>

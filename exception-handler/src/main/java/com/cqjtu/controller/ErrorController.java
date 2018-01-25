@@ -3,6 +3,7 @@ package com.cqjtu.controller;
 
 import com.cqjtu.messages.ExceptionMessage;
 import com.cqjtu.messages.Message;
+import com.cqjtu.tools.LoggerTool;
 import org.springframework.boot.autoconfigure.web.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class ErrorController extends AbstractErrorController {
     }
 
     @RequestMapping(value = "/error")
-    public Message error(HttpServletRequest request) {
+    public Message error(HttpServletRequest request,Exception exception) {
         Message message  = new ExceptionMessage();;
         HttpStatus status = getStatus(request);
         if (status == HttpStatus.BAD_REQUEST){
@@ -42,7 +43,11 @@ public class ErrorController extends AbstractErrorController {
         }else if(status == HttpStatus.BAD_GATEWAY){
             message.setCode(502);
             message.setInfo("网关错误");
+        }else {
+            message.setCode(503);
+            message.setInfo("服务器忙，请稍后再试...");
         }
+        LoggerTool.getLogger(this.getClass()).info(exception.getMessage());
         return message;
     }
 }
