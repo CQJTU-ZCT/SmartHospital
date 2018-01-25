@@ -16,6 +16,9 @@ import java.util.Set;
  * @date 2017年5月29日上午11:39:58
  */
 public class TokenData {
+
+
+
 	private TokenData() {
 
 	}
@@ -53,9 +56,11 @@ public class TokenData {
 	 * @date 2017年5月29日上午11:32:29
 	 */
 	public static void addToken(String token, Users user,String sessionID) {
-		dataMap.put(token, user);
-		dataLife.put(token,System.currentTimeMillis());
-		loginInfo.put(token,sessionID);
+		synchronized (TokenData.class){
+			dataMap.put(token, user);
+			dataLife.put(token,System.currentTimeMillis());
+			loginInfo.put(token,sessionID);
+		}
 	}
 
 	/**
@@ -71,7 +76,9 @@ public class TokenData {
 	public static Users validateToken(String token) {
 		if (dataMap.containsKey(token)){
 			//如果存在，则在每次验证时重新更新时间
-			dataLife.replace(token,System.currentTimeMillis());
+			synchronized (TokenData.class){
+				dataLife.replace(token,System.currentTimeMillis());
+			}
 		}
 		return dataMap.get(token);
 	}
@@ -86,9 +93,11 @@ public class TokenData {
 	 * @date 2017年5月29日上午11:44:06
 	 */
 	public static void removeToken(String token) {
-		dataLife.remove(token);
-		dataMap.remove(token);
-		loginInfo.remove(token);
+		synchronized (TokenData.class){
+			dataLife.remove(token);
+			dataMap.remove(token);
+			loginInfo.remove(token);
+		}
 	}
 
 	/**
@@ -135,9 +144,11 @@ public class TokenData {
 					result = true;
 				}else {
 					//如果不是同一个会话登录，异地登录，则这次登录为准，清除之前的登录信息
-					dataMap.remove(key);
-					dataLife.remove(key);
-					loginInfo.remove(key);
+					synchronized (TokenData.class){
+						dataMap.remove(key);
+						dataLife.remove(key);
+						loginInfo.remove(key);
+					}
 					result = false;
 				}
 				break;
@@ -148,9 +159,8 @@ public class TokenData {
 
 
 
-
-
 	public static class TokenLife extends Thread{
+
 		@Override
 		public void run() {
 			while (true){
@@ -158,21 +168,25 @@ public class TokenData {
 					sleep(5000);
 					LoggerTool.getLogger(TokenData.class).info("用户令牌生命周期检测");
 					ArrayList<String> keys = new ArrayList<>();
-					Set<Map.Entry<String, Long>> entries =dataLife.entrySet();
-					for (Map.Entry<String , Long> entry : entries){
-						LoggerTool.getLogger(TokenData.class).info("用户令牌："+entry.getKey()
-								+"   上次操作时间："+entry.getValue()
-								+"	 上次操作sessionID："+loginInfo.get(entry.getKey()));
-						if (System.currentTimeMillis()>entry.getValue()+30*60*1000){
-							//超过三十分钟没有操作
-							keys.add(entry.getKey());
+					synchronized (TokenData.class){
+						Set<Map.Entry<String, Long>> entries =dataLife.entrySet();
+						for (Map.Entry<String , Long> entry : entries){
+							LoggerTool.getLogger(TokenData.class).info("用户令牌："+entry.getKey()
+									+"   上次操作时间："+entry.getValue()
+									+"	 上次操作sessionID："+loginInfo.get(entry.getKey()));
+							if (System.currentTimeMillis()>entry.getValue()+30*60*1000){
+								//超过三十分钟没有操作
+								keys.add(entry.getKey());
+							}
 						}
-					}
-					for (String key :keys){
-						LoggerTool.getLogger(TokenData.class).info("删除用户令牌："+key);
-						dataMap.remove(key);
-						dataLife.remove(key);
-						loginInfo.remove(key);
+						for (String key :keys){
+							LoggerTool.getLogger(TokenData.class).info("删除用户令牌："+key);
+							synchronized (TokenData.class){
+								dataMap.remove(key);
+								dataLife.remove(key);
+								loginInfo.remove(key);
+							}
+						}
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
