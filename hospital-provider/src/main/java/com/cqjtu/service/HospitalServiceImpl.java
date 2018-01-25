@@ -57,7 +57,7 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public List<Hospital> getHospitalByAddress(String address) {
-        return null;
+        return hospitalMapperExp.getHospitalByAddress(address);
     }
 
     @Override

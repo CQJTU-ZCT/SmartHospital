@@ -5,6 +5,7 @@ server:
 
 
 
+
 spring:
     application:
       name: HospitalProvider
@@ -31,3 +32,4 @@ sendTokenToAdminMail:
 pageInfo:
   pageSize: 10 #每页显示的个数
   navigatePages: 5
+

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.UUID;
 
@@ -164,7 +166,11 @@ public class HospitalController {
                                      @PathVariable String name,@PathVariable String pageNum){
         Message message = new Message();
         String token = request.getHeader("token");
-        getHospitalsAndValidate(message,pageNum,token,queryStringName,name,null,null,null);
+        try {
+            getHospitalsAndValidate(message,pageNum,token,queryStringName, URLDecoder.decode(name,"utf-8"),null,null,null);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return message;
     }
 
@@ -173,7 +179,11 @@ public class HospitalController {
                                      @PathVariable String name){
         Message message = new Message();
         String token = request.getHeader("token");
-        getHospitalsAndValidate(message,"1",token,queryStringName,name,null,null,null);
+        try {
+            getHospitalsAndValidate(message,"1",token,queryStringName,URLDecoder.decode(name,"UTF-8"),null,null,null);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return message;
     }
 
@@ -182,6 +192,54 @@ public class HospitalController {
 
 
 
+    @RequestMapping(value = "/getHospitalByAddress/{address}/{pageNum}",method = RequestMethod.GET)
+    public Message getHospitalByAddress(HttpServletRequest request,
+                                     @PathVariable String address,@PathVariable String pageNum){
+        Message message = new Message();
+        String token = request.getHeader("token");
+        try {
+            getHospitalsAndValidate(message,pageNum,token,queryStringAddress, null,URLDecoder.decode(address,"utf-8"),null,null);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return message;
+    }
+
+    @RequestMapping(value = "/getHospitalByAddress/{address}",method = RequestMethod.GET)
+    public Message getHospitalByAddress(HttpServletRequest request,
+                                     @PathVariable String address){
+        Message message = new Message();
+        String token = request.getHeader("token");
+        try {
+            getHospitalsAndValidate(message,"1",token,queryStringAddress,null,URLDecoder.decode(address,"UTF-8"),null,null);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return message;
+    }
+
+
+
+    @RequestMapping(value = "/getHospitalByDistance/{longitude}/{latitude}/{distance}")
+    public Message getHospitalByDistance(HttpServletRequest request ,@PathVariable BigDecimal longitude,
+                                         @PathVariable BigDecimal latitude,@PathVariable Double distance){
+        Message message = new Message();
+        message.setInfo("接口暂未实现");
+        return message;
+    }
+
+
+    /**
+     *
+     * @param message 消息
+     * @param pn 页数
+     * @param token 令牌
+     * @param queryFlag 查询标识
+     * @param name 名称
+     * @param address 地址
+     * @param longitude 经度
+     * @param latitude 维度
+     */
     private void getHospitalsAndValidate(Message message , String pn, String token, String queryFlag, String name, String address,
                                          BigDecimal longitude ,BigDecimal latitude){
         if (token == null){

@@ -3,13 +3,21 @@
 <mapper namespace="com.cqjtu.mapperexp.HospitalMapperExp">
 
     <select id="getHospitals" resultType="com.cqjtu.model.Hospital">
-        SELECT hospital_id,hospital_name,address,longitude,longitude from hospital
+        SELECT hospital_id,hospital_name,address,longitude,latitude from hospital
     </select>
 
     <select id="getHospitalByName" resultType="com.cqjtu.model.Hospital">
-        SELECT hospital_id,hospital_name,address,longitude,longitude
+        SELECT hospital_id,hospital_name,address,longitude,latitude
         from hospital
-        WHERE hospital_name LIKE '%#{value}%'
+        WHERE hospital_name LIKE '%${value}%'
     </select>
+
+
+    <select id="getHospitalByAddress" resultType="com.cqjtu.model.Hospital">
+        SELECT hospital_id,hospital_name,address,longitude,latitude
+        from hospital
+        WHERE hospital.address LIKE '%${value}%'
+    </select>
+
 
 </mapper>
