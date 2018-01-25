@@ -132,6 +132,14 @@
 
 
 
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <!-- resources目录下的文件都是会自动编译到target里面的
