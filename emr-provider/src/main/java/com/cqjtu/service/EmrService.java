@@ -10,11 +10,9 @@
 package com.cqjtu.service;
 
 import com.cqjtu.model.Emr;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("EmrService")
 public interface EmrService {
 
     Emr insert(Emr emr);
