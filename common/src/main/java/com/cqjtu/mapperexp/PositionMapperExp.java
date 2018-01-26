@@ -26,4 +26,11 @@ public interface PositionMapperExp {
      * @return
      */
     int updatePosition(Position position);
+
+    /**
+     * 添加职位信息
+     * @param position
+     * @return 自增长主键
+     */
+    int addPosition(Position position);
 }

@@ -90,57 +90,28 @@ public class UserController {
     }
 
 
-
-
-
-
-
-    /**
-     * 登出
-     * @return
-     */
-    @RequestMapping(value= "/signout/{token}",method = RequestMethod.GET)
-    public LogoutMessage logout(@PathVariable("token") String token){
-        if (token == null || token.length() != tokenLength ){
-            return LogoutMessage.getParaErrorMessage();
-        }
-        if (TokenData.validateToken(token) == null){
-            return LogoutMessage.getUserNotLoginMessage();
-        }
-        TokenData.removeToken(token);
-        return  LogoutMessage.getSuccessMessage();
-    }
-
-
     /**
      * 登出 token放在了头部
      * @return
      */
-    @RequestMapping(value= "/signout",method = RequestMethod.GET)
-    public LogoutMessage logoutWithOutToken(HttpServletRequest request){
-        String token = request.getHeader("token");
+    @RequestMapping(value= {"/signout","/signout/"},method = RequestMethod.GET)
+    public LogoutMessage logoutWithOutToken(HttpServletRequest request,
+                                            String token){
+        LogoutMessage message ;
+        if (token == null || token.length() <=0){
+            token = request.getHeader("token");
+        }
         if (token == null || token.length() != tokenLength ){
-            return LogoutMessage.getParaErrorMessage();
+            message =  LogoutMessage.getParaErrorMessage();
         }
         if (TokenData.validateToken(token) == null){
-            return LogoutMessage.getUserNotLoginMessage();
+            message =  LogoutMessage.getUserNotLoginMessage();
+        }else {
+            TokenData.removeToken(token);
+            message = LogoutMessage.getSuccessMessage();
         }
-        TokenData.removeToken(token);
-        return  LogoutMessage.getSuccessMessage();
-    }
 
-    @RequestMapping("/getHeadPhoto/{username}")
-    public void getPhoto(HttpServletResponse response,@PathVariable("username") String username){
-        System.out.println(username);
-        try {
-            ServletOutputStream outputStream = response.getOutputStream();
-            BufferedImage bufferedImage =
-                    ImageCut.scale(this.getClass().getResource("/images/test.jpg").getFile(),
-                            64, 64, true);
-            ImageIO.write(bufferedImage ,"jpg", outputStream);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        return message;
     }
 
 

@@ -127,7 +127,6 @@ public class TitleController {
                    }else {
                        message.setInfo("添加职称信息成功");
                        title.setTitleId(Short.parseShort(String.valueOf(titleId)));
-                       message.put("title",title);
                    }
                 }
             }else if (method.equals(RequestMethod.PUT)){
@@ -145,13 +144,13 @@ public class TitleController {
                         message.setInfo("修改职称信息失败");
                     }else {
                         message.setInfo("修改职称信息成功");
-                        message.put("title",title);
                     }
                 }
             }
             if (!flag){
                 message.setInfo("参数错误");
             }
+            message.put("title",title);
         }
     }
 

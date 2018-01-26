@@ -18,14 +18,14 @@ public interface PositionService {
      * @param position
      * @return
      */
-    boolean addPosition(Position position);
+    int addPosition(Position position);
 
     /**
      * 修改职位信息
      * @param position
      * @return
      */
-    boolean updatePosition(Position position);
+    int updatePosition(Position position);
 
     /**
      * 查询职位
@@ -33,5 +33,8 @@ public interface PositionService {
      * @return
      */
     List<Position> queryPosition(@Param("name") String name);
+
+
+
 
 }

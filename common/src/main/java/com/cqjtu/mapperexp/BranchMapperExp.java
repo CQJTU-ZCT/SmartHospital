@@ -42,4 +42,11 @@ public interface BranchMapperExp {
      */
     int updateBranchByPrimaryKey(Branch branch);
 
+    /**
+     * 添加科室信息
+     * @param branch
+     * @return 自增长主键
+     */
+    int addBranch(Branch branch);
+
 }

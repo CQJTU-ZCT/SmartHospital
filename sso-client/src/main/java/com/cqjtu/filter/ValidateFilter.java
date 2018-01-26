@@ -71,7 +71,7 @@ public class ValidateFilter implements Filter{
             //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
         }else {
             //token存在
-            URL url = new URL(serverInfo.getValidateAddress()+"/"+token);
+            URL url = new URL(serverInfo.getValidateAddress()+"?token="+token);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             int responseCode = connection.getResponseCode();

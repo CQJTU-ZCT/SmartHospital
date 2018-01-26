@@ -126,10 +126,11 @@ public class PositionController {
                 }
                 if (flag){
                     //position.setPositionId(Short.parseShort("1"));
-                    boolean addPosition = positionService.addPosition(position);
-                    if (addPosition){
+                    int addPosition = positionService.addPosition(position);
+                    if (addPosition > 0){
                         message.setCode(200);
                         message.setInfo("添加职位信息成功");
+                        position.setPositionId(Short.parseShort(String.valueOf(addPosition)));
                     }else {
                         message.setInfo("添加职位信息失败");
                     }
@@ -143,8 +144,8 @@ public class PositionController {
                     flag = false;
                 }
                 if (flag){
-                    boolean updatePosition = positionService.updatePosition(position);
-                    if (updatePosition){
+                    int updatePosition = positionService.updatePosition(position);
+                    if (updatePosition == 1){
                         message.setCode(200);
                         message.setInfo("修改职位信息成功");
                     }else {
@@ -156,6 +157,7 @@ public class PositionController {
             if (!flag){
                 message.setInfo("参数错误");
             }
+            message.put("position",position);
         }
     }
 

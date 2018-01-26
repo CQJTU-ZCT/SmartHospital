@@ -3,6 +3,7 @@
 <mapper namespace="com.cqjtu.mapperexp.PositionMapperExp">
 
     <select id="queryPosition" resultType="com.cqjtu.model.Position" >
+
         SELECT position_id ,name
         from position
         <if test="name != null ">
@@ -15,7 +16,31 @@
         set  name = #{name}
         where position_id = #{positionId};
     </update>
-    
+
+    <insert id="addPosition" parameterType="com.cqjtu.model.Position">
+        <selectKey resultType="java.lang.Integer" keyColumn="position_id">
+            SELECT last_insert_id();
+        </selectKey>
+
+        INSERT INTO position
+        <trim prefix="(" suffix=")">
+            <if test="positionId != null">
+                position_id ,
+            </if>
+            <if test="name != null">
+                name
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")">
+            <if test="positionId != null">
+                #{positionId} ,
+            </if>
+            <if test="name != null">
+                #{name}
+            </if>
+        </trim>
+    </insert>
     
 
 

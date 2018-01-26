@@ -17,9 +17,6 @@ import java.util.List;
 public class BranchServiceImpl implements  BranchService{
 
 
-    @Autowired
-    private BranchMapper branchMapper;
-
 
     @Autowired
     private BranchMapperExp branchMapperExp;
@@ -27,23 +24,13 @@ public class BranchServiceImpl implements  BranchService{
 
 
     @Override
-    public boolean addBranch(Branch branch) {
-        boolean result = false;
-        int insert = branchMapper.insert(branch);
-        if (insert == 1){
-            result = true;
-        }
-        return result;
+    public int addBranch(Branch branch) {
+       return branchMapperExp.addBranch(branch);
     }
 
     @Override
-    public boolean updateBranch(Branch branch) {
-        boolean result = false;
-        int update =  branchMapperExp.updateBranchByPrimaryKey(branch);
-        if (update == 1){
-            result = true;
-        }
-        return result;
+    public int updateBranch(Branch branch) {
+        return branchMapperExp.updateBranchByPrimaryKey(branch);
     }
 
     @Override

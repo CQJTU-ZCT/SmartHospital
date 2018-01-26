@@ -16,14 +16,14 @@ public interface BranchService {
      * @param branch
      * @return
      */
-    boolean addBranch(Branch branch);
+    int addBranch(Branch branch);
 
     /**
      * 修改科室
      * @param branch
      * @return
      */
-    boolean updateBranch(Branch branch);
+    int updateBranch(Branch branch);
 
 
     /**

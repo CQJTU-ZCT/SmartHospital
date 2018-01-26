@@ -2,11 +2,13 @@ package com.cqjtu.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.cqjtu.messages.Message;
 import com.cqjtu.messages.ValidateMessage;
 import com.cqjtu.model.Users;
 import com.cqjtu.tools.TokenData;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -21,63 +23,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class ValidateController {
 
 
-	private String originalUrl ="originalUrl";
+	private String originalUrlString ="originalUrl";
 
 
-	@RequestMapping("/validate/{token}")
-	public ValidateMessage validateUser(@PathVariable("token") String token,HttpServletRequest request) {
-		Users user = TokenData.validateToken(token);
-		if (user == null) {
-			ValidateMessage failMessage = ValidateMessage.getFailMessage();
-			if (request.getHeader(originalUrl) != null){
-				failMessage.put(originalUrl,request.getHeader(originalUrl));
-			}
-			return failMessage;
-		}
-		// 防止密码泄露
-		user.setPassword("********刮开查看密码*****");
-		ValidateMessage message = ValidateMessage.getSuccessMessage();
-		message.put("user",user);
-		if (request.getHeader(originalUrl) != null){
-			message.put(originalUrl,request.getHeader(originalUrl));
-		}
-
-		return message;
-	}
-
-
-	/**
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/validate")
-	public ValidateMessage validateUserWithoutToken(HttpServletRequest request) {
-		String token = request.getHeader("token");
+	@RequestMapping(value = {"/validate","/validate/"},method = RequestMethod.GET)
+	public ValidateMessage validateUser( String token,HttpServletRequest request,
+										 String originalUrl) {
 		ValidateMessage message;
+		if (token == null || token.length() <=0){
+			token = request.getHeader("token");
+		}
 		if (token == null){
-			 message = ValidateMessage.getFailMessage();
-			if (request.getHeader(originalUrl)!=null){
-				message.put(originalUrl,request.getHeader(originalUrl));
-			}
+			message = ValidateMessage.getFailMessage();
 		}else {
 			Users user = TokenData.validateToken(token);
 			if (user == null) {
 				message = ValidateMessage.getFailMessage();
-				if (request.getHeader(originalUrl)!=null){
-					message.put(originalUrl,request.getHeader(originalUrl));
-				}
 			}else {
 				// 防止密码泄露
 				user.setPassword("********刮开查看密码*****");
 				message = ValidateMessage.getSuccessMessage();
 				message.put("user",user);
-				if (request.getHeader(originalUrl)!=null){
-					message.put(originalUrl,request.getHeader(originalUrl));
+				if (originalUrl != null){
+					message.put(originalUrlString,originalUrl);
 				}
 			}
 		}
 		return message;
 	}
+
+
 
 
 }

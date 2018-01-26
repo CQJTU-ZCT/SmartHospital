@@ -49,5 +49,38 @@
         where branch_id = #{branchId,jdbcType=INTEGER}
     </update>
 
+    <insert id="addBranch" parameterType="com.cqjtu.model.Branch">
+        <selectKey resultType="java.lang.Integer" keyColumn="branch_id">
+            SELECT last_insert_id();
+        </selectKey>
+
+        INSERT  INTO branch
+
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="branchId != null">
+                branch_id ,
+            </if>
+            <if test="name != null">
+                name ,
+            </if>
+            <if test="introduction != null">
+                introduction
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="branchId != null">
+                #{branchId} ,
+            </if>
+            <if test="name != null">
+                #{name} ,
+            </if>
+            <if test="introduction != null">
+                #{introduction}
+            </if>
+        </trim>
+
+    </insert>
+
 
 </mapper>

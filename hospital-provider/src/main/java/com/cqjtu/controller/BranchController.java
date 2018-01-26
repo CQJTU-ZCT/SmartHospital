@@ -109,19 +109,19 @@ public class BranchController {
 
            if (flag){
                if (optFlag.equals(optAdd)){
-                   if (branchService.addBranch(branch)){
-                       message.setCode(100);
+                   int add =  branchService.addBranch(branch);
+                   if (add >0){
+                       message.setCode(200);
                        message.setInfo("添加科室成功");
-                       message.put("branch",branch);
+                       branch.setBranchId(add);
                    }else {
                        message.setInfo("添加科室失败");
                    }
                }
                if (optFlag.equals(optUpdate)){
-                   if (branchService.updateBranch(branch)){
-                       message.setCode(100);
+                   if (branchService.updateBranch(branch)>0){
+                       message.setCode(200);
                        message.setInfo("更新科室成功");
-                       message.put("branch",branch);
                    }else {
                        message.setInfo("更新科室失败");
                    }
@@ -129,6 +129,7 @@ public class BranchController {
            }else {
                message.setInfo("科室操作缺少参数");
            }
+           message.put("branch",branch);
        }
     }
 
