@@ -1,5 +1,6 @@
 package com.cqjtu.mapperexp;
 
+import com.cqjtu.model.Branch;
 import com.cqjtu.model.Hospital;
 
 import java.math.BigDecimal;
@@ -42,5 +43,7 @@ public interface HospitalMapperExp {
      * @return
      */
     List<Hospital> getHospitalByTitu(BigDecimal longitude, BigDecimal latitude);
+
+
 
 }

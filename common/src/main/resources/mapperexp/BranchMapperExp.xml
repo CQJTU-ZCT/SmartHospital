@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.BranchMapperExp">
+
+    <select id="queryBranchesByName" resultType="com.cqjtu.model.Branch" >
+        SELECT branch_id,hospital_id,name,introduction
+        from branch
+        WHERE hospital_id =  #{hospitalId}
+        <if test="name != null ">
+            AND name LIKE  CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+    </select>
+    
+    
+    <select id="queryBranchesByIntroduction" resultType="com.cqjtu.model.Branch">
+        SELECT branch_id,hospital_id,name,introduction
+        from branch
+        WHERE hospital_id =  #{hospitalId}
+        <if test="introduction != null ">
+            AND name LIKE  CONCAT(CONCAT('%', #{introductio}), '%')
+        </if>
+    </select>
+
+
+    <select id="queryBranches" resultType="com.cqjtu.model.Branch">
+        SELECT branch_id,hospital_id,name,introduction
+        from branch
+        WHERE hospital_id =  #{hospitalId}
+    </select>
+
+
+    <update id="updateBranchByPrimaryKey" parameterType="com.cqjtu.model.Branch">
+        update branch
+        <set>
+            <if test="hospitalId != null">
+                hospital_id = #{hospitalId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where branch_id = #{branchId,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

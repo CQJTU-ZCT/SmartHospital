@@ -62,8 +62,9 @@ public class HospitalController {
     private HospitalService hospitalService;
 
 
-
-    //查询方式标记
+    /**
+     *  查询方式标记
+     */
     private static  String queryStringAll="queryStringAll";
 
     private  static  String queryStringName ="queryStringName";
@@ -72,7 +73,9 @@ public class HospitalController {
 
 
 
-    @RequestMapping(value = "/register/{adminToken}",method ={ RequestMethod.POST})
+    @RequestMapping(value = {"/register/{adminToken}",
+            "/register/{adminToken}/"},
+            method ={ RequestMethod.PUT})
     public Message registerHospitalByPathToken( Hospital hospital,@PathVariable("adminToken") String adminToken){
         Message message = new Message();
         validateAdminToken(message,hospital,adminToken);
@@ -80,7 +83,7 @@ public class HospitalController {
     }
 
 
-    @RequestMapping(value = "/register",method = {RequestMethod.POST})
+    @RequestMapping(value = {"/register","/register/"},method = {RequestMethod.PUT})
     public Message registerHospitalByHeaderToken(Hospital hospital,HttpServletRequest request){
         Message message = new Message();
         String adminToken = request.getHeader("adminToken");
@@ -97,7 +100,8 @@ public class HospitalController {
      * 获取管理员动态密码
      * @return
      */
-    @RequestMapping(value = "/getAdminToken",method = RequestMethod.GET)
+    @RequestMapping(value = {"/get-admin-token","/get-admin-token/"},
+            method = RequestMethod.GET)
     public Message getAdminToken(HttpServletRequest request, HttpSession session){
         Message message = new Message();
         Long lastTime = -1L;
@@ -130,40 +134,23 @@ public class HospitalController {
 
 
 
-    @RequestMapping(value = "/getHospitals",method = RequestMethod.GET)
-    public Message getHospitals(HttpServletRequest request){
+    @RequestMapping(value = {"/get-hospital",
+            "/get-hospital/"},
+            method = RequestMethod.GET)
+    public Message getHospitals(HttpServletRequest request,String pageNum){
         Message message = new Message();
         String token = request.getHeader("token");
         //如果没带pageNum  则默认为1
-        getHospitalsAndValidate(message,"1",token,queryStringAll,null,null,null,null);
-        return message;
-    }
-
-    @RequestMapping(value = "/getHospitals/{pageNum}",method = RequestMethod.GET)
-    public Message getHospitals(HttpServletRequest request,@PathVariable("pageNum") String pageNum){
-        Message message = new Message();
-        String token = request.getHeader("token");
-        getHospitalsAndValidate(message,pageNum,token,queryStringAll,null,null,null,null);
-        return message;
-    }
-
-    /**
-     * 由于sso-client在验证后，如果是合法用户，则会把token放在头部，所以实际中，这个方法并不会被使用
-     * @param pageNum
-     * @param token
-     * @return
-     */
-    @RequestMapping(value = "/getHospitals/{pageNum}/{token}",method = RequestMethod.GET)
-    public Message getHospitals(@PathVariable String pageNum ,@PathVariable String token){
-        Message message = new Message();
         getHospitalsAndValidate(message,pageNum,token,queryStringAll,null,null,null,null);
         return message;
     }
 
 
-    @RequestMapping(value = "/getHospitalByName/{name}/{pageNum}",method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/get-hospital/name/{name}",
+            "/get-hospital/name/{name}/"},method = RequestMethod.GET)
     public Message getHospitalByName(HttpServletRequest request,
-                                     @PathVariable String name,@PathVariable String pageNum){
+                                     @PathVariable String name,String pageNum){
         Message message = new Message();
         String token = request.getHeader("token");
         try {
@@ -174,27 +161,16 @@ public class HospitalController {
         return message;
     }
 
-    @RequestMapping(value = "/getHospitalByName/{name}",method = RequestMethod.GET)
-    public Message getHospitalByName(HttpServletRequest request,
-                                     @PathVariable String name){
-        Message message = new Message();
-        String token = request.getHeader("token");
-        try {
-            getHospitalsAndValidate(message,"1",token,queryStringName,URLDecoder.decode(name,"UTF-8"),null,null,null);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return message;
-    }
 
 
 
 
 
-
-    @RequestMapping(value = "/getHospitalByAddress/{address}/{pageNum}",method = RequestMethod.GET)
+    @RequestMapping(value = {"/get-hospital/address/{address}",
+            "/get-hospital/address/{address}/"},
+            method = RequestMethod.GET)
     public Message getHospitalByAddress(HttpServletRequest request,
-                                     @PathVariable String address,@PathVariable String pageNum){
+                                     @PathVariable String address, String pageNum){
         Message message = new Message();
         String token = request.getHeader("token");
         try {
@@ -205,22 +181,11 @@ public class HospitalController {
         return message;
     }
 
-    @RequestMapping(value = "/getHospitalByAddress/{address}",method = RequestMethod.GET)
-    public Message getHospitalByAddress(HttpServletRequest request,
-                                     @PathVariable String address){
-        Message message = new Message();
-        String token = request.getHeader("token");
-        try {
-            getHospitalsAndValidate(message,"1",token,queryStringAddress,null,URLDecoder.decode(address,"UTF-8"),null,null);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return message;
-    }
 
 
 
-    @RequestMapping(value = "/getHospitalByDistance/{longitude}/{latitude}/{distance}")
+
+    @RequestMapping(value = "/get-hospital/distance/{longitude}/{latitude}/{distance}")
     public Message getHospitalByDistance(HttpServletRequest request ,@PathVariable BigDecimal longitude,
                                          @PathVariable BigDecimal latitude,@PathVariable Double distance){
         Message message = new Message();

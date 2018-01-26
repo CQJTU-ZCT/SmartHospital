@@ -25,9 +25,10 @@
 
 
 服务器配置说明：
-    10.0.0.12 eurekaServer
-    10.0.0.13 ubuntuMysql
-    10.0.0.14 ubuntuSso
+    10.0.0.12 5555/7777 eurekaServer
+    10.0.0.13 3306      ubuntuMysql
+    10.0.0.14 8084      ubuntuSso
+    10.0.0.15 4321      ubuntuFileProvider
 
 
 
