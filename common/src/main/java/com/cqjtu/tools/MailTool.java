@@ -55,8 +55,6 @@ public class MailTool {
             message.setFrom(new InternetAddress(sendMail));
             message.addRecipient(RecipientType.TO, new InternetAddress(to));
             message.setSubject(subject);
-            //TODO 部署之前删除这个输出
-            System.out.println(mess);
             message.setContent(mess, "text/html;charset=utf-8");
             Transport.send(message);
             mailMessage = MailMessage.getMailSendSuccess();

@@ -18,8 +18,12 @@ spring:
     include:
     - sso
     - eureka
-    - datesource
+    - datasource
     - mybatis
+  application:
+      name: FileProvider
+
+
 
 
 

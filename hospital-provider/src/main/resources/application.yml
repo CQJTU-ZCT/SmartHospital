@@ -5,40 +5,31 @@ server:
 
 
 
+
 spring:
-    datasource:
-        name: HospitalProvider
-        url: jdbc:mysql:///UserManager?characterEncoding=utf8&useSSL=true
-        username: root
-        password: 123456
-        # 使用druid数据源
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        dbcp2:
-              min-idle: 5   #最小维持的连接数
-              initial-size: 5  #初始化的连接数
-              max-total: 5 #最大的连接数
-              max-wait-millis: 200 #对大等待时间
     application:
-      name: UserProvider
+      name: HospitalProvider
     mvc:
       throw-exception-if-no-handler-found: true #当出现404的时候直接抛出异常
     resources:
       add-mappings: false
+    profiles:
+      include:
+      - datasource
+      - mybatis
+      - eureka
+      - sso
 
 
-mybatis:
-  config-location: classpath:mybatis.xml  #mybatis配置文件路径
-  type-aliases-package: com.cqjtu.domain
-  mapper-locations:
-  - classpath:mapper/*.xml
+sendTokenToAdminMail:
+  adminMail: 799243917@qq.com
+  keepTime: 6000000 #毫秒 6000秒
+  sendMail: 1727078617@qq.com
+  sendPass: ryjculxdnrwmcbba
+  smtpServer: smtp.qq.com
 
 
+pageInfo:
+  pageSize: 10 #每页显示的个数
+  navigatePages: 5
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    serviceUrl:
-          defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/

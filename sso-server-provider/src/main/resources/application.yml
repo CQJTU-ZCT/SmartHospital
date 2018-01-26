@@ -14,7 +14,7 @@ spring:
     include:
     - sso
     - eureka
-    - datesource
+    - datasource
     - mybatis
 
 

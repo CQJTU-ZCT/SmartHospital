@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.HospitalMapperExp">
+
+    <select id="getHospitals" resultType="com.cqjtu.model.Hospital">
+        SELECT hospital_id,hospital_name,address,longitude,latitude from hospital
+    </select>
+
+    <select id="getHospitalByName" resultType="com.cqjtu.model.Hospital">
+        SELECT hospital_id,hospital_name,address,longitude,latitude
+        from hospital
+        WHERE hospital_name LIKE '%${value}%'
+    </select>
+
+
+    <select id="getHospitalByAddress" resultType="com.cqjtu.model.Hospital">
+        SELECT hospital_id,hospital_name,address,longitude,latitude
+        from hospital
+        WHERE hospital.address LIKE '%${value}%'
+    </select>
+
+
+</mapper>
