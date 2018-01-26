@@ -53,7 +53,7 @@ public class HospitalController {
 
 
     @Value("${pageInfo.pageSize}")
-    private String pageSzieString;
+    private String pageSizeString;
 
     @Value("${pageInfo.navigatePages}")
     private String navigatePagesString;
@@ -62,31 +62,13 @@ public class HospitalController {
     private HospitalService hospitalService;
 
 
-    /**
-     *  查询方式标记
-     */
-    private static  String queryStringAll="queryStringAll";
-
-    private  static  String queryStringName ="queryStringName";
-
-    private  static String queryStringAddress= "queryStringAddress";
 
 
 
-    @RequestMapping(value = {"/register/{adminToken}",
-            "/register/{adminToken}/"},
-            method ={ RequestMethod.PUT})
-    public Message registerHospitalByPathToken( Hospital hospital,@PathVariable("adminToken") String adminToken){
+    @RequestMapping(value = {"/",""},method = {RequestMethod.POST})
+    public Message registerHospitalByHeaderToken(Hospital hospital,
+                                                 String adminToken){
         Message message = new Message();
-        validateAdminToken(message,hospital,adminToken);
-        return message;
-    }
-
-
-    @RequestMapping(value = {"/register","/register/"},method = {RequestMethod.PUT})
-    public Message registerHospitalByHeaderToken(Hospital hospital,HttpServletRequest request){
-        Message message = new Message();
-        String adminToken = request.getHeader("adminToken");
         if (adminToken == null || adminToken.length() <=0){
             message.setInfo("请提供管理员令牌");
         }else{
@@ -100,9 +82,9 @@ public class HospitalController {
      * 获取管理员动态密码
      * @return
      */
-    @RequestMapping(value = {"/get-admin-token","/get-admin-token/"},
+    @RequestMapping(value = {"/admin-token","/admin-token/"},
             method = RequestMethod.GET)
-    public Message getAdminToken(HttpServletRequest request, HttpSession session){
+    public Message getAdminToken( HttpSession session){
         Message message = new Message();
         Long lastTime = -1L;
 
@@ -124,74 +106,31 @@ public class HospitalController {
                 message.setCode(-1);
                 message.setInfo("不能频繁获取令牌");
             }else {
-                message = getLegalTokenMessgae(keepTime,message,session);
+                message = getLegalTokenMessage(keepTime,message,session);
             }
         }else {
-            message = getLegalTokenMessgae(keepTime,message,session);
+            message = getLegalTokenMessage(keepTime,message,session);
         }
         return message;
     }
 
 
 
-    @RequestMapping(value = {"/get-hospital",
-            "/get-hospital/"},
+    @RequestMapping(value = {"","/"},
             method = RequestMethod.GET)
-    public Message getHospitals(HttpServletRequest request,String pageNum){
+    public Message getHospitals(HttpServletRequest request,
+                                String pageNum,
+                                String name,
+                                String address){
         Message message = new Message();
         String token = request.getHeader("token");
         //如果没带pageNum  则默认为1
-        getHospitalsAndValidate(message,pageNum,token,queryStringAll,null,null,null,null);
+        getHospitalsAndValidate(message,pageNum,token,name,address);
         return message;
     }
 
 
 
-    @RequestMapping(value = {"/get-hospital/name/{name}",
-            "/get-hospital/name/{name}/"},method = RequestMethod.GET)
-    public Message getHospitalByName(HttpServletRequest request,
-                                     @PathVariable String name,String pageNum){
-        Message message = new Message();
-        String token = request.getHeader("token");
-        try {
-            getHospitalsAndValidate(message,pageNum,token,queryStringName, URLDecoder.decode(name,"utf-8"),null,null,null);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return message;
-    }
-
-
-
-
-
-
-    @RequestMapping(value = {"/get-hospital/address/{address}",
-            "/get-hospital/address/{address}/"},
-            method = RequestMethod.GET)
-    public Message getHospitalByAddress(HttpServletRequest request,
-                                     @PathVariable String address, String pageNum){
-        Message message = new Message();
-        String token = request.getHeader("token");
-        try {
-            getHospitalsAndValidate(message,pageNum,token,queryStringAddress, null,URLDecoder.decode(address,"utf-8"),null,null);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return message;
-    }
-
-
-
-
-
-    @RequestMapping(value = "/get-hospital/distance/{longitude}/{latitude}/{distance}")
-    public Message getHospitalByDistance(HttpServletRequest request ,@PathVariable BigDecimal longitude,
-                                         @PathVariable BigDecimal latitude,@PathVariable Double distance){
-        Message message = new Message();
-        message.setInfo("接口暂未实现");
-        return message;
-    }
 
 
     /**
@@ -199,14 +138,10 @@ public class HospitalController {
      * @param message 消息
      * @param pn 页数
      * @param token 令牌
-     * @param queryFlag 查询标识
      * @param name 名称
      * @param address 地址
-     * @param longitude 经度
-     * @param latitude 维度
      */
-    private void getHospitalsAndValidate(Message message , String pn, String token, String queryFlag, String name, String address,
-                                         BigDecimal longitude ,BigDecimal latitude){
+    private void getHospitalsAndValidate(Message message , String pn, String token, String name, String address){
         if (token == null){
             message.setInfo("未授权");
         }else {
@@ -219,7 +154,7 @@ public class HospitalController {
             }
             int pageSize = 10;
             try {
-                pageSize = Integer.parseInt(pageSzieString);
+                pageSize = Integer.parseInt(pageSizeString);
             }catch (Exception e){
             }
             int navigatePages = 5;
@@ -229,17 +164,7 @@ public class HospitalController {
             }
             //开始分页查询
             PageHelper.startPage(pageNum,pageSize);
-            List<Hospital> hospitals=null;
-            if (queryFlag.equals(queryStringAll)){
-                //查询所有
-                hospitals= hospitalService.getHospitals();
-            }else if(queryFlag.equals(queryStringName)){
-                //根据名称查询
-                hospitals = hospitalService.getHospitalByName(name);
-            }else if (queryFlag.equals(queryStringAddress)){
-                //根据地址查询
-                hospitals = hospitalService.getHospitalByAddress(address);
-            }
+            List<Hospital> hospitals=hospitalService.getHospitals(name,address);
             PageInfo pageInfo = new PageInfo(hospitals,navigatePages);;
             message.setCode(200);
             message.setInfo("获取医院信息成功");
@@ -262,7 +187,7 @@ public class HospitalController {
         }
     }
 
-    private Message getLegalTokenMessgae(Long keepTime,Message message,HttpSession session){
+    private Message getLegalTokenMessage(Long keepTime,Message message,HttpSession session){
         String token = Token.getToken32WithoutLine();
         //还原之前的值
         AdminToken.reduction();

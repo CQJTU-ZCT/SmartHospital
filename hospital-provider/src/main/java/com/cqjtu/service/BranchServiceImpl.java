@@ -47,31 +47,21 @@ public class BranchServiceImpl implements  BranchService{
     }
 
     @Override
-    public List<Branch> queryBranchesByName(String name, String hospitalId) {
-        List<Branch> branches = null;
-        if (hospitalId == null || hospitalId .length() <=0){
-            branches = null;
-        }else {
-           branches = branchMapperExp.queryBranchesByName(name, hospitalId);
-        }
+    public List<Branch> queryBranchesByName(String name) {
+        List<Branch> branches = branchMapperExp.queryBranchesByName(name);
         return branches;
     }
 
 
     @Override
-    public List<Branch> queryBranchesByIntroduction(String introduction, String hospitalId) {
-        List<Branch> branches = null;
-        if (hospitalId == null || hospitalId .length() <=0){
-            branches = null;
-        }else {
-            branches = branchMapperExp.queryBranchesByName(introduction, hospitalId);
-        }
+    public List<Branch> queryBranchesByIntroduction(String introduction) {
+        List<Branch> branches =branchMapperExp.queryBranchesByName(introduction);
         return branches;
     }
 
     @Override
-    public List<Branch> queryBranches(String hospitalId) {
-        return branchMapperExp.queryBranches(hospitalId);
+    public List<Branch> queryBranches(String introduction,String name) {
+        return branchMapperExp.queryBranches(introduction ,name);
     }
 
 }

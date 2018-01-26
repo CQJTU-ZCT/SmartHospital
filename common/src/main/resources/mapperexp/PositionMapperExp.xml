@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.PositionMapperExp">
+
+    <select id="queryPosition" resultType="com.cqjtu.model.Position" >
+        SELECT position_id ,name
+        from position
+        <if test="name != null ">
+            WHERE   name LIKE  CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+    </select>
+
+    <update id="updatePosition" parameterType="com.cqjtu.model.Position">
+        update position
+        set  name = #{name}
+        where position_id = #{positionId};
+    </update>
+    
+    
+
+
+</mapper>

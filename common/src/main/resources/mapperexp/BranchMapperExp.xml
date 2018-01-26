@@ -5,9 +5,8 @@
     <select id="queryBranchesByName" resultType="com.cqjtu.model.Branch" >
         SELECT branch_id,hospital_id,name,introduction
         from branch
-        WHERE hospital_id =  #{hospitalId}
         <if test="name != null ">
-            AND name LIKE  CONCAT(CONCAT('%', #{name}), '%')
+            WHERE   name LIKE  CONCAT(CONCAT('%', #{name}), '%')
         </if>
     </select>
     
@@ -15,9 +14,8 @@
     <select id="queryBranchesByIntroduction" resultType="com.cqjtu.model.Branch">
         SELECT branch_id,hospital_id,name,introduction
         from branch
-        WHERE hospital_id =  #{hospitalId}
         <if test="introduction != null ">
-            AND name LIKE  CONCAT(CONCAT('%', #{introductio}), '%')
+            WHERE   name LIKE  CONCAT(CONCAT('%', #{introductio}), '%')
         </if>
     </select>
 
@@ -25,16 +23,22 @@
     <select id="queryBranches" resultType="com.cqjtu.model.Branch">
         SELECT branch_id,hospital_id,name,introduction
         from branch
-        WHERE hospital_id =  #{hospitalId}
+        <where>
+            <trim prefixOverrides="and">
+                <if test="introduction != null ">
+                    and  introduction LIKE  CONCAT(CONCAT('%', #{introduction}), '%')
+                </if>
+                <if test="name != null ">
+                    and   name LIKE  CONCAT(CONCAT('%', #{name}), '%')
+                </if>
+            </trim>
+        </where>
     </select>
 
 
     <update id="updateBranchByPrimaryKey" parameterType="com.cqjtu.model.Branch">
         update branch
         <set>
-            <if test="hospitalId != null">
-                hospital_id = #{hospitalId,jdbcType=VARCHAR},
-            </if>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
             </if>

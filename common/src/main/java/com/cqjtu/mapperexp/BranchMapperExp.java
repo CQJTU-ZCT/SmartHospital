@@ -15,27 +15,24 @@ public interface BranchMapperExp {
      * 根据名称和医院编号来获取科室信息
      * 名称为空则获取全部
      * @param name
-     * @param hospitalId
      * @return
      */
-    List<Branch> queryBranchesByName(@Param("name") String name, @Param("hospitalId") String hospitalId);
+    List<Branch> queryBranchesByName(@Param("name") String name);
 
 
     /**
      * 根据介绍查询具有该介绍的科室
      * @param introduction
-     * @param hospitalId
      * @return
      */
-    List<Branch> queryBranchesByIntroduction(@Param("introduction") String introduction,@Param("hospitalId") String hospitalId);
+    List<Branch> queryBranchesByIntroduction(@Param("introduction") String introduction);
 
 
     /**
      * 查询科室
-     * @param hospitalId
      * @return
      */
-    List<Branch> queryBranches(@Param("hospitalId") String hospitalId);
+    List<Branch> queryBranches(@Param("introduction") String introduction,@Param("name")String name);
 
 
     /**

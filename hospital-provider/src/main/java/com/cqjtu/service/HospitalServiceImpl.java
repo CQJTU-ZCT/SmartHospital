@@ -46,8 +46,8 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public List<Hospital> getHospitals() {
-        return hospitalMapperExp.getHospitals();
+    public List<Hospital> getHospitals(String name ,String address) {
+        return hospitalMapperExp.getHospitals(name ,address);
     }
 
     @Override

@@ -30,26 +30,25 @@ public interface BranchService {
      * 根据名称和医院编号来获取科室信息
      * 名称为空则获取全部
      * @param name
-     * @param hospitalId
      * @return
      */
-    List<Branch> queryBranchesByName(String name,String hospitalId);
+    List<Branch> queryBranchesByName(String name);
 
     /**
      * 根据名称和医院编号来获取科室信息
      * 名称为空则获取全部
      * @param introduction
-     * @param hospitalId
      * @return
      */
-    List<Branch> queryBranchesByIntroduction(String introduction,String hospitalId);
+    List<Branch> queryBranchesByIntroduction(String introduction);
 
     /**
      * 根据医院编号查询科室
-     * @param hospitalId
+     * @param name
+     * @param introduction
      * @return
      */
-    List<Branch> queryBranches(String hospitalId);
+    List<Branch> queryBranches(String introduction,String name);
 
 
 

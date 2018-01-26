@@ -57,7 +57,7 @@ public class ValidateFilter implements Filter{
         if (token == null){
             //如果头部没有，则尝试从查询参数中获取token
             try{
-                token = (String) request.getAttribute("token");
+                token = (String) request.getParameter("token");
             }catch (Exception e){
                 LoggerTool.getLogger(this.getClass()).info("request请求参数中的token并不是一个令牌");
             }

@@ -28,7 +28,7 @@ import java.util.List;
  * @date 2018/1/25.
  */
 @RestController
-@RequestMapping("/hospital/{hospitalId}/branch")
+@RequestMapping("/hospital/branch")
 public class BranchController {
 
 
@@ -44,8 +44,6 @@ public class BranchController {
     private BranchService branchService;
 
 
-    private String defaultPage ="1";
-
 
     /**
      * 操作类型标记
@@ -55,57 +53,22 @@ public class BranchController {
     private String optUpdate = "update";
 
 
-    @RequestMapping(value = {"/name/{name}/",
-            "/name/{name}"},
+    @RequestMapping(value = {"","/"},
             method = RequestMethod.GET)
-    public Message getBranchByName(@PathVariable String hospitalId,
-                                   @PathVariable String name,
-                                   String pageNum ,
+    public Message getBranch(String pageNum,
+                             String name,
+                             String introduction,
                              HttpServletRequest request){
         Message  message = new Message();
         String token = request.getHeader("token");
-        try {
-            getBranchAndValidate(hospitalId,URLDecoder.decode(name,"UTF-8"),null,pageNum,token,message);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        getBranchAndValidate(name,introduction,pageNum,token,message);
         return  message;
     }
 
 
-    @RequestMapping(value = {"/",""},
-            method = RequestMethod.GET)
-    public Message getBranch(@PathVariable String hospitalId,
-                             String pageNum,
+    @RequestMapping(value = {"/", ""},method = RequestMethod.POST)
+    public Message addBranch(Branch branch,
                              HttpServletRequest request){
-        Message  message = new Message();
-        String token = request.getHeader("token");
-        getBranchAndValidate(hospitalId,null,null,pageNum,token,message);
-        return  message;
-    }
-
-
-    @RequestMapping(value = {"/introduction/{introduction}",
-            "/introduction/{introduction}/"},
-            method = RequestMethod.GET)
-    public Message getBranchByIntroduction(@PathVariable String hospitalId,
-                                           @PathVariable String introduction,
-                                           String pageNum,
-                                           HttpServletRequest request){
-        Message  message = new Message();
-        String token = request.getHeader("token");
-        try {
-            getBranchAndValidate(hospitalId, null,URLDecoder.decode(introduction,"UTF-8"),pageNum,token,message);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return  message;
-    }
-
-
-    @RequestMapping(value = {"/add",
-            "/add/"},method = RequestMethod.PUT)
-    public Message addBranch(Branch branch,HttpServletRequest request){
         Message message = new Message();
         String token = request.getHeader("token");
         checkBranchPropertiesAndOpt(token ,message ,branch ,optAdd);
@@ -113,9 +76,10 @@ public class BranchController {
     }
 
 
-    @RequestMapping(value = {"/update",
-            "/update/"},method = RequestMethod.PUT)
-    public Message updateBranch(Branch branch,HttpServletRequest request){
+    @RequestMapping(value = {"/",
+            ""},method = RequestMethod.PUT)
+    public Message updateBranch(Branch branch,
+                                HttpServletRequest request){
         Message message = new Message();
         String token = request.getHeader("token");
         checkBranchPropertiesAndOpt(token ,message ,branch ,optUpdate);
@@ -135,9 +99,6 @@ public class BranchController {
                }
            }
            if (optFlag.equals(optAdd)){
-               if (branch.getHospitalId() == null || branch.getHospitalId().length() <=0){
-                   flag = false;
-               }
                if (branch.getIntroduction() == null || branch.getIntroduction().length()<=0){
                    flag = false;
                }
@@ -183,7 +144,7 @@ public class BranchController {
 
 
 
-    private void getBranchAndValidate(String hospitalId, String name, String introduction,
+    private void getBranchAndValidate( String name, String introduction,
                                       String pn , String token, Message message ){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
@@ -207,17 +168,7 @@ public class BranchController {
             }
             //开始分页查询
             PageHelper.startPage(pageNum,pageSize);
-            List<Branch> branches = null;
-            if (name != null){
-               branches =  branchService.queryBranchesByName(name, hospitalId);
-            }
-            if (introduction != null){
-                branches = branchService.queryBranchesByIntroduction(introduction ,hospitalId);
-            }
-            if (name == null && introduction == null){
-                branches = branchService.queryBranches(hospitalId);
-            }
-
+            List<Branch> branches = branchService.queryBranches(introduction,name);
             PageInfo pageInfo = new PageInfo(branches,navigatePages);;
             message.setCode(200);
             message.setInfo("获取医院科室信息成功");
