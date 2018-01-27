@@ -3,7 +3,7 @@
 <mapper namespace="com.cqjtu.mapperexp.BranchMapperExp">
 
     <select id="queryBranchesByName" resultType="com.cqjtu.model.Branch" >
-        SELECT branch_id,hospital_id,name,introduction
+        SELECT branch_id,name,introduction
         from branch
         <if test="name != null ">
             WHERE   name LIKE  CONCAT(CONCAT('%', #{name}), '%')
@@ -12,7 +12,7 @@
     
     
     <select id="queryBranchesByIntroduction" resultType="com.cqjtu.model.Branch">
-        SELECT branch_id,hospital_id,name,introduction
+        SELECT branch_id,name,introduction
         from branch
         <if test="introduction != null ">
             WHERE   name LIKE  CONCAT(CONCAT('%', #{introductio}), '%')
@@ -21,7 +21,7 @@
 
 
     <select id="queryBranches" resultType="com.cqjtu.model.Branch">
-        SELECT branch_id,hospital_id,name,introduction
+        SELECT branch_id,name,introduction
         from branch
         <where>
             <trim prefixOverrides="and">

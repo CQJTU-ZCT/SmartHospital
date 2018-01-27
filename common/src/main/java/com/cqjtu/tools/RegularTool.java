@@ -28,4 +28,35 @@ public class RegularTool {
     }
 
 
+    public static boolean isPhone(String phone){
+        boolean result = false;
+        if (phone == null){
+
+        }else {
+            String reg="^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\\\d{8}$";
+            if (phone.matches(reg)){
+                result = true;
+            }
+        }
+        return result;
+    }
+
+
+    public static  boolean isIdCard(String idCard){
+        boolean result = false;
+        if (idCard == null){
+
+        }else {
+            String reg18 ="^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$" ;
+            String reg15= "^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{2}$";
+            if (idCard.matches(reg18)){
+                result = true;
+            }else if (idCard.matches(reg15)){
+                result =true;
+            }
+        }
+        return result;
+    }
+
+
 }

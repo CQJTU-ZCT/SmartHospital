@@ -24,6 +24,7 @@ import java.util.UUID;
  * @date 2018/1/23.
  */
 @RestController
+@RequestMapping("/profile")
 public class ProfileController {
 
     @Value("${smartHospital.filePath}")
@@ -38,7 +39,7 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @RequestMapping(value = "/profileUpload",method = {RequestMethod.POST})
+    @RequestMapping(value = {"","/"},method = {RequestMethod.POST})
     public Message uploadProfile(@RequestParam("profile")MultipartFile file, HttpServletRequest request)  {
         if (request.getAttribute("user") == null){
             Message nullMessage = new Message();
@@ -126,7 +127,7 @@ public class ProfileController {
     }
 
 
-    @RequestMapping(value = "/getProfile",method = RequestMethod.GET)
+    @RequestMapping(value = {"","/"},method = RequestMethod.GET)
     public Message getProfile(HttpServletRequest request){
         Message message  = new Message();
         if (request.getAttribute("user")== null){

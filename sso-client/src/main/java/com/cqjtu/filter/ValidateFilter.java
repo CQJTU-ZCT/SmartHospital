@@ -72,6 +72,7 @@ public class ValidateFilter implements Filter{
         }else {
             //token存在
             URL url = new URL(serverInfo.getValidateAddress()+"?token="+token);
+
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             int responseCode = connection.getResponseCode();
