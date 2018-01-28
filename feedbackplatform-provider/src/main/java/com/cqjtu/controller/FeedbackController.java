@@ -115,7 +115,7 @@ public class FeedbackController {
                     flag =false;
                 }
                 if (flag){
-                    feedback.setTitle(UUID.randomUUID().toString().replaceAll("-",""));
+                    feedback.setFeedbackId(UUID.randomUUID().toString().replaceAll("-",""));
                     int i = feedbackService.addFeedback(feedback);
                     if (i == 1){
                         message.setCode(200);

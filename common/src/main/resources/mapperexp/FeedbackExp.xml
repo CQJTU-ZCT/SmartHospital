@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqjtu.mapperexp.DoctorMapperExp">
+<mapper namespace="com.cqjtu.mapperexp.FeedbackMapperExp">
 
 
     <select id="queryFeedback" resultType="com.cqjtu.model.Feedback">
@@ -8,7 +8,7 @@
         from feedback
         <where>
             <trim prefixOverrides="and">
-                <if test="feedback_id != null ">
+                <if test="feedbackId != null ">
                     and  feedback_id LIKE  CONCAT(CONCAT('%', #{feedbackId}), '%')
                 </if>
                 <if test="id != null ">
@@ -44,7 +44,7 @@
         INSERT  INTO feedback
 
         <trim prefix="(" suffixOverrides="," suffix=")">
-            <if test="feedback_id != null">
+            <if test="feedbackId != null">
                 feedback_id ,
             </if>
             <if test="title != null">
@@ -62,7 +62,7 @@
         </trim>
         values
         <trim prefix="(" suffixOverrides="," suffix=")">
-            <if test="feedback_id != null">
+            <if test="feedbackId != null">
                 #{feedbackId} ,
             </if>
             <if test="title != null">
