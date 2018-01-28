@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqjtu.mapperexp.DoctorMapperExp">
+<mapper namespace="com.cqjtu.mapperexp.DoctorDetailMapperExp">
 
 
-    <select id="queryDoctor" resultType="com.cqjtu.model.Doctor">
+    <select id="queryDoctorDetail" resultType="com.cqjtu.model.DoctorDetail">
         SELECT id_card,id,name,mail,phone
         from doctor
         <where>
@@ -11,77 +11,81 @@
                 <if test="idCard != null ">
                     and  id_card LIKE  CONCAT(CONCAT('%', #{idCard}), '%')
                 </if>
-                <if test="name != null ">
-                    and   name LIKE  CONCAT(CONCAT('%', #{name}), '%')
+                <if test="address != null ">
+                    and   address LIKE  CONCAT(CONCAT('%', #{address}), '%')
                 </if>
-                <if test="id != null ">
-                    and   id =#{id}
+                <if test="sex != null ">
+                    and   sex =#{sex}
                 </if>
-                <if test="mail != null ">
-                    and   mail LIKE  CONCAT(CONCAT('%', #{mail}), '%')
+                <if test="profile != null ">
+                    and   profile LIKE  CONCAT(CONCAT('%', #{profile}), '%')
                 </if>
-                <if test="phone != null ">
-                    and   phone LIKE  CONCAT(CONCAT('%', #{phone}), '%')
+                <if test="birthYMD != null ">
+                    and   birth_y_m_d = #{birthYMD},
+                </if>
+                <if test="nationality != null ">
+                    and   nationality = CONCAT(CONCAT('%', #{nationality}), '%')
                 </if>
             </trim>
         </where>
     </select>
 
 
-    <update id="updateDotor" parameterType="com.cqjtu.model.Doctor">
-        update branch
+    <update id="updateDotorDetail" parameterType="com.cqjtu.model.DoctorDetail">
+        update doctor_detail
         <set>
-            <if test="name != null">
-                name =#{name},
+            <if test="idCard != null">
+                id_card = #{idCard},
             </if>
-            <if test="mail != null">
-                mail=#{mail},
+            <if test="address != null">
+                address =#{address},
             </if>
-            <if test="phone != null">
-                phone=#{phone},
+            <if test="sex != null">
+                sex =#{sex},
             </if>
-            <if test="id != null">
-                id=#{id}
+            <if test="profile != null">
+                profile = #{profile},
+            </if>
+            <if test="birthYMD != null">
+                birth_y_m_d =#{birthYMD},
+            </if>
+            <if test="nationality != null">
+                nationality =#{nationality}
             </if>
         </set>
         where id_card = #{idCard}
     </update>
 
 
-    <update id="updateDoctorIdCard">
-        <if test="idCard != null">
-            update doctor
-            SET
-            id_card = #{idCard}
-        </if>
-    </update>
 
 
 
 
+    <insert id="addDoctorDetail" parameterType="com.cqjtu.model.DoctorDetail">
 
-    <insert id="addDoctor" parameterType="com.cqjtu.model.Doctor">
-
-        INSERT  INTO doctor
+        INSERT  INTO doctor_detail
 
         <trim prefix="(" suffixOverrides="," suffix=")">
             <if test="idCard != null">
                 id_card ,
             </if>
-            <if test="name != null">
-                name ,
+            <if test="address != null">
+                address ,
             </if>
-            <if test="mail != null">
-                mail,
+            <if test="sex != null">
+                sex,
             </if>
-            <if test="phone != null">
-                phone,
+            <if test="sex == null">
+                sex,
             </if>
-            <if test="id != null">
-                id
+            <if test="profile != null">
+                profile,
             </if>
-            <if test="id == null">
-                id
+            <if test="birthYMD != null">
+                birth_y_m_d,
+            </if>
+            <if test="nationality != null">
+                nationality
             </if>
         </trim>
         values
@@ -89,20 +93,23 @@
             <if test="idCard != null">
                 #{idCard} ,
             </if>
-            <if test="name != null">
-                #{name} ,
+            <if test="address != null">
+                #{address} ,
             </if>
-            <if test="mail != null">
-                #{mail},
+            <if test="sex != null">
+                #{sex},
             </if>
-            <if test="phone != null">
-                #{phone},
+            <if test="sex == null">
+                1,
             </if>
-            <if test="id != null">
-                #{id}
+            <if test="profile != null">
+                #{profile},
             </if>
-            <if test="id == null">
-                1
+            <if test="birthYMD != null">
+                #{birthYMD},
+            </if>
+            <if test="nationality != null">
+                #{nationality}
             </if>
         </trim>
 

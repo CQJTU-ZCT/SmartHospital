@@ -1,6 +1,6 @@
 spring:
   datasource:
-        name: sso
+        name: smarthospital
         url: jdbc:mysql://10.0.0.13:3306/smarthospital_test?characterEncoding=utf8&useSSL=true
         username: zct
         password: 123456

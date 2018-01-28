@@ -19,6 +19,7 @@ spring:
       - mybatis
       - eureka
       - sso
+      - pageinfo
 
 
 sendTokenToAdminMail:
@@ -28,10 +29,6 @@ sendTokenToAdminMail:
   sendPass: ryjculxdnrwmcbba
   smtpServer: smtp.qq.com
 
-
-pageInfo:
-  pageSize: 10 #每页显示的个数
-  navigatePages: 5
 
 HospitalAdmin:
   code: 3 #标识医院管理员的用户类别编码
