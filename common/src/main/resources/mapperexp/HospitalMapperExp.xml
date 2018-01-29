@@ -3,7 +3,18 @@
 <mapper namespace="com.cqjtu.mapperexp.HospitalMapperExp">
 
     <select id="getHospitals" resultType="com.cqjtu.model.Hospital">
-        SELECT hospital_id,hospital_name,address,longitude,latitude from hospital
+        SELECT hospital_id,hospital_name,address,longitude,latitude
+        from hospital
+        <where>
+            <trim suffixOverrides="and">
+                <if test="name != null">
+                    and hospital_name  LIKE  CONCAT(CONCAT('%', #{name}), '%')
+                </if>
+                <if test="address != null">
+                    and address   LIKE  CONCAT(CONCAT('%', #{address}), '%')
+                </if>
+            </trim>
+        </where>
     </select>
 
     <select id="getHospitalByName" resultType="com.cqjtu.model.Hospital">

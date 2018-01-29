@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.DoctorDetailMapperExp">
+
+
+    <select id="queryDoctorDetail" resultType="com.cqjtu.model.DoctorDetail">
+        SELECT id_card,id,name,mail,phone
+        from doctor
+        <where>
+            <trim prefixOverrides="and">
+                <if test="idCard != null ">
+                    and  id_card LIKE  CONCAT(CONCAT('%', #{idCard}), '%')
+                </if>
+                <if test="address != null ">
+                    and   address LIKE  CONCAT(CONCAT('%', #{address}), '%')
+                </if>
+                <if test="sex != null ">
+                    and   sex =#{sex}
+                </if>
+                <if test="profile != null ">
+                    and   profile LIKE  CONCAT(CONCAT('%', #{profile}), '%')
+                </if>
+                <if test="birthYMD != null ">
+                    and   birth_y_m_d = #{birthYMD},
+                </if>
+                <if test="nationality != null ">
+                    and   nationality = CONCAT(CONCAT('%', #{nationality}), '%')
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <update id="updateDotorDetail" parameterType="com.cqjtu.model.DoctorDetail">
+        update doctor_detail
+        <set>
+            <if test="idCard != null">
+                id_card = #{idCard},
+            </if>
+            <if test="address != null">
+                address =#{address},
+            </if>
+            <if test="sex != null">
+                sex =#{sex},
+            </if>
+            <if test="profile != null">
+                profile = #{profile},
+            </if>
+            <if test="birthYMD != null">
+                birth_y_m_d =#{birthYMD},
+            </if>
+            <if test="nationality != null">
+                nationality =#{nationality}
+            </if>
+        </set>
+        where id_card = #{idCard}
+    </update>
+
+
+
+
+
+
+    <insert id="addDoctorDetail" parameterType="com.cqjtu.model.DoctorDetail">
+
+        INSERT  INTO doctor_detail
+
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="idCard != null">
+                id_card ,
+            </if>
+            <if test="address != null">
+                address ,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="sex == null">
+                sex,
+            </if>
+            <if test="profile != null">
+                profile,
+            </if>
+            <if test="birthYMD != null">
+                birth_y_m_d,
+            </if>
+            <if test="nationality != null">
+                nationality
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="idCard != null">
+                #{idCard} ,
+            </if>
+            <if test="address != null">
+                #{address} ,
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="sex == null">
+                1,
+            </if>
+            <if test="profile != null">
+                #{profile},
+            </if>
+            <if test="birthYMD != null">
+                #{birthYMD},
+            </if>
+            <if test="nationality != null">
+                #{nationality}
+            </if>
+        </trim>
+
+    </insert>
+
+
+</mapper>

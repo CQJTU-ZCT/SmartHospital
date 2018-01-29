@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.FeedbackMapperExp">
+
+
+    <select id="queryFeedback" resultType="com.cqjtu.model.Feedback">
+        SELECT feedback_id,id,title,description
+        from feedback
+        <where>
+            <trim prefixOverrides="and">
+                <if test="feedbackId != null ">
+                    and  feedback_id LIKE  CONCAT(CONCAT('%', #{feedbackId}), '%')
+                </if>
+                <if test="id != null ">
+                    and   id =#{id}
+                </if>
+                <if test="title != null ">
+                    and   title LIKE  CONCAT(CONCAT('%', #{title}), '%')
+                </if>
+                <if test="description != null ">
+                    and   description LIKE  CONCAT(CONCAT('%', #{description}), '%')
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <update id="updateFeedback" parameterType="com.cqjtu.model.Feedback">
+        update feedback
+        <set>
+            <if test="id != null">
+                id=#{id}
+            </if>
+        </set>
+        where feedback_id = #{feedbackId}
+    </update>
+
+
+
+
+
+    <insert id="addFeedback" parameterType="com.cqjtu.model.Feedback">
+
+        INSERT  INTO feedback
+
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="feedbackId != null">
+                feedback_id ,
+            </if>
+            <if test="title != null">
+                title ,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="id != null">
+                id
+            </if>
+            <if test="id == null">
+                id
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="feedbackId != null">
+                #{feedbackId} ,
+            </if>
+            <if test="title != null">
+                #{title} ,
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="id != null">
+                #{id}
+            </if>
+            <if test="id == null">
+                1
+            </if>
+        </trim>
+
+    </insert>
+
+
+</mapper>

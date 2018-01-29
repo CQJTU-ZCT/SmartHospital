@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.BranchDoctorTitleMapperExp">
+
+    <select id="queryBranchDoctorTitle" resultType="com.cqjtu.model.BranchDoctorTitle" >
+        SELECT branch_id,title_id,id,id_card
+        from branch_doctor_title
+        <where>
+            <trim prefixOverrides="and">
+                <if test="titleId != null">
+                    title_id = #{titleId}
+                </if>
+                <if test="branchId != null">
+                   and  branch_id = #{branchId}
+                </if>
+                <if test="idCard">
+                    and id_card = #{idCard}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+
+    <update id="updateBranchDoctorTitle" parameterType="com.cqjtu.model.BranchDoctorTitle">
+        update branch_doctor_title
+        <set>
+            <if test="idCard != null">
+                id_card =#{idCard},
+            </if>
+            <if test="branchId != null">
+                branch_id=#{branchId},
+            </if>
+            <if test="titleId != null">
+                title_id=#{titleId}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="addBranchDoctorTitle" parameterType="com.cqjtu.model.BranchDoctorTitle">
+        <selectKey resultType="java.lang.Integer" keyColumn="id">
+            SELECT last_insert_id();
+        </selectKey>
+
+        INSERT  INTO branch_doctor_title
+
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="id != null">
+                id ,
+            </if>
+            <if test="idCard != null">
+                id_card ,
+            </if>
+            <if test="branchId != null">
+                branch_id,
+            </if>
+            <if test="titleId != null">
+                title_id
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="id != null">
+                #{id} ,
+            </if>
+            <if test="idCard != null">
+                #{idCard} ,
+            </if>
+            <if test="branchId != null">
+                #{branchId},
+            </if>
+            <if test="titleId != null">
+                #{title_id}
+            </if>
+        </trim>
+
+    </insert>
+
+
+</mapper>

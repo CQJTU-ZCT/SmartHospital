@@ -52,7 +52,16 @@ public class ValidateFilter implements Filter{
 
         Message responseMessage;
 
+        //先从头部获取token
         String token = request.getHeader("token");
+        if (token == null){
+            //如果头部没有，则尝试从查询参数中获取token
+            try{
+                token = (String) request.getParameter("token");
+            }catch (Exception e){
+                LoggerTool.getLogger(this.getClass()).info("request请求参数中的token并不是一个令牌");
+            }
+        }
         if (token == null ||token.length()<=0){
             LoggerTool.getLogger(this.getClass()).info("token不存在 2");
             //token不存在
@@ -62,7 +71,8 @@ public class ValidateFilter implements Filter{
             //response.getOutputStream().write(JsonUtil.praseBeanToJson(responseMessage).getBytes("UTF-8"));
         }else {
             //token存在
-            URL url = new URL(serverInfo.getValidateAddress()+"/"+token);
+            URL url = new URL(serverInfo.getValidateAddress()+"?token="+token);
+
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             int responseCode = connection.getResponseCode();

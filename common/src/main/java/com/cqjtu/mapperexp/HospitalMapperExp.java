@@ -1,6 +1,8 @@
 package com.cqjtu.mapperexp;
 
+import com.cqjtu.model.Branch;
 import com.cqjtu.model.Hospital;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,9 +16,11 @@ public interface HospitalMapperExp {
     /**
      * 获取所有的医院列表，
      * 可以通过分页插件优化
+     * @param name
+     * @param address
      * @return
      */
-    List<Hospital> getHospitals();
+    List<Hospital> getHospitals(@Param("name") String name,@Param("address") String address);
 
     /**
      * 根据医院名称获取医院列表，
@@ -42,5 +46,7 @@ public interface HospitalMapperExp {
      * @return
      */
     List<Hospital> getHospitalByTitu(BigDecimal longitude, BigDecimal latitude);
+
+
 
 }
