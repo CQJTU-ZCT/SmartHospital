@@ -12,9 +12,11 @@ package com.cqjtu.service;
 import com.cqjtu.mapper.EmrMapper;
 import com.cqjtu.model.Emr;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmrServiceImpl implements EmrService {
 
     @Autowired

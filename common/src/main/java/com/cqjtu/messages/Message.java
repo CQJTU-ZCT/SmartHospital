@@ -44,9 +44,6 @@ public class Message {
 		return map;
 	}
 
-	public void setMap(Map<String, Object> map) {
-		this.map = map;
-	}
 	
 	/**
 	 * 添加数据
@@ -59,5 +56,19 @@ public class Message {
 		return this;
 	}
 
+	public Message(int code) {
+		this.code = code;
+	}
+
+	public Message(String info) {
+		this.info = info;
+	}
+
+	public Message(int code, String info) {
+		this.info = info;
+		this.code = code;
+	}
+
+	public Message() {}
 
 }
