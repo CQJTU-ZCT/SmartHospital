@@ -13,7 +13,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  */
 @EnableAutoConfiguration
 @SpringBootApplication
-@EnableEurekaClient
 @MapperScan(value = {"com.cqjtu.mapper", "com.cqjtu.mapperexp"})
 public class EmrProviderApplication {
 

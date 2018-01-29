@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.EmrMapperExp">
+    <select id="getEmr" resultType="com.cqjtu.model.Emr">
+        SELECT * FROM emr LIMIT ${start}, ${limit}
+    </select>
+
+    <select id="count" resultType="Integer">
+        SELECT COUNT(*) FROM emr
+    </select>
+</mapper>

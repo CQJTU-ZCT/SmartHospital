@@ -25,4 +25,10 @@ public interface EmrService {
 
     List<Emr> getAll();
 
+    Integer getPage();
+
+    List<Emr> emrs(Integer page, Integer limit);
+
+
+
 }

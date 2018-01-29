@@ -10,6 +10,7 @@
 package com.cqjtu.service;
 
 import com.cqjtu.mapper.EmrMapper;
+import com.cqjtu.mapperexp.EmrMapperExp;
 import com.cqjtu.model.Emr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class EmrServiceImpl implements EmrService {
 
     @Autowired
     EmrMapper mapper;
+
+    @Autowired
+    EmrMapperExp emrMapperExp;
 
     @Override
     public Emr insert(Emr emr) {
@@ -64,5 +68,15 @@ public class EmrServiceImpl implements EmrService {
     @Override
     public List<Emr> getAll() {
         return mapper.selectByExample(null);
+    }
+
+    @Override
+    public Integer getPage() {
+        return emrMapperExp.count();
+    }
+
+    @Override
+    public List<Emr> emrs(Integer page, Integer limit) {
+        return emrMapperExp.getEmr(page, limit);
     }
 }

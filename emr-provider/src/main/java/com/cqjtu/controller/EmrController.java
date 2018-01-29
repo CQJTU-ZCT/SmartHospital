@@ -1,5 +1,6 @@
 package com.cqjtu.controller;
 
+import com.cqjtu.domain.PaperInfo;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.Emr;
 import com.cqjtu.service.EmrServiceImpl;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,35 +25,44 @@ public class EmrController {
     @Autowired
     EmrServiceImpl service;
 
+    private PaperInfo paperInfo;
 
-
-
-
-    @RequestMapping(value = "/getEmrByUsername/{username}")
-    public Message getEmrByUsername(@PathVariable(value = "username")String username){
-        return new Message().put("username",username);
-    }
-
+    /**
+     * 添加emr数据接口
+     * @param emr 添加的数据
+     * @return 添加成功的数据
+     */
     @RequestMapping(value = "/emr", method = RequestMethod.POST)
     public Message add(Emr emr) {
         Message message = new Message();
         message.setCode(200);
         Emr emr1 = service.insert(emr);
-        if (null != emr1) {
-            message.setInfo("添加emr数据成功");
-            message.put("emr", emr1);
-        } else {
+        if (null == emr1) {
             message.setInfo("添加emr数据失败");
+        } else {
+            message.put("emr", emr);
         }
         return message;
     }
 
     @RequestMapping(value = "/emr", method = RequestMethod.GET)
-    public Message getEmrs() {
-        Message msg = new Message();
-        msg.setCode(200);
-        msg.setInfo("查找数据成功");
-        msg.put("emrs", service.getAll());
+    public Message getEmrs(Integer page, Integer limit) {
+        Message msg = new Message(200);
+        List<Emr> emrs;
+        if (null == page) {
+            emrs = service.getAll();
+        } else if (page > 0) {
+            if (null == limit) {
+                limit = 20;
+            }
+            page = (page - 1) * limit;
+            emrs = service.emrs(page, limit);
+        } else {
+           emrs = service.getAll();
+        }
+        paperInfo = getPaperInfo(limit);
+        msg.put("pages", paperInfo);
+        msg.put("emrs", emrs);
         return msg;
     }
 
@@ -62,7 +73,7 @@ public class EmrController {
         if (null == emr) {
             msg.setInfo("删除emr数据失败");
         } else {
-            msg.setInfo("删除emer数据成功");
+            msg.setInfo("删除emr数据成功");
             msg.put("emr", emr);
         }
         return msg;
@@ -82,7 +93,34 @@ public class EmrController {
     }
 
 
+    @RequestMapping(value = "/emr/{id}", method = RequestMethod.GET)
+    public Message getEmrById(@PathVariable("id") String id) {
+        Message message = new Message(200);
+        Emr emr = service.getEmrById(id);
+        if (null == emr) {
+            message.setInfo("emr不存在");
+        }
+        message.put("emr", emr);
+        return message;
+    }
 
-
-
+    @RequestMapping(value = "/paper", method = RequestMethod.GET)
+    public PaperInfo getPaperInfo(Integer limit) {
+        if (!this.paperInfo.needToReget(limit)) {
+            return this.paperInfo;
+        } else {
+            Integer count = service.getPage();
+            this.paperInfo.setCount(count);
+            if (null == limit) {
+                limit = 20;
+            }
+            int i1 = count;
+            int i2 = limit;
+            int papers = i1 % i2 == 0 ? i1 / i2 : (i1 / i2) + 1;
+            paperInfo.setPageCount(papers);
+            paperInfo.setTableName("emr");
+            paperInfo.setPerPage(limit);
+            return paperInfo;
+        }
+    }
 }

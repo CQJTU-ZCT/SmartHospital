@@ -8,8 +8,8 @@ server:
 spring:
     datasource:
         name: EmrProvider
-        url: jdbc:mysql://localhost/sh?characterEncoding=utf8&useSSL=true
-        username: root
+        url: jdbc:mysql://198.13.46.57:3306/sh?characterEncoding=utf8&useSSL=true
+        username: sh
         password: kele991146
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
@@ -27,6 +27,5 @@ spring:
       add-mappings: false
     profiles:
       include:
-      - eureka
       - mybatis
       - sso
