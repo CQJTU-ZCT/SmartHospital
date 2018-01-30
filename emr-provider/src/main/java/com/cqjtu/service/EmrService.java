@@ -25,7 +25,7 @@ public interface EmrService {
 
     List<Emr> getAll();
 
-    Integer getPage();
+    Integer count();
 
     List<Emr> emrs(Integer page, Integer limit);
 

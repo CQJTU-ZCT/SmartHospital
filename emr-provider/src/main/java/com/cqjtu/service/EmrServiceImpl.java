@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmrServiceImpl implements EmrService {
+public class EmrServiceImpl implements EmrService, Pageable {
 
     @Autowired
     EmrMapper mapper;
@@ -71,7 +71,7 @@ public class EmrServiceImpl implements EmrService {
     }
 
     @Override
-    public Integer getPage() {
+    public Integer count() {
         return emrMapperExp.count();
     }
 

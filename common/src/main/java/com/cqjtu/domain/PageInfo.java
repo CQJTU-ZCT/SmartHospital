@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
  * @author mevur
  * @date 18/1/29
  **/
-public class PaperInfo {
+public class PageInfo {
     private String tableName;
     private Integer pageCount;
     private Integer perPage;

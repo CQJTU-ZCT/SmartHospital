@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.EmrRecordMapperExp">
+    <select id="get" resultType="com.cqjtu.model.EmrRecord">
+        SELECT * FROM emr_record
+        <if test="null != page and null != limit">
+            LIMIT ${page}, ${limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="Integer">
+        SELECT COUNT(*) FROM emr_record
+    </select>
+
+    <select id="getById" parameterType="String" resultType="com.cqjtu.model.EmrRecord">
+        SELECT * FROM emr_record
+        <if test="null != id">
+            WHERE record_id = ${id}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.cqjtu.model.EmrRecord">
+        INSERT INTO emr_record
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != recordId">
+                record_id,
+            </if>
+            <if test="null != emrId">
+                emr_id,
+            </if>
+            <if test="null != createTime">
+                create_time,
+            </if>
+            <if test="null != title">
+                title,
+            </if>
+            <if test="null != hospitalId">
+                hostpital_id,
+            </if>
+            <if test="null != branchId">
+                branch_id,
+            </if>
+            <if test="null != doctorId">
+                doctor_id
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != recordId">
+                ${recordId},
+            </if>
+            <if test="null != emrId">
+                ${emrId},
+            </if>
+            <if test="null != createTime">
+                ${createTime},
+            </if>
+            <if test="null != title">
+                ${title},
+            </if>
+            <if test="null != hospitalId">
+                ${hostpitalId},
+            </if>
+            <if test="null != branchId">
+                ${branchId},
+            </if>
+            <if test="null != doctorId">
+                ${doctorId}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM emr_record
+        <if test="null != id">
+            WHERE record_id = ${id}
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.cqjtu.model.EmrRecord">
+        UPDATE emr_record
+        <set>
+            <if test="null != emrId">
+                emr_id = ${emrId},
+            </if>
+            <if test="null != createTime">
+                create_time = ${createTime},
+            </if>
+            <if test="null != title">
+                title = ${title},
+            </if>
+            <if test="null != hospitalId">
+                hospital_id = ${hospitalId},
+            </if>
+            <if test="null != branchId">
+                branch_id = ${branchId},
+            </if>
+            <if test="null != doctorId">
+                doctor_id = ${doctorId}
+            </if>
+        </set>
+        <if test="null != recordId">
+            WHERE record_id = ${recordId}
+        </if>
+    </update>
+</mapper>

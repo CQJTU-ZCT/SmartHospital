@@ -1,18 +1,17 @@
 package com.cqjtu.controller;
 
-import com.cqjtu.domain.PaperInfo;
+import com.cqjtu.domain.PageInfo;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.Emr;
 import com.cqjtu.service.EmrServiceImpl;
+import com.cqjtu.tools.PagesHelper;
 import com.cqjtu.tools.SnowFlakeWorker;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +22,12 @@ import java.util.List;
 @RestController
 public class EmrController {
 
+    public static final String TABLE = "emr";
+
     @Autowired
     EmrServiceImpl service;
 
-    private PaperInfo paperInfo;
+    private PageInfo pageInfo;
 
     private SnowFlakeWorker idWorker = new SnowFlakeWorker(1, 1);
 
@@ -64,8 +65,8 @@ public class EmrController {
         } else {
            emrs = service.getAll();
         }
-        paperInfo = getPaperInfo(limit);
-        msg.put("pages", paperInfo);
+        pageInfo = getPaperInfo(limit);
+        msg.put("pages", pageInfo);
         msg.put("emrs", emrs);
         return msg;
     }
@@ -108,24 +109,15 @@ public class EmrController {
         return message;
     }
 
-    @RequestMapping(value = "/paper", method = RequestMethod.GET)
-    public PaperInfo getPaperInfo(Integer limit) {
-        if (null != this.paperInfo && !this.paperInfo.needToReget(limit)) {
-            return this.paperInfo;
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public PageInfo getPaperInfo(Integer limit) {
+        if (null != this.pageInfo && !this.pageInfo.needToReget(limit)) {
+            return this.pageInfo;
         } else {
-            Integer count = service.getPage();
-            if (null == this.paperInfo) {
-                this.paperInfo = new PaperInfo();
-            }
-            this.paperInfo.setCount(count);
             if (null == limit) {
                 limit = 20;
             }
-            int papers = count % limit == 0 ? count / limit : (count / limit) + 1;
-            paperInfo.setPageCount(papers);
-            paperInfo.setTableName("emr");
-            paperInfo.setPerPage(limit);
-            return paperInfo;
+            return PagesHelper.getPageInfo(TABLE, limit, service);
         }
     }
 }

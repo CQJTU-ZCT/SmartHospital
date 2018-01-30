@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EmrMapperExp {
     List<Emr> getEmr(@Param("start") Integer start, @Param("limit") Integer limit);
-
     Integer count();
+
 }
