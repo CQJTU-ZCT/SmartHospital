@@ -4,6 +4,7 @@ import com.cqjtu.domain.PaperInfo;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.Emr;
 import com.cqjtu.service.EmrServiceImpl;
+import com.cqjtu.tools.SnowFlakeWorker;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,8 @@ public class EmrController {
 
     private PaperInfo paperInfo;
 
+    private SnowFlakeWorker idWorker = new SnowFlakeWorker(1, 1);
+
     /**
      * 添加emr数据接口
      * @param emr 添加的数据
@@ -36,6 +39,7 @@ public class EmrController {
     public Message add(Emr emr) {
         Message message = new Message();
         message.setCode(200);
+        emr.setEmrId(String.valueOf(idWorker.nextId()));
         Emr emr1 = service.insert(emr);
         if (null == emr1) {
             message.setInfo("添加emr数据失败");
@@ -106,17 +110,18 @@ public class EmrController {
 
     @RequestMapping(value = "/paper", method = RequestMethod.GET)
     public PaperInfo getPaperInfo(Integer limit) {
-        if (!this.paperInfo.needToReget(limit)) {
+        if (null != this.paperInfo && !this.paperInfo.needToReget(limit)) {
             return this.paperInfo;
         } else {
             Integer count = service.getPage();
+            if (null == this.paperInfo) {
+                this.paperInfo = new PaperInfo();
+            }
             this.paperInfo.setCount(count);
             if (null == limit) {
                 limit = 20;
             }
-            int i1 = count;
-            int i2 = limit;
-            int papers = i1 % i2 == 0 ? i1 / i2 : (i1 / i2) + 1;
+            int papers = count % limit == 0 ? count / limit : (count / limit) + 1;
             paperInfo.setPageCount(papers);
             paperInfo.setTableName("emr");
             paperInfo.setPerPage(limit);
