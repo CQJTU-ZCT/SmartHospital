@@ -89,4 +89,44 @@ public class EmrRecordController {
         msg.put("emr_record", record);
         return msg;
     }
+
+    @RequestMapping(value = "/emr/record/{recordId}", method = RequestMethod.GET)
+    public Message getEmrRecordById(@PathVariable("recordId") String recordId) {
+        Message msg = new Message(200, "");
+        EmrRecord record = service.getById(recordId);
+        if (null == record) {
+            msg.setInfo("记录不存在");
+        }
+        msg.put("emr_record", record);
+        return msg;
+    }
+
+    @RequestMapping(value = "/emr/record/{recordId}", method = RequestMethod.DELETE)
+    public Message delete(@PathVariable("recordId") String recordId) {
+        EmrRecord record = service.getById(recordId);
+        Message msg = new Message(200, "");
+        if (null == record) {
+            msg.setInfo("记录不存在");
+        }
+        record = service.delete(recordId);
+        if (null == record) {
+            msg.setInfo("删除失败");
+        }
+        msg.put("emr_record", record);
+        return msg;
+    }
+
+    @RequestMapping(value = "/emr/record/{recordId}", method = RequestMethod.PUT)
+    public Message update(@PathVariable("recordId") String recordId, EmrRecord record) {
+        Message msg = new Message(200, "");
+        record.setRecordId(recordId);
+        System.out.println(record.toString());
+        EmrRecord rec = service.update(record);
+        if (null == rec) {
+            msg.setInfo("更新数据失败");
+        }
+        msg.put("emr_record", rec);
+        return msg;
+    }
+
 }

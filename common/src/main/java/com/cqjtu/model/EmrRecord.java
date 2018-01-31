@@ -95,4 +95,19 @@ public class EmrRecord {
     public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
     }
+
+    @Override
+    public String toString() {
+        return "EmrRecord{" +
+                "recordId='" + recordId + '\'' +
+                ", emrId='" + emrId + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", treatment='" + treatment + '\'' +
+                ", hospitalId='" + hospitalId + '\'' +
+                ", branchId=" + branchId +
+                ", doctorId=" + doctorId +
+                '}';
+    }
 }

@@ -60,6 +60,13 @@ public class EmrRecordServiceImpl implements EmrRecordService, Pageable {
 
     @Override
     public EmrRecord update(EmrRecord emrRecord) {
-        return mapper.update(emrRecord) == 1 ? emrRecord : null;
+        if (null == emrService.getEmrById(emrRecord.getEmrId())) {
+            //emr data dose'nt exist
+            return null;
+        }
+        if (mapper.update(emrRecord) == 1) {
+            return mapper.getById(emrRecord.getRecordId());
+        }
+        return null;
     }
 }

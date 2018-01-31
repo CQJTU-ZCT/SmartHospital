@@ -98,14 +98,17 @@
     <update id="update" parameterType="com.cqjtu.model.EmrRecord">
         UPDATE emr_record
         <set>
-            <if test="null != emrId">
-                emr_id = ${emrId},
-            </if>
             <if test="null != createTime">
                 create_time = ${createTime},
             </if>
             <if test="null != title">
-                title = ${title},
+                title = "${title}",
+            </if>
+            <if test="null != description">
+                description = "${description}",
+            </if>
+            <if test="null != treatment">
+                treatment = "${treatment}",
             </if>
             <if test="null != hospitalId">
                 hospital_id = ${hospitalId},
@@ -117,8 +120,9 @@
                 doctor_id = ${doctorId}
             </if>
         </set>
-        <if test="null != recordId">
+        <if test="null != recordId and null != emrId">
             WHERE record_id = ${recordId}
+            AND emr_id = ${emrId}
         </if>
     </update>
 </mapper>
