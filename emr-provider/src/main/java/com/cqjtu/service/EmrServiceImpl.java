@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmrServiceImpl implements EmrService, Pageable {
@@ -71,7 +72,7 @@ public class EmrServiceImpl implements EmrService, Pageable {
     }
 
     @Override
-    public Integer count() {
+    public Integer count(Map<String, Object> param) {
         return emrMapperExp.count();
     }
 

@@ -4,15 +4,18 @@ import com.cqjtu.model.EmrRecord;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author mevur
  * @date 18/1/30
  **/
 public interface EmrRecordMapperExp {
-    List<EmrRecord> get(Integer page, Integer limit);
+    List<EmrRecord> get(@Param("emrId") String emrId,
+                        @Param("page") Integer page,
+                        @Param("limit") Integer limit);
 
-    Integer count();
+    Integer count(Map<String, Object> param);
 
     EmrRecord getById(@Param("id") String id);
 

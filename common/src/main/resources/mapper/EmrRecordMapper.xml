@@ -129,7 +129,7 @@
   <insert id="insert" parameterType="com.cqjtu.model.EmrRecordWithBLOBs">
     insert into emr_record (record_id, emr_id, create_time, 
       title, hospital_id, branch_id, 
-      doctor_id, description, treament
+      doctor_id, description, treatment
       )
     values (#{recordId,jdbcType=VARCHAR}, #{emrId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{title,jdbcType=VARCHAR}, #{hospitalId,jdbcType=VARCHAR}, #{branchId,jdbcType=INTEGER}, 
@@ -248,7 +248,7 @@
       branch_id = #{record.branchId,jdbcType=INTEGER},
       doctor_id = #{record.doctorId,jdbcType=INTEGER},
       description = #{record.description,jdbcType=LONGVARCHAR},
-      treament = #{record.treament,jdbcType=LONGVARCHAR}
+      treatment = #{record.treament,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -305,7 +305,7 @@
       branch_id = #{branchId,jdbcType=INTEGER},
       doctor_id = #{doctorId,jdbcType=INTEGER},
       description = #{description,jdbcType=LONGVARCHAR},
-      treament = #{treament,jdbcType=LONGVARCHAR}
+      treatment = #{treament,jdbcType=LONGVARCHAR}
     where record_id = #{recordId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.EmrRecord">

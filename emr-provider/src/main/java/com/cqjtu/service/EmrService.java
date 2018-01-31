@@ -12,6 +12,7 @@ package com.cqjtu.service;
 import com.cqjtu.model.Emr;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmrService {
 
@@ -25,7 +26,7 @@ public interface EmrService {
 
     List<Emr> getAll();
 
-    Integer count();
+    Integer count(Map<String, Object> param);
 
     List<Emr> emrs(Integer page, Integer limit);
 

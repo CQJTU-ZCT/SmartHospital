@@ -3,13 +3,19 @@
 <mapper namespace="com.cqjtu.mapperexp.EmrRecordMapperExp">
     <select id="get" resultType="com.cqjtu.model.EmrRecord">
         SELECT * FROM emr_record
+        <if test="null != emrId">
+            WHERE emr_id = ${emrId}
+        </if>
         <if test="null != page and null != limit">
             LIMIT ${page}, ${limit}
         </if>
     </select>
 
-    <select id="count" resultType="Integer">
+    <select id="count" parameterType="java.util.Map" resultType="Integer">
         SELECT COUNT(*) FROM emr_record
+        <if test="emrId != null">
+            WHERE emr_id = #{emrId}
+        </if>
     </select>
 
     <select id="getById" parameterType="String" resultType="com.cqjtu.model.EmrRecord">
@@ -34,8 +40,14 @@
             <if test="null != title">
                 title,
             </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="null != treatment">
+                treatment,
+            </if>
             <if test="null != hospitalId">
-                hostpital_id,
+                hospital_id,
             </if>
             <if test="null != branchId">
                 branch_id,
@@ -56,10 +68,16 @@
                 ${createTime},
             </if>
             <if test="null != title">
-                ${title},
+                "${title}",
+            </if>
+            <if test="description != null">
+                "${description}",
+            </if>
+            <if test="null != treatment">
+                "${treatment}",
             </if>
             <if test="null != hospitalId">
-                ${hostpitalId},
+                ${hospitalId},
             </if>
             <if test="null != branchId">
                 ${branchId},

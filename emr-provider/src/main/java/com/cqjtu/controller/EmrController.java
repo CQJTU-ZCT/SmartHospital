@@ -117,7 +117,7 @@ public class EmrController {
             if (null == limit) {
                 limit = 20;
             }
-            return PagesHelper.getPageInfo(TABLE, limit, service);
+            return PagesHelper.getPageInfo(TABLE, limit, service, null);
         }
     }
 }

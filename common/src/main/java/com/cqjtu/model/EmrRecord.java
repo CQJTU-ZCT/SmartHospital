@@ -7,15 +7,44 @@ public class EmrRecord {
 
     private String emrId;
 
-    private Date createTime;
+    private String createTime;
 
     private String title;
+
+    private String description;
+
+    private String treatment;
 
     private String hospitalId;
 
     private Integer branchId;
 
     private Integer doctorId;
+
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(String treatment) {
+        this.treatment = treatment;
+    }
 
     public String getRecordId() {
         return recordId;
@@ -33,13 +62,7 @@ public class EmrRecord {
         this.emrId = emrId == null ? null : emrId.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
     public String getTitle() {
         return title;

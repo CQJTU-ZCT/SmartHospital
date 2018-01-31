@@ -3,6 +3,7 @@ package com.cqjtu.service;
 import com.cqjtu.model.EmrRecord;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author mevur
@@ -10,9 +11,9 @@ import java.util.List;
  **/
 public interface EmrRecordService {
 
-    List<EmrRecord> get(Integer page, Integer limit);
+    List<EmrRecord> get(String emrId, Integer page, Integer limit);
 
-    Integer count();
+    Integer count(Map<String, Object> param);
 
     EmrRecord getById(String id);
 
@@ -21,7 +22,4 @@ public interface EmrRecordService {
     EmrRecord delete(String id);
 
     EmrRecord update(EmrRecord emrRecord);
-
-
-
 }
