@@ -14,7 +14,7 @@ public class PayRecord {
 
     private Date finishTime;
 
-    private Date cancleTime;
+    private Date cancelTime;
 
     private BigDecimal price;
 
@@ -58,12 +58,12 @@ public class PayRecord {
         this.finishTime = finishTime;
     }
 
-    public Date getCancleTime() {
-        return cancleTime;
+    public Date getCancelTime() {
+        return cancelTime;
     }
 
-    public void setCancleTime(Date cancleTime) {
-        this.cancleTime = cancleTime;
+    public void setCancelTime(Date cancelTime) {
+        this.cancelTime = cancelTime;
     }
 
     public BigDecimal getPrice() {
