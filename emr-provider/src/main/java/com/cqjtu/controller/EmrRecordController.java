@@ -4,6 +4,7 @@ import com.cqjtu.domain.PageInfo;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.EmrRecord;
 import com.cqjtu.service.EmrRecordServiceImpl;
+import com.cqjtu.tools.PageHandler;
 import com.cqjtu.tools.PagesHelper;
 import com.cqjtu.tools.SnowFlakeWorker;
 import com.github.pagehelper.PageHelper;
@@ -42,12 +43,7 @@ public class EmrRecordController {
      */
     @RequestMapping(value = "/emr/{emrId}/record", method = RequestMethod.GET)
     public Message getEmrRecord(@PathVariable("emrId") String id, Integer page, Integer limit) {
-        if (null == page) {
-            page = 1;
-            limit = 20;
-        } else if (limit == null) {
-            limit = 20;
-        }
+        PageHandler.handlePage(page, limit);
         List<EmrRecord> records = service.get(id, page, limit);
         Message msg = new Message(200, "");
         if (null == records) {

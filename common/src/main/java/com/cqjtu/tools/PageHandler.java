@@ -8,6 +8,11 @@ import org.omg.PortableInterceptor.INACTIVE;
  **/
 public class PageHandler {
     public static void handlePage(Integer page, Integer limit) {
-
+        if (null == page) {
+            page = 1;
+            limit = 20;
+        } else if (null == limit) {
+            limit = 20;
+        }
     }
 }
