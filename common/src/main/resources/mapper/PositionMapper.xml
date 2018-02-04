@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapper.PositionMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.Position">
-    <id column="position_id" jdbcType="SMALLINT" property="positionId" />
+    <id column="position_id" jdbcType="INTEGER" property="positionId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -80,15 +80,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from position
-    where position_id = #{positionId,jdbcType=SMALLINT}
+    where position_id = #{positionId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from position
-    where position_id = #{positionId,jdbcType=SMALLINT}
+    where position_id = #{positionId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.cqjtu.model.PositionExample">
     delete from position
@@ -98,7 +98,7 @@
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.Position">
     insert into position (position_id, name)
-    values (#{positionId,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR})
+    values (#{positionId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.Position">
     insert into position
@@ -112,7 +112,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="positionId != null">
-        #{positionId,jdbcType=SMALLINT},
+        #{positionId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
     update position
     <set>
       <if test="record.positionId != null">
-        position_id = #{record.positionId,jdbcType=SMALLINT},
+        position_id = #{record.positionId,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update position
-    set position_id = #{record.positionId,jdbcType=SMALLINT},
+    set position_id = #{record.positionId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -154,11 +154,11 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
-    where position_id = #{positionId,jdbcType=SMALLINT}
+    where position_id = #{positionId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Position">
     update position
     set name = #{name,jdbcType=VARCHAR}
-    where position_id = #{positionId,jdbcType=SMALLINT}
+    where position_id = #{positionId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,16 +1,16 @@
 package com.cqjtu.model;
 
 public class PreorderStatus {
-    private Short id;
+    private Integer appointmentStatusId;
 
     private String description;
 
-    public Short getId() {
-        return id;
+    public Integer getAppointmentStatusId() {
+        return appointmentStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setAppointmentStatusId(Integer appointmentStatusId) {
+        this.appointmentStatusId = appointmentStatusId;
     }
 
     public String getDescription() {

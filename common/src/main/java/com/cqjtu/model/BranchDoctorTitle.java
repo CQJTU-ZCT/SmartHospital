@@ -1,20 +1,20 @@
 package com.cqjtu.model;
 
 public class BranchDoctorTitle {
-    private Integer id;
+    private Integer bdtId;
 
     private String idCard;
 
-    private Short titleId;
+    private Integer titleId;
 
     private Integer branchId;
 
-    public Integer getId() {
-        return id;
+    public Integer getBdtId() {
+        return bdtId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBdtId(Integer bdtId) {
+        this.bdtId = bdtId;
     }
 
     public String getIdCard() {
@@ -25,11 +25,11 @@ public class BranchDoctorTitle {
         this.idCard = idCard == null ? null : idCard.trim();
     }
 
-    public Short getTitleId() {
+    public Integer getTitleId() {
         return titleId;
     }
 
-    public void setTitleId(Short titleId) {
+    public void setTitleId(Integer titleId) {
         this.titleId = titleId;
     }
 

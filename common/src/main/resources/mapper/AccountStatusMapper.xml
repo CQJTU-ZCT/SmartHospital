@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapper.AccountStatusMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.AccountStatus">
-    <id column="id" jdbcType="SMALLINT" property="id" />
+    <id column="account_status_id" jdbcType="INTEGER" property="accountStatusId" />
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, description
+    account_status_id, description
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.AccountStatusExample" resultMap="BaseResultMap">
     select
@@ -80,15 +80,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from account_status
-    where id = #{id,jdbcType=SMALLINT}
+    where account_status_id = #{accountStatusId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from account_status
-    where id = #{id,jdbcType=SMALLINT}
+    where account_status_id = #{accountStatusId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.cqjtu.model.AccountStatusExample">
     delete from account_status
@@ -97,22 +97,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.AccountStatus">
-    insert into account_status (id, description)
-    values (#{id,jdbcType=SMALLINT}, #{description,jdbcType=VARCHAR})
+    insert into account_status (account_status_id, description)
+    values (#{accountStatusId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.AccountStatus">
     insert into account_status
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="accountStatusId != null">
+        account_status_id,
       </if>
       <if test="description != null">
         description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="accountStatusId != null">
+        #{accountStatusId,jdbcType=INTEGER},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -128,8 +128,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update account_status
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.accountStatusId != null">
+        account_status_id = #{record.accountStatusId,jdbcType=INTEGER},
       </if>
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update account_status
-    set id = #{record.id,jdbcType=SMALLINT},
+    set account_status_id = #{record.accountStatusId,jdbcType=INTEGER},
       description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -154,11 +154,11 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=SMALLINT}
+    where account_status_id = #{accountStatusId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.AccountStatus">
     update account_status
     set description = #{description,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=SMALLINT}
+    where account_status_id = #{accountStatusId,jdbcType=INTEGER}
   </update>
 </mapper>

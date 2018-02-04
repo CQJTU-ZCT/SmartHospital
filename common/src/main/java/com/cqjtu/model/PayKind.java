@@ -1,16 +1,16 @@
 package com.cqjtu.model;
 
 public class PayKind {
-    private Short id;
+    private Integer payWayId;
 
     private String description;
 
-    public Short getId() {
-        return id;
+    public Integer getPayWayId() {
+        return payWayId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setPayWayId(Integer payWayId) {
+        this.payWayId = payWayId;
     }
 
     public String getDescription() {

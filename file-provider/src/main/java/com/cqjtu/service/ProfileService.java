@@ -1,6 +1,7 @@
 package com.cqjtu.service;
 
-import com.cqjtu.model.Picture;
+
+import com.cqjtu.model.Profile;
 
 /**
  * @author zjhfyq
@@ -9,7 +10,24 @@ import com.cqjtu.model.Picture;
  */
 public interface ProfileService {
 
-    boolean addProfile(Picture picture);
+    /**
+     * 添加头像
+     * @param profile
+     * @return
+     */
+    int addProfile(Profile profile);
 
-    Picture getProfile(String idCard);
+    /**
+     * 修改头像
+     * @param profile
+     * @return
+     */
+    int updateProfile(Profile profile);
+
+    /**
+     * 获取头像
+     * @param idCard
+     * @return
+     */
+    Profile getProfile(String idCard);
 }

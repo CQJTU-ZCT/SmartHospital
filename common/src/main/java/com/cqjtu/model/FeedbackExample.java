@@ -174,63 +174,63 @@ public class FeedbackExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andFeedbackStatusIdIsNull() {
+            addCriterion("feedback_status_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andFeedbackStatusIdIsNotNull() {
+            addCriterion("feedback_status_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Short value) {
-            addCriterion("id =", value, "id");
+        public Criteria andFeedbackStatusIdEqualTo(Integer value) {
+            addCriterion("feedback_status_id =", value, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Short value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andFeedbackStatusIdNotEqualTo(Integer value) {
+            addCriterion("feedback_status_id <>", value, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Short value) {
-            addCriterion("id >", value, "id");
+        public Criteria andFeedbackStatusIdGreaterThan(Integer value) {
+            addCriterion("feedback_status_id >", value, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Short value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andFeedbackStatusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("feedback_status_id >=", value, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Short value) {
-            addCriterion("id <", value, "id");
+        public Criteria andFeedbackStatusIdLessThan(Integer value) {
+            addCriterion("feedback_status_id <", value, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Short value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andFeedbackStatusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("feedback_status_id <=", value, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Short> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andFeedbackStatusIdIn(List<Integer> values) {
+            addCriterion("feedback_status_id in", values, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Short> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andFeedbackStatusIdNotIn(List<Integer> values) {
+            addCriterion("feedback_status_id not in", values, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Short value1, Short value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andFeedbackStatusIdBetween(Integer value1, Integer value2) {
+            addCriterion("feedback_status_id between", value1, value2, "feedbackStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Short value1, Short value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andFeedbackStatusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("feedback_status_id not between", value1, value2, "feedbackStatusId");
             return (Criteria) this;
         }
 

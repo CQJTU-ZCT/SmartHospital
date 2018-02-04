@@ -3,7 +3,7 @@
 <mapper namespace="com.cqjtu.mapper.PreOrdersMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.PreOrders">
     <id column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="id" jdbcType="SMALLINT" property="id" />
+    <result column="appointment_status_id" jdbcType="INTEGER" property="appointmentStatusId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="cancle_time" jdbcType="TIMESTAMP" property="cancleTime" />
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, id, create_time, cancle_time, finish_time, price
+    order_id, appointment_status_id, create_time, cancle_time, finish_time, price
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.PreOrdersExample" resultMap="BaseResultMap">
     select
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.PreOrders">
-    insert into preorders (order_id, id, create_time, 
+    insert into preorders (order_id, appointment_status_id, create_time, 
       cancle_time, finish_time, price
       )
-    values (#{orderId,jdbcType=VARCHAR}, #{id,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{orderId,jdbcType=VARCHAR}, #{appointmentStatusId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{cancleTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{price,jdbcType=DECIMAL}
       )
   </insert>
@@ -114,8 +114,8 @@
       <if test="orderId != null">
         order_id,
       </if>
-      <if test="id != null">
-        id,
+      <if test="appointmentStatusId != null">
+        appointment_status_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -134,8 +134,8 @@
       <if test="orderId != null">
         #{orderId,jdbcType=VARCHAR},
       </if>
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="appointmentStatusId != null">
+        #{appointmentStatusId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -163,8 +163,8 @@
       <if test="record.orderId != null">
         order_id = #{record.orderId,jdbcType=VARCHAR},
       </if>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.appointmentStatusId != null">
+        appointment_status_id = #{record.appointmentStatusId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -186,7 +186,7 @@
   <update id="updateByExample" parameterType="map">
     update preorders
     set order_id = #{record.orderId,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=SMALLINT},
+      appointment_status_id = #{record.appointmentStatusId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       cancle_time = #{record.cancleTime,jdbcType=TIMESTAMP},
       finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
@@ -198,8 +198,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.PreOrders">
     update preorders
     <set>
-      <if test="id != null">
-        id = #{id,jdbcType=SMALLINT},
+      <if test="appointmentStatusId != null">
+        appointment_status_id = #{appointmentStatusId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -218,7 +218,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.PreOrders">
     update preorders
-    set id = #{id,jdbcType=SMALLINT},
+    set appointment_status_id = #{appointmentStatusId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       cancle_time = #{cancleTime,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},

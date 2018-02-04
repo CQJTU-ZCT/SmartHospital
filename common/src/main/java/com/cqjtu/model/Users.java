@@ -3,7 +3,9 @@ package com.cqjtu.model;
 public class Users {
     private String idCard;
 
-    private Short id;
+    private Integer accountStatusId;
+
+    private Integer roleId;
 
     private String realname;
 
@@ -21,12 +23,20 @@ public class Users {
         this.idCard = idCard == null ? null : idCard.trim();
     }
 
-    public Short getId() {
-        return id;
+    public Integer getAccountStatusId() {
+        return accountStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setAccountStatusId(Integer accountStatusId) {
+        this.accountStatusId = accountStatusId;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public String getRealname() {

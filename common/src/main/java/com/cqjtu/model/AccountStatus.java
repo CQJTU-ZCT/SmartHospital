@@ -1,16 +1,16 @@
 package com.cqjtu.model;
 
 public class AccountStatus {
-    private Short id;
+    private Integer accountStatusId;
 
     private String description;
 
-    public Short getId() {
-        return id;
+    public Integer getAccountStatusId() {
+        return accountStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setAccountStatusId(Integer accountStatusId) {
+        this.accountStatusId = accountStatusId;
     }
 
     public String getDescription() {

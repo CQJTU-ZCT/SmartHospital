@@ -3,7 +3,7 @@ package com.cqjtu.model;
 public class Doctor {
     private String idCard;
 
-    private Short id;
+    private Integer accountStatusId;
 
     private String name;
 
@@ -21,12 +21,12 @@ public class Doctor {
         this.idCard = idCard == null ? null : idCard.trim();
     }
 
-    public Short getId() {
-        return id;
+    public Integer getAccountStatusId() {
+        return accountStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setAccountStatusId(Integer accountStatusId) {
+        this.accountStatusId = accountStatusId;
     }
 
     public String getName() {

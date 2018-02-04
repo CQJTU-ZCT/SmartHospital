@@ -22,13 +22,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 public class SsoServerProviderApplication {
 
     public static void main(String [] args){
-        /*
-        MapperGenerator generator = new MapperGenerator();
-        try {
-            generator.mapperGenerator(new Users(),"users","id_card");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }*/
         Thread tokenLife =new  TokenData.TokenLife();
         tokenLife.start();
         SpringApplication.run(SsoServerProviderApplication.class,args);

@@ -10,7 +10,7 @@ public interface BranchDoctorPositionMapper {
 
     int deleteByExample(BranchDoctorPositionExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer bdpId);
 
     int insert(BranchDoctorPosition record);
 
@@ -18,7 +18,7 @@ public interface BranchDoctorPositionMapper {
 
     List<BranchDoctorPosition> selectByExample(BranchDoctorPositionExample example);
 
-    BranchDoctorPosition selectByPrimaryKey(Integer id);
+    BranchDoctorPosition selectByPrimaryKey(Integer bdpId);
 
     int updateByExampleSelective(@Param("record") BranchDoctorPosition record, @Param("example") BranchDoctorPositionExample example);
 

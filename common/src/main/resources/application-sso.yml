@@ -2,3 +2,7 @@ SSOServer:
   loginAddress: http://10.0.0.14:8084/login
   validateAddress: http://10.0.0.14:8084/validate
   logoutAddress: http://10.0.0.14:8084/signout
+
+  loginService: http://SSOSERVERPROVIDER/login
+  validateService: http://SSOSERVERPROVIDER/validate
+  logoutService: http://SSOSERVERPROVIDER/signout

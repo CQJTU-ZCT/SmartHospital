@@ -176,63 +176,63 @@ public class PreOrdersExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andAppointmentStatusIdIsNull() {
+            addCriterion("appointment_status_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andAppointmentStatusIdIsNotNull() {
+            addCriterion("appointment_status_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Short value) {
-            addCriterion("id =", value, "id");
+        public Criteria andAppointmentStatusIdEqualTo(Integer value) {
+            addCriterion("appointment_status_id =", value, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Short value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andAppointmentStatusIdNotEqualTo(Integer value) {
+            addCriterion("appointment_status_id <>", value, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Short value) {
-            addCriterion("id >", value, "id");
+        public Criteria andAppointmentStatusIdGreaterThan(Integer value) {
+            addCriterion("appointment_status_id >", value, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Short value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andAppointmentStatusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("appointment_status_id >=", value, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Short value) {
-            addCriterion("id <", value, "id");
+        public Criteria andAppointmentStatusIdLessThan(Integer value) {
+            addCriterion("appointment_status_id <", value, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Short value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andAppointmentStatusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("appointment_status_id <=", value, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Short> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andAppointmentStatusIdIn(List<Integer> values) {
+            addCriterion("appointment_status_id in", values, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Short> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andAppointmentStatusIdNotIn(List<Integer> values) {
+            addCriterion("appointment_status_id not in", values, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Short value1, Short value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andAppointmentStatusIdBetween(Integer value1, Integer value2) {
+            addCriterion("appointment_status_id between", value1, value2, "appointmentStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Short value1, Short value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andAppointmentStatusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("appointment_status_id not between", value1, value2, "appointmentStatusId");
             return (Criteria) this;
         }
 

@@ -4,6 +4,10 @@ server:
 
 
 spring:
+  cloud:
+    inetutils:
+      preferred-networks:
+       - 10.0
   application:
     name: FeedbackPlatformProvider
   mvc:

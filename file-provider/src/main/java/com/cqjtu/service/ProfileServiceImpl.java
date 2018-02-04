@@ -1,7 +1,8 @@
 package com.cqjtu.service;
 
-import com.cqjtu.mapper.PictureMapper;
-import com.cqjtu.model.Picture;
+
+import com.cqjtu.mapperexp.ProfileMapperExp;
+import com.cqjtu.model.Profile;
 import com.cqjtu.tools.LoggerTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,30 +16,24 @@ import org.springframework.stereotype.Service;
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
-    private PictureMapper pictureMapper;
+    private ProfileMapperExp profileMapperExp;
 
     @Override
-    public boolean addProfile(Picture picture) {
-        boolean result = true;
-        Picture profile = getProfile(picture.getPictureId());
-        if (profile == null ){
+    public int addProfile(Profile profile) {
+        int result = 0;
+        Profile profileSelect = getProfile(profile.getProfileId());
+        if (profileSelect == null ){
             try {
-                int insert = pictureMapper.insert(picture);
-                if (insert != 1){
-                    result = false;
-                }
+                result = profileMapperExp.insertProfile(profile);
             }catch (Exception e){
-                result = false;
+                result = 0;
                 LoggerTool.getLogger(this.getClass()).info(e.getMessage());
             }
         }else {
             try {
-                int update = pictureMapper.updateByPrimaryKey(picture);
-                if (update != 1){
-                    result = false;
-                }
+                result = profileMapperExp.updateProfile(profile);
             }catch (Exception e){
-                result = false;
+                result = 0;
                 LoggerTool.getLogger(this.getClass()).info(e.getMessage());
             }
         }
@@ -46,8 +41,14 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Picture getProfile(String idCard) {
-        Picture picture = pictureMapper.selectByPrimaryKey(idCard);
-        return picture;
+    public int updateProfile(Profile profile) {
+        return profileMapperExp.updateProfile(profile);
+    }
+
+    @Override
+    public Profile getProfile(String idCard) {
+        Profile profile = new Profile();
+        profile.setProfileId(idCard);
+        return profileMapperExp.queryProfile(profile);
     }
 }

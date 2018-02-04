@@ -12,8 +12,12 @@ eureka:
 
   client:
     fetch-registry: false
-    register-with-eureka: false  #false是不自己注册到自己
+    register-with-eureka: false
 spring:
   application:
     name: smart-hospital-eureka-server
+  cloud:
+    inetutils:
+      preferred-networks:
+       - 10.0
 

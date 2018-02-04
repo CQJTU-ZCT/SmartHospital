@@ -3,7 +3,8 @@
 <mapper namespace="com.cqjtu.mapper.UsersMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.Users">
     <id column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <result column="id" jdbcType="SMALLINT" property="id" />
+    <result column="account_status_id" jdbcType="INTEGER" property="accountStatusId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="realname" jdbcType="VARCHAR" property="realname" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id_card, id, realname, phone, password, mail
+    id_card, account_status_id, role_id, realname, phone, password, mail
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.UsersExample" resultMap="BaseResultMap">
     select
@@ -101,12 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.Users">
-    insert into users (id_card, id, realname, 
-      phone, password, mail
-      )
-    values (#{idCard,jdbcType=VARCHAR}, #{id,jdbcType=SMALLINT}, #{realname,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}
-      )
+    insert into users (id_card, account_status_id, role_id, 
+      realname, phone, password, 
+      mail)
+    values (#{idCard,jdbcType=VARCHAR}, #{accountStatusId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
+      #{realname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{mail,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.Users">
     insert into users
@@ -114,8 +115,11 @@
       <if test="idCard != null">
         id_card,
       </if>
-      <if test="id != null">
-        id,
+      <if test="accountStatusId != null">
+        account_status_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
       </if>
       <if test="realname != null">
         realname,
@@ -134,8 +138,11 @@
       <if test="idCard != null">
         #{idCard,jdbcType=VARCHAR},
       </if>
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="accountStatusId != null">
+        #{accountStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
       </if>
       <if test="realname != null">
         #{realname,jdbcType=VARCHAR},
@@ -163,8 +170,11 @@
       <if test="record.idCard != null">
         id_card = #{record.idCard,jdbcType=VARCHAR},
       </if>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.accountStatusId != null">
+        account_status_id = #{record.accountStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
       <if test="record.realname != null">
         realname = #{record.realname,jdbcType=VARCHAR},
@@ -186,7 +196,8 @@
   <update id="updateByExample" parameterType="map">
     update users
     set id_card = #{record.idCard,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=SMALLINT},
+      account_status_id = #{record.accountStatusId,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
       realname = #{record.realname,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
@@ -198,8 +209,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.Users">
     update users
     <set>
-      <if test="id != null">
-        id = #{id,jdbcType=SMALLINT},
+      <if test="accountStatusId != null">
+        account_status_id = #{accountStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
       </if>
       <if test="realname != null">
         realname = #{realname,jdbcType=VARCHAR},
@@ -218,7 +232,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Users">
     update users
-    set id = #{id,jdbcType=SMALLINT},
+    set account_status_id = #{accountStatusId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
       realname = #{realname,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

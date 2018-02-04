@@ -10,7 +10,7 @@ public interface AccountStatusMapper {
 
     int deleteByExample(AccountStatusExample example);
 
-    int deleteByPrimaryKey(Short id);
+    int deleteByPrimaryKey(Integer accountStatusId);
 
     int insert(AccountStatus record);
 
@@ -18,7 +18,7 @@ public interface AccountStatusMapper {
 
     List<AccountStatus> selectByExample(AccountStatusExample example);
 
-    AccountStatus selectByPrimaryKey(Short id);
+    AccountStatus selectByPrimaryKey(Integer accountStatusId);
 
     int updateByExampleSelective(@Param("record") AccountStatus record, @Param("example") AccountStatusExample example);
 

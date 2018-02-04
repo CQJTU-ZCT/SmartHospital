@@ -1,15 +1,15 @@
 package com.cqjtu.model;
 
 public class Title {
-    private Short titleId;
+    private Integer titleId;
 
     private String name;
 
-    public Short getTitleId() {
+    public Integer getTitleId() {
         return titleId;
     }
 
-    public void setTitleId(Short titleId) {
+    public void setTitleId(Integer titleId) {
         this.titleId = titleId;
     }
 

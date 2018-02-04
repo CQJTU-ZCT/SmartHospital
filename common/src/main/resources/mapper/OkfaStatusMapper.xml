@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqjtu.mapper.FileUseMapper">
-  <resultMap id="BaseResultMap" type="com.cqjtu.model.FileUse">
-    <id column="id" jdbcType="SMALLINT" property="id" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
+<mapper namespace="com.cqjtu.mapper.OkfaStatusMapper">
+  <resultMap id="BaseResultMap" type="com.cqjtu.model.OkfaStatus">
+    <id column="status_id" jdbcType="INTEGER" property="statusId" />
+    <result column="status_desc" jdbcType="VARCHAR" property="statusDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, description
+    status_id, status_desc
   </sql>
-  <select id="selectByExample" parameterType="com.cqjtu.model.FileUseExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cqjtu.model.OkfaStatusExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from fileuse
+    from okfa_status
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -80,59 +80,59 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from fileuse
-    where id = #{id,jdbcType=SMALLINT}
+    from okfa_status
+    where status_id = #{statusId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
-    delete from fileuse
-    where id = #{id,jdbcType=SMALLINT}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from okfa_status
+    where status_id = #{statusId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cqjtu.model.FileUseExample">
-    delete from fileuse
+  <delete id="deleteByExample" parameterType="com.cqjtu.model.OkfaStatusExample">
+    delete from okfa_status
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cqjtu.model.FileUse">
-    insert into fileuse (id, description)
-    values (#{id,jdbcType=SMALLINT}, #{description,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.cqjtu.model.OkfaStatus">
+    insert into okfa_status (status_id, status_desc)
+    values (#{statusId,jdbcType=INTEGER}, #{statusDesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.cqjtu.model.FileUse">
-    insert into fileuse
+  <insert id="insertSelective" parameterType="com.cqjtu.model.OkfaStatus">
+    insert into okfa_status
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="statusId != null">
+        status_id,
       </if>
-      <if test="description != null">
-        description,
+      <if test="statusDesc != null">
+        status_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="statusId != null">
+        #{statusId,jdbcType=INTEGER},
       </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
+      <if test="statusDesc != null">
+        #{statusDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cqjtu.model.FileUseExample" resultType="java.lang.Long">
-    select count(*) from fileuse
+  <select id="countByExample" parameterType="com.cqjtu.model.OkfaStatusExample" resultType="java.lang.Long">
+    select count(*) from okfa_status
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update fileuse
+    update okfa_status
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.statusId != null">
+        status_id = #{record.statusId,jdbcType=INTEGER},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=VARCHAR},
+      <if test="record.statusDesc != null">
+        status_desc = #{record.statusDesc,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -140,25 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update fileuse
-    set id = #{record.id,jdbcType=SMALLINT},
-      description = #{record.description,jdbcType=VARCHAR}
+    update okfa_status
+    set status_id = #{record.statusId,jdbcType=INTEGER},
+      status_desc = #{record.statusDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.FileUse">
-    update fileuse
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.OkfaStatus">
+    update okfa_status
     <set>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
+      <if test="statusDesc != null">
+        status_desc = #{statusDesc,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=SMALLINT}
+    where status_id = #{statusId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.FileUse">
-    update fileuse
-    set description = #{description,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=SMALLINT}
+  <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.OkfaStatus">
+    update okfa_status
+    set status_desc = #{statusDesc,jdbcType=VARCHAR}
+    where status_id = #{statusId,jdbcType=INTEGER}
   </update>
 </mapper>

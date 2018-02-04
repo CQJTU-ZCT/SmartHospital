@@ -1,15 +1,15 @@
 package com.cqjtu.model;
 
 public class Position {
-    private Short positionId;
+    private Integer positionId;
 
     private String name;
 
-    public Short getPositionId() {
+    public Integer getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(Short positionId) {
+    public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
 

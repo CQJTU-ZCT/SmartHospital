@@ -104,63 +104,63 @@ public class BranchDoctorPositionExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andBdpIdIsNull() {
+            addCriterion("bdp_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andBdpIdIsNotNull() {
+            addCriterion("bdp_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andBdpIdEqualTo(Integer value) {
+            addCriterion("bdp_id =", value, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andBdpIdNotEqualTo(Integer value) {
+            addCriterion("bdp_id <>", value, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andBdpIdGreaterThan(Integer value) {
+            addCriterion("bdp_id >", value, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andBdpIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("bdp_id >=", value, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andBdpIdLessThan(Integer value) {
+            addCriterion("bdp_id <", value, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andBdpIdLessThanOrEqualTo(Integer value) {
+            addCriterion("bdp_id <=", value, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andBdpIdIn(List<Integer> values) {
+            addCriterion("bdp_id in", values, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andBdpIdNotIn(List<Integer> values) {
+            addCriterion("bdp_id not in", values, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andBdpIdBetween(Integer value1, Integer value2) {
+            addCriterion("bdp_id between", value1, value2, "bdpId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andBdpIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("bdp_id not between", value1, value2, "bdpId");
             return (Criteria) this;
         }
 
@@ -304,52 +304,52 @@ public class BranchDoctorPositionExample {
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdEqualTo(Short value) {
+        public Criteria andPositionIdEqualTo(Integer value) {
             addCriterion("position_id =", value, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdNotEqualTo(Short value) {
+        public Criteria andPositionIdNotEqualTo(Integer value) {
             addCriterion("position_id <>", value, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdGreaterThan(Short value) {
+        public Criteria andPositionIdGreaterThan(Integer value) {
             addCriterion("position_id >", value, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdGreaterThanOrEqualTo(Short value) {
+        public Criteria andPositionIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("position_id >=", value, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdLessThan(Short value) {
+        public Criteria andPositionIdLessThan(Integer value) {
             addCriterion("position_id <", value, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdLessThanOrEqualTo(Short value) {
+        public Criteria andPositionIdLessThanOrEqualTo(Integer value) {
             addCriterion("position_id <=", value, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdIn(List<Short> values) {
+        public Criteria andPositionIdIn(List<Integer> values) {
             addCriterion("position_id in", values, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdNotIn(List<Short> values) {
+        public Criteria andPositionIdNotIn(List<Integer> values) {
             addCriterion("position_id not in", values, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdBetween(Short value1, Short value2) {
+        public Criteria andPositionIdBetween(Integer value1, Integer value2) {
             addCriterion("position_id between", value1, value2, "positionId");
             return (Criteria) this;
         }
 
-        public Criteria andPositionIdNotBetween(Short value1, Short value2) {
+        public Criteria andPositionIdNotBetween(Integer value1, Integer value2) {
             addCriterion("position_id not between", value1, value2, "positionId");
             return (Criteria) this;
         }

@@ -10,7 +10,7 @@ public interface TitleMapper {
 
     int deleteByExample(TitleExample example);
 
-    int deleteByPrimaryKey(Short titleId);
+    int deleteByPrimaryKey(Integer titleId);
 
     int insert(Title record);
 
@@ -18,7 +18,7 @@ public interface TitleMapper {
 
     List<Title> selectByExample(TitleExample example);
 
-    Title selectByPrimaryKey(Short titleId);
+    Title selectByPrimaryKey(Integer titleId);
 
     int updateByExampleSelective(@Param("record") Title record, @Param("example") TitleExample example);
 

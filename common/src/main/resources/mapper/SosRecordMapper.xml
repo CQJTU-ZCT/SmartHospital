@@ -5,6 +5,7 @@
     <id column="sos_id" jdbcType="VARCHAR" property="sosId" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
     <result column="hospital_id" jdbcType="VARCHAR" property="hospitalId" />
+    <result column="status_id" jdbcType="INTEGER" property="statusId" />
     <result column="longitude" jdbcType="DECIMAL" property="longitude" />
     <result column="latitude" jdbcType="DECIMAL" property="latitude" />
     <result column="car_number" jdbcType="VARCHAR" property="carNumber" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    sos_id, id_card, hospital_id, longitude, latitude, car_number
+    sos_id, id_card, hospital_id, status_id, longitude, latitude, car_number
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.SosRecordExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.SosRecord">
     insert into sos_record (sos_id, id_card, hospital_id, 
-      longitude, latitude, car_number
-      )
+      status_id, longitude, latitude, 
+      car_number)
     values (#{sosId,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{hospitalId,jdbcType=VARCHAR}, 
-      #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, #{carNumber,jdbcType=VARCHAR}
-      )
+      #{statusId,jdbcType=INTEGER}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{carNumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.SosRecord">
     insert into sos_record
@@ -119,6 +120,9 @@
       </if>
       <if test="hospitalId != null">
         hospital_id,
+      </if>
+      <if test="statusId != null">
+        status_id,
       </if>
       <if test="longitude != null">
         longitude,
@@ -139,6 +143,9 @@
       </if>
       <if test="hospitalId != null">
         #{hospitalId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusId != null">
+        #{statusId,jdbcType=INTEGER},
       </if>
       <if test="longitude != null">
         #{longitude,jdbcType=DECIMAL},
@@ -169,6 +176,9 @@
       <if test="record.hospitalId != null">
         hospital_id = #{record.hospitalId,jdbcType=VARCHAR},
       </if>
+      <if test="record.statusId != null">
+        status_id = #{record.statusId,jdbcType=INTEGER},
+      </if>
       <if test="record.longitude != null">
         longitude = #{record.longitude,jdbcType=DECIMAL},
       </if>
@@ -188,6 +198,7 @@
     set sos_id = #{record.sosId,jdbcType=VARCHAR},
       id_card = #{record.idCard,jdbcType=VARCHAR},
       hospital_id = #{record.hospitalId,jdbcType=VARCHAR},
+      status_id = #{record.statusId,jdbcType=INTEGER},
       longitude = #{record.longitude,jdbcType=DECIMAL},
       latitude = #{record.latitude,jdbcType=DECIMAL},
       car_number = #{record.carNumber,jdbcType=VARCHAR}
@@ -203,6 +214,9 @@
       </if>
       <if test="hospitalId != null">
         hospital_id = #{hospitalId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusId != null">
+        status_id = #{statusId,jdbcType=INTEGER},
       </if>
       <if test="longitude != null">
         longitude = #{longitude,jdbcType=DECIMAL},
@@ -220,6 +234,7 @@
     update sos_record
     set id_card = #{idCard,jdbcType=VARCHAR},
       hospital_id = #{hospitalId,jdbcType=VARCHAR},
+      status_id = #{statusId,jdbcType=INTEGER},
       longitude = #{longitude,jdbcType=DECIMAL},
       latitude = #{latitude,jdbcType=DECIMAL},
       car_number = #{carNumber,jdbcType=VARCHAR}

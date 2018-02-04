@@ -10,7 +10,7 @@ public interface PayStatusMapper {
 
     int deleteByExample(PayStatusExample example);
 
-    int deleteByPrimaryKey(Short id);
+    int deleteByPrimaryKey(Integer payStatusId);
 
     int insert(PayStatus record);
 
@@ -18,7 +18,7 @@ public interface PayStatusMapper {
 
     List<PayStatus> selectByExample(PayStatusExample example);
 
-    PayStatus selectByPrimaryKey(Short id);
+    PayStatus selectByPrimaryKey(Integer payStatusId);
 
     int updateByExampleSelective(@Param("record") PayStatus record, @Param("example") PayStatusExample example);
 

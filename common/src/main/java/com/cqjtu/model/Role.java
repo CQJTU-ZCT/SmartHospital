@@ -1,15 +1,15 @@
 package com.cqjtu.model;
 
 public class Role {
-    private Short roleId;
+    private Integer roleId;
 
     private String description;
 
-    public Short getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Short roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 

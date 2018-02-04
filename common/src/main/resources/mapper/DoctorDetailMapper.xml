@@ -3,11 +3,12 @@
 <mapper namespace="com.cqjtu.mapper.DoctorDetailMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.DoctorDetail">
     <id column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="photo_id" jdbcType="VARCHAR" property="photoId" />
+    <result column="sex_id" jdbcType="INTEGER" property="sexId" />
+    <result column="profile_id" jdbcType="VARCHAR" property="profileId" />
+    <result column="nation_id" jdbcType="INTEGER" property="nationId" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="sex" jdbcType="SMALLINT" property="sex" />
-    <result column="profile" jdbcType="VARCHAR" property="profile" />
     <result column="birth_y_m_d" jdbcType="DATE" property="birthYMD" />
-    <result column="nationality" jdbcType="VARCHAR" property="nationality" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id_card, address, sex, profile, birth_y_m_d, nationality
+    id_card, photo_id, sex_id, profile_id, nation_id, address, birth_y_m_d
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.DoctorDetailExample" resultMap="BaseResultMap">
     select
@@ -101,12 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.DoctorDetail">
-    insert into doctor_detail (id_card, address, sex, 
-      profile, birth_y_m_d, nationality
-      )
-    values (#{idCard,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT}, 
-      #{profile,jdbcType=VARCHAR}, #{birthYMD,jdbcType=DATE}, #{nationality,jdbcType=VARCHAR}
-      )
+    insert into doctor_detail (id_card, photo_id, sex_id, 
+      profile_id, nation_id, address, 
+      birth_y_m_d)
+    values (#{idCard,jdbcType=VARCHAR}, #{photoId,jdbcType=VARCHAR}, #{sexId,jdbcType=INTEGER}, 
+      #{profileId,jdbcType=VARCHAR}, #{nationId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{birthYMD,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.DoctorDetail">
     insert into doctor_detail
@@ -114,40 +115,46 @@
       <if test="idCard != null">
         id_card,
       </if>
+      <if test="photoId != null">
+        photo_id,
+      </if>
+      <if test="sexId != null">
+        sex_id,
+      </if>
+      <if test="profileId != null">
+        profile_id,
+      </if>
+      <if test="nationId != null">
+        nation_id,
+      </if>
       <if test="address != null">
         address,
       </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="profile != null">
-        profile,
-      </if>
       <if test="birthYMD != null">
         birth_y_m_d,
-      </if>
-      <if test="nationality != null">
-        nationality,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="idCard != null">
         #{idCard,jdbcType=VARCHAR},
       </if>
+      <if test="photoId != null">
+        #{photoId,jdbcType=VARCHAR},
+      </if>
+      <if test="sexId != null">
+        #{sexId,jdbcType=INTEGER},
+      </if>
+      <if test="profileId != null">
+        #{profileId,jdbcType=VARCHAR},
+      </if>
+      <if test="nationId != null">
+        #{nationId,jdbcType=INTEGER},
+      </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null">
-        #{sex,jdbcType=SMALLINT},
-      </if>
-      <if test="profile != null">
-        #{profile,jdbcType=VARCHAR},
-      </if>
       <if test="birthYMD != null">
         #{birthYMD,jdbcType=DATE},
-      </if>
-      <if test="nationality != null">
-        #{nationality,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -163,20 +170,23 @@
       <if test="record.idCard != null">
         id_card = #{record.idCard,jdbcType=VARCHAR},
       </if>
+      <if test="record.photoId != null">
+        photo_id = #{record.photoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sexId != null">
+        sex_id = #{record.sexId,jdbcType=INTEGER},
+      </if>
+      <if test="record.profileId != null">
+        profile_id = #{record.profileId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nationId != null">
+        nation_id = #{record.nationId,jdbcType=INTEGER},
+      </if>
       <if test="record.address != null">
         address = #{record.address,jdbcType=VARCHAR},
       </if>
-      <if test="record.sex != null">
-        sex = #{record.sex,jdbcType=SMALLINT},
-      </if>
-      <if test="record.profile != null">
-        profile = #{record.profile,jdbcType=VARCHAR},
-      </if>
       <if test="record.birthYMD != null">
         birth_y_m_d = #{record.birthYMD,jdbcType=DATE},
-      </if>
-      <if test="record.nationality != null">
-        nationality = #{record.nationality,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -186,11 +196,12 @@
   <update id="updateByExample" parameterType="map">
     update doctor_detail
     set id_card = #{record.idCard,jdbcType=VARCHAR},
+      photo_id = #{record.photoId,jdbcType=VARCHAR},
+      sex_id = #{record.sexId,jdbcType=INTEGER},
+      profile_id = #{record.profileId,jdbcType=VARCHAR},
+      nation_id = #{record.nationId,jdbcType=INTEGER},
       address = #{record.address,jdbcType=VARCHAR},
-      sex = #{record.sex,jdbcType=SMALLINT},
-      profile = #{record.profile,jdbcType=VARCHAR},
-      birth_y_m_d = #{record.birthYMD,jdbcType=DATE},
-      nationality = #{record.nationality,jdbcType=VARCHAR}
+      birth_y_m_d = #{record.birthYMD,jdbcType=DATE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -198,31 +209,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.DoctorDetail">
     update doctor_detail
     <set>
+      <if test="photoId != null">
+        photo_id = #{photoId,jdbcType=VARCHAR},
+      </if>
+      <if test="sexId != null">
+        sex_id = #{sexId,jdbcType=INTEGER},
+      </if>
+      <if test="profileId != null">
+        profile_id = #{profileId,jdbcType=VARCHAR},
+      </if>
+      <if test="nationId != null">
+        nation_id = #{nationId,jdbcType=INTEGER},
+      </if>
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=SMALLINT},
-      </if>
-      <if test="profile != null">
-        profile = #{profile,jdbcType=VARCHAR},
-      </if>
       <if test="birthYMD != null">
         birth_y_m_d = #{birthYMD,jdbcType=DATE},
-      </if>
-      <if test="nationality != null">
-        nationality = #{nationality,jdbcType=VARCHAR},
       </if>
     </set>
     where id_card = #{idCard,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.DoctorDetail">
     update doctor_detail
-    set address = #{address,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=SMALLINT},
-      profile = #{profile,jdbcType=VARCHAR},
-      birth_y_m_d = #{birthYMD,jdbcType=DATE},
-      nationality = #{nationality,jdbcType=VARCHAR}
+    set photo_id = #{photoId,jdbcType=VARCHAR},
+      sex_id = #{sexId,jdbcType=INTEGER},
+      profile_id = #{profileId,jdbcType=VARCHAR},
+      nation_id = #{nationId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      birth_y_m_d = #{birthYMD,jdbcType=DATE}
     where id_card = #{idCard,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -6,7 +6,7 @@ import java.util.Date;
 public class PreOrders {
     private String orderId;
 
-    private Short id;
+    private Integer appointmentStatusId;
 
     private Date createTime;
 
@@ -24,12 +24,12 @@ public class PreOrders {
         this.orderId = orderId == null ? null : orderId.trim();
     }
 
-    public Short getId() {
-        return id;
+    public Integer getAppointmentStatusId() {
+        return appointmentStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setAppointmentStatusId(Integer appointmentStatusId) {
+        this.appointmentStatusId = appointmentStatusId;
     }
 
     public Date getCreateTime() {

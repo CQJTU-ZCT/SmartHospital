@@ -114,52 +114,52 @@ public class TitleExample {
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdEqualTo(Short value) {
+        public Criteria andTitleIdEqualTo(Integer value) {
             addCriterion("title_id =", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdNotEqualTo(Short value) {
+        public Criteria andTitleIdNotEqualTo(Integer value) {
             addCriterion("title_id <>", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdGreaterThan(Short value) {
+        public Criteria andTitleIdGreaterThan(Integer value) {
             addCriterion("title_id >", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdGreaterThanOrEqualTo(Short value) {
+        public Criteria andTitleIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("title_id >=", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdLessThan(Short value) {
+        public Criteria andTitleIdLessThan(Integer value) {
             addCriterion("title_id <", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdLessThanOrEqualTo(Short value) {
+        public Criteria andTitleIdLessThanOrEqualTo(Integer value) {
             addCriterion("title_id <=", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdIn(List<Short> values) {
+        public Criteria andTitleIdIn(List<Integer> values) {
             addCriterion("title_id in", values, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdNotIn(List<Short> values) {
+        public Criteria andTitleIdNotIn(List<Integer> values) {
             addCriterion("title_id not in", values, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdBetween(Short value1, Short value2) {
+        public Criteria andTitleIdBetween(Integer value1, Integer value2) {
             addCriterion("title_id between", value1, value2, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdNotBetween(Short value1, Short value2) {
+        public Criteria andTitleIdNotBetween(Integer value1, Integer value2) {
             addCriterion("title_id not between", value1, value2, "titleId");
             return (Criteria) this;
         }

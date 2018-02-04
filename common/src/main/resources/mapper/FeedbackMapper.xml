@@ -3,7 +3,7 @@
 <mapper namespace="com.cqjtu.mapper.FeedbackMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.Feedback">
     <id column="feedback_id" jdbcType="VARCHAR" property="feedbackId" />
-    <result column="id" jdbcType="SMALLINT" property="id" />
+    <result column="feedback_status_id" jdbcType="INTEGER" property="feedbackStatusId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    feedback_id, id, title, description
+    feedback_id, feedback_status_id, title, description
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.FeedbackExample" resultMap="BaseResultMap">
     select
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.Feedback">
-    insert into feedback (feedback_id, id, title, 
+    insert into feedback (feedback_id, feedback_status_id, title, 
       description)
-    values (#{feedbackId,jdbcType=VARCHAR}, #{id,jdbcType=SMALLINT}, #{title,jdbcType=VARCHAR}, 
+    values (#{feedbackId,jdbcType=VARCHAR}, #{feedbackStatusId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.Feedback">
@@ -110,8 +110,8 @@
       <if test="feedbackId != null">
         feedback_id,
       </if>
-      <if test="id != null">
-        id,
+      <if test="feedbackStatusId != null">
+        feedback_status_id,
       </if>
       <if test="title != null">
         title,
@@ -124,8 +124,8 @@
       <if test="feedbackId != null">
         #{feedbackId,jdbcType=VARCHAR},
       </if>
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="feedbackStatusId != null">
+        #{feedbackStatusId,jdbcType=INTEGER},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -147,8 +147,8 @@
       <if test="record.feedbackId != null">
         feedback_id = #{record.feedbackId,jdbcType=VARCHAR},
       </if>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.feedbackStatusId != null">
+        feedback_status_id = #{record.feedbackStatusId,jdbcType=INTEGER},
       </if>
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
   <update id="updateByExample" parameterType="map">
     update feedback
     set feedback_id = #{record.feedbackId,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=SMALLINT},
+      feedback_status_id = #{record.feedbackStatusId,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -174,8 +174,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.Feedback">
     update feedback
     <set>
-      <if test="id != null">
-        id = #{id,jdbcType=SMALLINT},
+      <if test="feedbackStatusId != null">
+        feedback_status_id = #{feedbackStatusId,jdbcType=INTEGER},
       </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Feedback">
     update feedback
-    set id = #{id,jdbcType=SMALLINT},
+    set feedback_status_id = #{feedbackStatusId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR}
     where feedback_id = #{feedbackId,jdbcType=VARCHAR}

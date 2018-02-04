@@ -18,4 +18,8 @@ eureka:
 spring:
   application:
     name: smart-hospital-eureka-server-one
+  cloud:
+      inetutils:
+        preferred-networks:
+         - 10.0
 

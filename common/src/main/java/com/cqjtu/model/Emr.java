@@ -9,6 +9,8 @@ public class Emr {
 
     private Integer createAge;
 
+    private String idCard;
+
     public String getEmrId() {
         return emrId;
     }
@@ -31,5 +33,13 @@ public class Emr {
 
     public void setCreateAge(Integer createAge) {
         this.createAge = createAge;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard == null ? null : idCard.trim();
     }
 }

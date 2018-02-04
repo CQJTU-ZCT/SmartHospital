@@ -72,8 +72,7 @@
 
       <table tableName="feedback"  domainObjectName="Feedback"></table>
       <table tableName="feedback_status"  domainObjectName="FeedbackStatus"></table>
-      <table tableName="file"  domainObjectName="File"></table>
-      <table tableName="fileuse"  domainObjectName="FileUse"></table>
+
 
       <table tableName="hospital"  domainObjectName="Hospital"></table>
       <table tableName="pay_kind"  domainObjectName="PayKind"></table>
@@ -81,7 +80,7 @@
       <table tableName="pay_record_detail"  domainObjectName="PayRecordDetail"></table>
 
       <table tableName="pay_status"  domainObjectName="PayStatus"></table>
-      <table tableName="picture"  domainObjectName="Picture"></table>
+      <table tableName="profile"  domainObjectName="Profile"></table>
       <table tableName="position"  domainObjectName="Position"></table>
       <table tableName="preorder_status"  domainObjectName="PreorderStatus"></table>
 
@@ -93,6 +92,13 @@
       <table tableName="title"  domainObjectName="Title"></table>
       <table tableName="users"  domainObjectName="Users"></table>
       <table tableName="users_detail"  domainObjectName="UsersDetail"></table>
+      <table tableName="exclusive_doctor"  domainObjectName="ExclusiveDoctor"></table>
+      <table tableName="exclusive_doctor_status"  domainObjectName="ExclusiveDoctorStatus"></table>
+
+      <table tableName="nation"  domainObjectName="Nation"></table>
+      <table tableName="photo"  domainObjectName="Photo"></table>
+      <table tableName="sex"  domainObjectName="sex"></table>
+    <table tableName="okfa_status"  domainObjectName="OkfaStatus"></table>
 
 
   </context>

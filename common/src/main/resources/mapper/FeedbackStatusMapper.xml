@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapper.FeedbackStatusMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.FeedbackStatus">
-    <id column="id" jdbcType="SMALLINT" property="id" />
+    <id column="feedback_status_id" jdbcType="INTEGER" property="feedbackStatusId" />
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, description
+    feedback_status_id, description
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.FeedbackStatusExample" resultMap="BaseResultMap">
     select
@@ -80,15 +80,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from feedback_status
-    where id = #{id,jdbcType=SMALLINT}
+    where feedback_status_id = #{feedbackStatusId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from feedback_status
-    where id = #{id,jdbcType=SMALLINT}
+    where feedback_status_id = #{feedbackStatusId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.cqjtu.model.FeedbackStatusExample">
     delete from feedback_status
@@ -97,22 +97,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.FeedbackStatus">
-    insert into feedback_status (id, description)
-    values (#{id,jdbcType=SMALLINT}, #{description,jdbcType=VARCHAR})
+    insert into feedback_status (feedback_status_id, description)
+    values (#{feedbackStatusId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.FeedbackStatus">
     insert into feedback_status
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="feedbackStatusId != null">
+        feedback_status_id,
       </if>
       <if test="description != null">
         description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="feedbackStatusId != null">
+        #{feedbackStatusId,jdbcType=INTEGER},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -128,8 +128,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update feedback_status
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.feedbackStatusId != null">
+        feedback_status_id = #{record.feedbackStatusId,jdbcType=INTEGER},
       </if>
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update feedback_status
-    set id = #{record.id,jdbcType=SMALLINT},
+    set feedback_status_id = #{record.feedbackStatusId,jdbcType=INTEGER},
       description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -154,11 +154,11 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=SMALLINT}
+    where feedback_status_id = #{feedbackStatusId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.FeedbackStatus">
     update feedback_status
     set description = #{description,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=SMALLINT}
+    where feedback_status_id = #{feedbackStatusId,jdbcType=INTEGER}
   </update>
 </mapper>

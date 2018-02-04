@@ -9,6 +9,8 @@ public class SosRecord {
 
     private String hospitalId;
 
+    private Integer statusId;
+
     private BigDecimal longitude;
 
     private BigDecimal latitude;
@@ -37,6 +39,14 @@ public class SosRecord {
 
     public void setHospitalId(String hospitalId) {
         this.hospitalId = hospitalId == null ? null : hospitalId.trim();
+    }
+
+    public Integer getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 
     public BigDecimal getLongitude() {
