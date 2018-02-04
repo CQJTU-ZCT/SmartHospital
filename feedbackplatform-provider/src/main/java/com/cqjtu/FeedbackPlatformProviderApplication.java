@@ -6,12 +6,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
  * @author zjhfyq
  * @Desc
  * @date 2017/12/28.
  */
+@EnableHystrix
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableEurekaClient

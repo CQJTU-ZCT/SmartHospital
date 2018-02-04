@@ -1,7 +1,6 @@
 package com.cqjtu.filter;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+
 import com.cqjtu.messages.FilterMessage;
 import com.cqjtu.messages.Message;
 import com.cqjtu.messages.ValidateMessage;
@@ -10,9 +9,6 @@ import com.cqjtu.tools.JsonUtil;
 import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.ServerInfo;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.ribbon.proxy.annotation.Hystrix;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,12 +16,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 
 /**
  * @author zjhfyq
@@ -52,7 +44,7 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
 
     }
 
-    @HystrixCommand(fallbackMethod = "validateFailed",ignoreExceptions = {java.io.FileNotFoundException.class,IllegalStateException.class})
+    @HystrixCommand(fallbackMethod = "validateFailed",ignoreExceptions = {java.io.FileNotFoundException.class})
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -77,8 +69,8 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
             response.getWriter().print(new String(JsonUtil.praseBeanToJson(responseMessage).getBytes(),"UTF-8"));
         }else {
             //token存在
-            Message message = restTemplate.getForObject(serverInfo.getValidateService() + "?token=" + token, ValidateMessage.class);
-
+            String result  = restTemplate.getForEntity(serverInfo.getValidateService() + "?token=" + token, String.class).getBody();
+            Message message = (Message) JsonUtil.praseJsonToBean(result,ValidateMessage.class);
             if (message.getCode() != 1){
                 LoggerTool.getLogger(this.getClass()).info("token无效");
                 //如果token是失效的
@@ -89,8 +81,7 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
                 LoggerTool.getLogger(this.getClass()).info("token有效");
                 //token是有效的
                 request.setAttribute("token",token);
-                System.out.println(message.getMap().get("user"));
-                request.setAttribute("user",message.getMap().get("user"));
+                request.setAttribute("user",JsonUtil.praseJsonToBean(message.getMap().get("user").toString(),Users.class));
                 filterChain.doFilter(request,response);
             }
         }
