@@ -128,6 +128,16 @@ public class FeedbackController {
                 if (feedback.getFeedbackId() == null || feedback.getFeedbackId().length() <=0){
                     flag = false;
                 }
+                if (feedback.getTitle()== null && feedback.getDescription() == null &&
+                        feedback.getFeedbackStatusId() == null){
+                    flag =false;
+                }
+                if (feedback.getTitle() != null && feedback.getTitle().length() <=0){
+                    flag =false;
+                }
+                if (feedback.getDescription() != null && feedback.getDescription().length() <=0){
+                    flag = false;
+                }
                 if (flag){
                     int i = feedbackService.updateFeedback(feedback);
                     if (i == 1){
