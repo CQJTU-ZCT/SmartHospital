@@ -11,7 +11,7 @@ eureka:
       defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/
 spring:
   datasource:
-        name: sso
+        name: smart_hospital
         url: jdbc:mysql://198.13.46.57/smart_hospital?characterEncoding=utf8&useSSL=true
         username: sh
         password: kele991146
@@ -29,9 +29,7 @@ spring:
     throw-exception-if-no-handler-found: true #出现错误时, 直接抛出异常
   resources:
     add-mappings: false #不要为我们工程中的资源文件建立映射
-
-mybatis:
-  config-location: classpath:mybatis.xml  #mybatis配置文件路径
-  type-aliases-package: com.cqjtu.domain
-  mapper-locations:
-  - classpath:mapper/*.xml
+  profiles:
+    include:
+      - sso
+      - mybatis
