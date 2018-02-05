@@ -29,7 +29,7 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
-    public List<Title> queryTitle(String name) {
-        return titleMapperExp.queryTitle(name);
+    public List<Title> queryTitle(Title title) {
+        return titleMapperExp.queryTitle(title);
     }
 }

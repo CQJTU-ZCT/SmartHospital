@@ -98,7 +98,7 @@
       <table tableName="nation"  domainObjectName="Nation"></table>
       <table tableName="photo"  domainObjectName="Photo"></table>
       <table tableName="sex"  domainObjectName="sex"></table>
-    <table tableName="okfa_status"  domainObjectName="OkfaStatus"></table>
+      <table tableName="okfa_status"  domainObjectName="OkfaStatus"></table>
 
 
   </context>

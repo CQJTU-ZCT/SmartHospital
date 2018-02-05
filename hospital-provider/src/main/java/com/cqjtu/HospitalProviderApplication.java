@@ -6,17 +6,21 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author zjhfyq
  * @Desc
  * @date 2018/1/7.
  */
+@EnableHystrix
 @EnableAutoConfiguration
 @EnableEurekaClient
 @SpringBootApplication
 @MapperScan(value = {"com.cqjtu.mapper","com.cqjtu.mapperexp"})
 @ServletComponentScan
+@ComponentScan
 public class HospitalProviderApplication {
 
     public static void main(String [] args){

@@ -94,14 +94,14 @@ public class BranchDoctorPositionController {
                     if (add >0 ){
                         message.setCode(200);
                         message.setInfo("添加科室医生职位信息成功");
-                        branchDoctorPosition.setId(add);
+                        branchDoctorPosition.setBdpId(add);
                     }else {
                         message.setInfo("添加科室医生职位信息失败");
                     }
                 }
             }else if (method.equals(RequestMethod.PUT)){
                 //修改操作
-                if (branchDoctorPosition.getId() == null||branchDoctorPosition.getId() <=0 ){
+                if (branchDoctorPosition.getBdpId() == null||branchDoctorPosition.getBdpId() <=0 ){
                     flag =false;
                 }
                 if (branchDoctorPosition.getBranchId() == null || branchDoctorPosition.getBranchId() <=0){

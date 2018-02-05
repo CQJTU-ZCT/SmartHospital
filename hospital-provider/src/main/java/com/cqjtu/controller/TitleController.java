@@ -64,17 +64,17 @@ public class TitleController {
     }
 
     @RequestMapping(value = {"","/"},method = RequestMethod.GET)
-    public Message updateTitle(HttpServletRequest request , String token,String name,String pageNum){
+    public Message updateTitle(HttpServletRequest request , String token,Title title,String pageNum){
         Message message =  new Message();
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
-        validateAndGet(message,token,name,pageNum);
+        validateAndGet(message,token,title,pageNum);
         return message;
     }
 
 
-    private void validateAndGet(Message message ,String token ,String name,String pn){
+    private void validateAndGet(Message message ,String token ,Title title,String pn){
         if (token == null ||token.length() <=0){
             //todo 为token做用户权限认证
             message.setInfo("未授权");
@@ -98,7 +98,7 @@ public class TitleController {
             }
             //开始分页查询
             PageHelper.startPage(pageNum,pageSize);
-            List<Title> titles = titleService.queryTitle(name);
+            List<Title> titles = titleService.queryTitle(title);
             PageInfo pageInfo = new PageInfo(titles,navigatePages);
             message.setCode(200);
             message.setInfo("获取医院职称信息成功");
@@ -116,7 +116,6 @@ public class TitleController {
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){
                 //添加操作
-                title.setTitleId(Short.parseShort("1"));
                 if (title.getName() == null || title.getName().length() <=0){
                     flag=false;
                 }
@@ -126,11 +125,9 @@ public class TitleController {
                        message.setInfo("添加职称信息失败");
                    }else {
                        message.setInfo("添加职称信息成功");
-                       title.setTitleId(Short.parseShort(String.valueOf(titleId)));
                    }
                 }
             }else if (method.equals(RequestMethod.PUT)){
-                System.out.println(title.getName() + "   "+title.getTitleId());
                 //修改操作
                 if (title.getName() == null || title.getName().length()<=0){
                     flag = false;

@@ -2,11 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapperexp.TitleMapperExp">
 
-    <select id="queryTitle" resultType="com.cqjtu.model.Title" >
+    <select id="queryTitle" resultType="com.cqjtu.model.Title" parameterType="com.cqjtu.model.Title" >
         SELECT title_id ,name
         from title
         <if test="name != null ">
             WHERE   name LIKE  CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+        <if test=" titleId != null">
+            AND title_id =#{titleId}
         </if>
     </select>
 
@@ -16,11 +19,10 @@
         where title_id = #{titleId};
     </update>
 
-    <insert id="addTitle" parameterType="com.cqjtu.model.Title">
-        <selectKey resultType="java.lang.Integer" keyColumn="title_id">
-            SELECT last_insert_id();
+    <insert id="addTitle"  parameterType="com.cqjtu.model.Title">
+        <selectKey keyProperty="titleId" resultType="java.lang.Integer">
+            select LAST_INSERT_ID()
         </selectKey>
-
         INSERT INTO title
         <trim prefix="("  suffix=")">
             <if test="titleId != null">
@@ -40,6 +42,4 @@
             </if>
         </trim>
     </insert>
-
-
 </mapper>

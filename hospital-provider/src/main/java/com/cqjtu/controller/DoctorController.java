@@ -103,81 +103,113 @@ public class DoctorController {
 
     private void validateAndOpt(String token ,Doctor doctor,
                                 RequestMethod method,Message message){
+        String info= "";
         if (token == null || token.length() <=0){
-            message.setInfo("未授权");
+            info = "未授权";
         }else {
             //todo 完成角色权限认证
 
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){
                 if (doctor.getIdCard() == null || doctor.getIdCard().length() <=0){
+                    info = "身份证号码不能为空";
                     flag = false;
                 }else {
                     if (!RegularTool.isIdCard(doctor.getIdCard())){
+                        info = "身份证号码格式不正确";
                         flag =false;
                     }
                 }
                 if (doctor.getMail() == null || doctor.getMail().length() <= 0){
+                    info = "邮箱不能为空";
                     flag = false;
                 }else {
                     if (!RegularTool.isMail(doctor.getMail())){
+                        info = "邮箱格式不正确";
                         flag =false;
                     }
                 }
                 if (doctor.getName() == null || doctor.getName().length() <=0){
+                    info = "姓名不能为空";
                     flag = false;
                 }
                 if (doctor.getPassword() == null || doctor.getPassword().length() <=0){
+                    info = "密码不能为空";
                     flag = false;
                 }
                 if (doctor.getPhone() == null || doctor.getPhone().length() <=0){
+                    info = "手机号码不能为空";
                     flag = false;
                 }else {
                     if (!RegularTool.isPhone(doctor.getPhone())){
+                        info = "手机号码格式不正确";
                         flag = false;
                     }
                 }
                 if (flag){
-                    int i = doctorService.addDoctor(doctor);
-                    if (i == 1){
-                        message.setCode(200);
-                        message.setInfo("添加医生信息成功");
+                    Doctor doctorByIdCard = doctorService.queryDoctorByIdCard(doctor.getIdCard());
+                    if ( doctorByIdCard != null){
+                        info = "不允许重复添加医生信息";
                     }else {
-                        message.setInfo("添加医生信息失败");
+                        int i = doctorService.addDoctor(doctor);
+                        if (i == 1){
+                            message.setCode(200);
+                            info = "添加医生信息成功";
+                        }else {
+                            info = "添加医生信息失败";
+                        }
                     }
                 }
             }else if (method.equals(RequestMethod.PUT)){
+                //记录提交过来的参数的个数
+                int paraNum = 0;
                 if (doctor.getIdCard() == null || doctor.getIdCard().length() <=0){
+                    info = "身份证号码不能为空";
                     flag = false;
                 }else {
                     if (!RegularTool.isIdCard(doctor.getIdCard())){
+                        info = "身份证格式不正确";
                         flag =false;
                     }
                 }
                 if (doctor.getMail() != null ){
                     if (!RegularTool.isMail(doctor.getMail())){
+                        info = "邮箱格式不正确";
                         flag =false;
                     }
                 }
                 if (doctor.getPhone() != null ){
                     if (!RegularTool.isPhone(doctor.getPhone())){
+                        info = "手机号码格式不正确";
                         flag = false;
                     }
                 }
-                if (flag){
-                    int i = doctorService.updateDoctor(doctor);
-                    if (i == 1){
-                        message.setCode(200);
-                        message.setInfo("更新医生信息成功");
-                    }else {
-                        message.setInfo("更新医生信息失败");
+                if (doctor.getName() != null && doctor.getName().length() >0){
+                    paraNum +=1;
+                }
+                if (doctor.getPassword() != null && doctor.getPassword().length() >0){
+                    paraNum +=1;
+                }
+                if (doctor.getAccountStatusId() !=null  && doctor.getAccountStatusId() >0){
+                    paraNum +=1;
+                }
+                if (paraNum <=0){
+                    info = "更新内容不能为空";
+                }else{
+                    if (flag){
+                        int i = doctorService.updateDoctor(doctor);
+                        if (i == 1){
+                            message.setCode(200);
+                            info = "更新医生信息成功";
+                        }else {
+                            info = "更新医生信息失败";
+                        }
                     }
                 }
-            }
-            if (!flag){
-                message.setInfo("参数");
+
             }
         }
+        message.setInfo(info);
         message.put("doctor",doctor);
     }
 

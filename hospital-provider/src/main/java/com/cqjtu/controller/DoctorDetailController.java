@@ -4,6 +4,7 @@ import com.cqjtu.messages.Message;
 import com.cqjtu.model.DoctorDetail;
 import com.cqjtu.model.Hospital;
 import com.cqjtu.service.DoctorDetailService;
+import com.cqjtu.service.DoctorService;
 import com.cqjtu.tools.RegularTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,6 +37,10 @@ public class DoctorDetailController {
 
     @Autowired
     private DoctorDetailService doctorDetailService;
+
+
+    @Autowired
+    private DoctorService doctorService ;
 
 
     @RequestMapping(value = {"/",""},method =  RequestMethod.POST)
@@ -75,56 +80,80 @@ public class DoctorDetailController {
 
     private void validateAndOpt(String token ,Message message ,DoctorDetail doctorDetail ,
                                 RequestMethod method){
+        String info="";
         if (token == null || token.length() <=0){
-            message.setInfo("未授权");
+            info = "未授权";
         }else {
             boolean flag = true;
             //todo 完全角色身份认证
 
             if (method.equals(RequestMethod.POST)){
                 if (doctorDetail.getIdCard() == null || doctorDetail.getIdCard().length()<=0){
+                    info = "身份证号码不能为空";
                     flag = false;
                 }else {
                     if (!RegularTool.isIdCard(doctorDetail.getIdCard())){
+                        info = "身份证号码格式不正确";
                         flag = false;
                     }
                 }
-                if (doctorDetail.getAddress() == null || doctorDetail.getAddress().length() <=0){
-                    flag = false;
-                }
-                if (doctorDetail.getNationality() == null || doctorDetail.getNationality().length() <=0){
+                if (doctorService.queryDoctorByIdCard(doctorDetail.getIdCard())  == null){
+                    info = "身份证号码不存在";
                     flag = false;
                 }
                 if (flag){
-                    int i = doctorDetailService.addDoctorDetail(doctorDetail);
-                    if (i==1){
-                        message.setCode(200);
-                        message.setInfo("添加医生详细信息成功");
+                    if (doctorDetail.getAddress() == null || doctorDetail.getAddress().length() <=0){
+                        info = "地址信息不能为空";
+                        flag = false;
+                    }
+                }
+                if (flag){
+                    if (doctorDetail.getNationId() == null || doctorDetail.getNationId()<=0){
+                        info = "民族信息不能为空";
+                        flag = false;
+                    }
+                }
+                if (flag){
+                    if (doctorDetail.getBirthYMD()  == null){
+                        info = "出生年月日不能为空";
+                        flag = false;
+                    }
+                }
+                if (flag){
+                    DoctorDetail queryDoctor = new DoctorDetail();
+                    queryDoctor.setIdCard(doctorDetail.getIdCard());
+                    List<DoctorDetail> doctorDetails = doctorDetailService.queryDoctorDetail(queryDoctor);
+                    if ( doctorDetail == null ||doctorDetails.size() >0 ){
+                        info = "已经存在医生的详细信息，不允许重复添加";
                     }else {
-                        message.setInfo("添加医生详细信息失败，请检查参数");
+                        int i = doctorDetailService.addDoctorDetail(doctorDetail);
+                        if (i==1){
+                            message.setCode(200);
+                            info = "添加医生详细信息成功";
+                        }
                     }
                 }
             }else if (method.equals(RequestMethod.PUT)){
                 if (doctorDetail.getIdCard() == null || doctorDetail.getIdCard().length()<=0){
+                    info ="身份证号码不能为空";
                     flag = false;
                 }else {
                     if (!RegularTool.isIdCard(doctorDetail.getIdCard())){
+                        info = "身份证号码格式不正确";
                         flag = false;
                     }
                 }
                 if (flag){
-                    int i = doctorDetailService.addDoctorDetail(doctorDetail);
+                    int i = doctorDetailService.updateDoctorDetail(doctorDetail);
                     if (i==1){
                         message.setCode(200);
-                        message.setInfo("修改医生详细信息成功");
+                        info= "修改医生详细信息成功";
                     }else {
-                        message.setInfo("修改医生详细信息失败，请检查参数");
+                        info ="修改医生相信信息失败";
                     }
                 }
             }
-            if (!flag){
-                message.setInfo("参数错误");
-            }
+            message.setInfo(info);
             message.put("doctorDetail",doctorDetail);
         }
 

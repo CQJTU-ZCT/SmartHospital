@@ -5,8 +5,3 @@ eureka:
     fetch-registry: true
     serviceUrl:
       defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/
-spring:
-  cloud:
-   inetutils:
-     preferred-networks:
-      - 10.0

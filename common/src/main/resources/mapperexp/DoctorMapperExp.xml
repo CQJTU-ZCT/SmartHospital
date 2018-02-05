@@ -4,7 +4,7 @@
 
 
     <select id="queryDoctor" resultType="com.cqjtu.model.Doctor">
-        SELECT id_card,id,name,mail,phone
+        SELECT id_card,account_status_id,name,mail,phone
         from doctor
         <where>
             <trim prefixOverrides="and">
@@ -14,8 +14,8 @@
                 <if test="name != null ">
                     and   name LIKE  CONCAT(CONCAT('%', #{name}), '%')
                 </if>
-                <if test="id != null ">
-                    and   id =#{id}
+                <if test="accountStatusId != null ">
+                    and   account_status_id =#{accountStatusId}
                 </if>
                 <if test="mail != null ">
                     and   mail LIKE  CONCAT(CONCAT('%', #{mail}), '%')
@@ -28,8 +28,18 @@
     </select>
 
 
-    <update id="updateDotor" parameterType="com.cqjtu.model.Doctor">
-        update branch
+
+    <select id="queryDoctorByIdCard" resultType="com.cqjtu.model.Doctor">
+        SELECT id_card,account_status_id,name,mail,phone
+        from doctor
+        WHERE  id_card = #{idCard}
+    </select>
+
+
+
+
+    <update id="updateDoctor" parameterType="com.cqjtu.model.Doctor">
+        update doctor
         <set>
             <if test="name != null">
                 name =#{name},
@@ -40,8 +50,11 @@
             <if test="phone != null">
                 phone=#{phone},
             </if>
-            <if test="id != null">
-                id=#{id}
+            <if test="accountStatusId != null">
+                account_status_id=#{accountStatusId},
+            </if>
+            <if test="password != null">
+                password = #{password}
             </if>
         </set>
         where id_card = #{idCard}
@@ -77,11 +90,14 @@
             <if test="phone != null">
                 phone,
             </if>
-            <if test="id != null">
-                id
+            <if test="accountStatusId != null">
+                account_status_id ,
             </if>
-            <if test="id == null">
-                id
+            <if test="accountStatusId == null">
+                account_status_id ,
+            </if>
+            <if test="password != null">
+                password
             </if>
         </trim>
         values
@@ -98,11 +114,14 @@
             <if test="phone != null">
                 #{phone},
             </if>
-            <if test="id != null">
-                #{id}
+            <if test="accountStatusId != null">
+                #{accountStatusId},
             </if>
-            <if test="id == null">
-                1
+            <if test="accountStatusId == null">
+                1,
+            </if>
+            <if test="password != null">
+                #{password}
             </if>
         </trim>
 
