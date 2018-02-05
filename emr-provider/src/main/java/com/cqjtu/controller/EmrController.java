@@ -4,6 +4,7 @@ import com.cqjtu.domain.PageInfo;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.Emr;
 import com.cqjtu.service.EmrServiceImpl;
+import com.cqjtu.tools.PageHandler;
 import com.cqjtu.tools.PagesHelper;
 import com.cqjtu.tools.SnowFlakeWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class EmrController {
      * @return 添加成功的数据
      */
     @RequestMapping(value = "/emr", method = RequestMethod.POST)
-    public Message add(Emr emr) {
+    public Message add(Emr emr) throws Exception {
+        System.out.println(emr.getCreateTime());
         Message message = new Message();
         message.setCode(200);
         emr.setEmrId(String.valueOf(idWorker.nextId()));
@@ -54,19 +56,10 @@ public class EmrController {
     public Message getEmrs(Integer page, Integer limit) {
         Message msg = new Message(200);
         List<Emr> emrs;
-        if (null == page) {
-            emrs = service.getAll();
-        } else if (page > 0) {
-            if (null == limit) {
-                limit = 20;
-            }
-            page = (page - 1) * limit;
-            emrs = service.emrs(page, limit);
-        } else {
-           emrs = service.getAll();
-        }
-        pageInfo = getPaperInfo(limit);
-        msg.put("pages", pageInfo);
+        PageHandler.handlePage(page, limit);
+        page = (page - 1) * limit;
+        emrs = service.emrs(page, limit);
+        msg.put("pages", getPaperInfo(limit).getMap().get("pages"));
         msg.put("emrs", emrs);
         return msg;
     }
@@ -84,9 +77,12 @@ public class EmrController {
         return msg;
     }
 
-    @RequestMapping(value = "/emr", method = RequestMethod.PUT)
-    public Message update(Emr emr) {
+    @RequestMapping(value = "/emr/{emrId}", method = RequestMethod.PUT)
+    public Message update(@PathVariable("emrId") String emrId, Emr emr) {
         Message msg = new Message(200);
+        if (null == service.getEmrById(emrId)) {
+            msg.setInfo("emr记录不存在");
+        }
         Emr emr1 = service.update(emr);
         if (null == emr1) {
             msg.setInfo("更新emr数据失败");
@@ -110,14 +106,16 @@ public class EmrController {
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public PageInfo getPaperInfo(Integer limit) {
-        if (null != this.pageInfo && !this.pageInfo.needToReget(limit)) {
-            return this.pageInfo;
-        } else {
+    public Message getPaperInfo(Integer limit) {
+        Message message = new Message(200, "");
+        if (null == this.pageInfo && this.pageInfo.needToReget(limit)) {
             if (null == limit) {
                 limit = 20;
             }
-            return PagesHelper.getPageInfo(TABLE, limit, service, null);
+            this.pageInfo = PagesHelper.getPageInfo(TABLE, limit, service, null);
         }
+        message.put("pages", this.pageInfo);
+        return message;
+
     }
 }

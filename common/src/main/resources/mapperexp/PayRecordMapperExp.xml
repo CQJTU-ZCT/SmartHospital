@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqjtu.model.PayRecord">
+<mapper namespace="com.cqjtu.mapperexp.PayRecordMapperExp">
     <select id="get" resultType="com.cqjtu.model.PayRecord">
         SELECT * FROM pay_record
         <if test="null != param">

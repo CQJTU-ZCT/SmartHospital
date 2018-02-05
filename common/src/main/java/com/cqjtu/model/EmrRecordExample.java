@@ -375,6 +375,146 @@ public class EmrRecordExample {
             return (Criteria) this;
         }
 
+        public Criteria andDescriptionIsNull() {
+            addCriterion("description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("description =", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("description <>", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("description >", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("description >=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("description <", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("description <=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("description like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("description not like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("description in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("description not in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("description between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("description not between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentIsNull() {
+            addCriterion("treatment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentIsNotNull() {
+            addCriterion("treatment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentEqualTo(String value) {
+            addCriterion("treatment =", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentNotEqualTo(String value) {
+            addCriterion("treatment <>", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentGreaterThan(String value) {
+            addCriterion("treatment >", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentGreaterThanOrEqualTo(String value) {
+            addCriterion("treatment >=", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentLessThan(String value) {
+            addCriterion("treatment <", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentLessThanOrEqualTo(String value) {
+            addCriterion("treatment <=", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentLike(String value) {
+            addCriterion("treatment like", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentNotLike(String value) {
+            addCriterion("treatment not like", value, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentIn(List<String> values) {
+            addCriterion("treatment in", values, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentNotIn(List<String> values) {
+            addCriterion("treatment not in", values, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentBetween(String value1, String value2) {
+            addCriterion("treatment between", value1, value2, "treatment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTreatmentNotBetween(String value1, String value2) {
+            addCriterion("treatment not between", value1, value2, "treatment");
+            return (Criteria) this;
+        }
+
         public Criteria andHospitalIdIsNull() {
             addCriterion("hospital_id is null");
             return (Criteria) this;

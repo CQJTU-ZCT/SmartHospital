@@ -3,11 +3,12 @@
 <mapper namespace="com.cqjtu.mapper.PayRecordMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.PayRecord">
     <id column="record_id" jdbcType="VARCHAR" property="recordId" />
-    <result column="id" jdbcType="SMALLINT" property="id" />
-    <result column="pay_id" jdbcType="SMALLINT" property="payId" />
+    <result column="pay_status_id" jdbcType="INTEGER" property="payStatusId" />
+    <result column="pay_way_id" jdbcType="INTEGER" property="payWayId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
-    <result column="cancle_time" jdbcType="TIMESTAMP" property="cancelTime" />
+    <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
     <result column="price" jdbcType="DECIMAL" property="price" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    record_id, id, pay_id, create_time, finish_time, cancle_time, price
+    record_id, pay_status_id, pay_way_id, order_id, create_time, finish_time, cancel_time, 
+    price
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.PayRecordExample" resultMap="BaseResultMap">
     select
@@ -102,12 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.PayRecord">
-    insert into pay_record (record_id, id, pay_id, 
-      create_time, finish_time, cancel_time,
-      price)
-    values (#{recordId,jdbcType=VARCHAR}, #{id,jdbcType=SMALLINT}, #{payId,jdbcType=SMALLINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{cancelTime,jdbcType=TIMESTAMP},
-      #{price,jdbcType=DECIMAL})
+    insert into pay_record (record_id, pay_status_id, pay_way_id, 
+      order_id, create_time, finish_time, 
+      cancel_time, price)
+    values (#{recordId,jdbcType=VARCHAR}, #{payStatusId,jdbcType=INTEGER}, #{payWayId,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{cancelTime,jdbcType=TIMESTAMP}, #{price,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.PayRecord">
     insert into pay_record
@@ -115,11 +117,14 @@
       <if test="recordId != null">
         record_id,
       </if>
-      <if test="id != null">
-        id,
+      <if test="payStatusId != null">
+        pay_status_id,
       </if>
-      <if test="payId != null">
-        pay_id,
+      <if test="payWayId != null">
+        pay_way_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -128,7 +133,7 @@
         finish_time,
       </if>
       <if test="cancelTime != null">
-        cancle_time,
+        cancel_time,
       </if>
       <if test="price != null">
         price,
@@ -138,11 +143,14 @@
       <if test="recordId != null">
         #{recordId,jdbcType=VARCHAR},
       </if>
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="payStatusId != null">
+        #{payStatusId,jdbcType=INTEGER},
       </if>
-      <if test="payId != null">
-        #{payId,jdbcType=SMALLINT},
+      <if test="payWayId != null">
+        #{payWayId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -170,11 +178,14 @@
       <if test="record.recordId != null">
         record_id = #{record.recordId,jdbcType=VARCHAR},
       </if>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.payStatusId != null">
+        pay_status_id = #{record.payStatusId,jdbcType=INTEGER},
       </if>
-      <if test="record.payId != null">
-        pay_id = #{record.payId,jdbcType=SMALLINT},
+      <if test="record.payWayId != null">
+        pay_way_id = #{record.payWayId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -183,7 +194,7 @@
         finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.cancelTime != null">
-        cancle_time = #{record.cancelTime,jdbcType=TIMESTAMP},
+        cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.price != null">
         price = #{record.price,jdbcType=DECIMAL},
@@ -196,8 +207,9 @@
   <update id="updateByExample" parameterType="map">
     update pay_record
     set record_id = #{record.recordId,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=SMALLINT},
-      pay_id = #{record.payId,jdbcType=SMALLINT},
+      pay_status_id = #{record.payStatusId,jdbcType=INTEGER},
+      pay_way_id = #{record.payWayId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
@@ -209,11 +221,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.PayRecord">
     update pay_record
     <set>
-      <if test="id != null">
-        id = #{id,jdbcType=SMALLINT},
+      <if test="payStatusId != null">
+        pay_status_id = #{payStatusId,jdbcType=INTEGER},
       </if>
-      <if test="payId != null">
-        pay_id = #{payId,jdbcType=SMALLINT},
+      <if test="payWayId != null">
+        pay_way_id = #{payWayId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -222,7 +237,7 @@
         finish_time = #{finishTime,jdbcType=TIMESTAMP},
       </if>
       <if test="cancelTime != null">
-        cancle_time = #{cancelTime,jdbcType=TIMESTAMP},
+        cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
       </if>
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
@@ -232,8 +247,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.PayRecord">
     update pay_record
-    set id = #{id,jdbcType=SMALLINT},
-      pay_id = #{payId,jdbcType=SMALLINT},
+    set pay_status_id = #{payStatusId,jdbcType=INTEGER},
+      pay_way_id = #{payWayId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
       cancel_time = #{cancelTime,jdbcType=TIMESTAMP},

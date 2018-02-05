@@ -1,5 +1,7 @@
 package com.cqjtu.model;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Emr {
@@ -19,8 +21,10 @@ public class Emr {
         this.emrId = emrId == null ? null : emrId.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getCreateTime() throws Exception {
+        //对应mysql date类型
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        return format.format(createTime);
     }
 
     public void setCreateTime(Date createTime) {

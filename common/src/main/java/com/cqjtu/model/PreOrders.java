@@ -10,7 +10,7 @@ public class PreOrders {
 
     private Date createTime;
 
-    private Date cancleTime;
+    private Date cancelTime;
 
     private Date finishTime;
 
@@ -40,12 +40,12 @@ public class PreOrders {
         this.createTime = createTime;
     }
 
-    public Date getCancleTime() {
-        return cancleTime;
+    public Date getCancelTime() {
+        return cancelTime;
     }
 
-    public void setCancleTime(Date cancleTime) {
-        this.cancleTime = cancleTime;
+    public void setCancelTime(Date cancelTime) {
+        this.cancelTime = cancelTime;
     }
 
     public Date getFinishTime() {

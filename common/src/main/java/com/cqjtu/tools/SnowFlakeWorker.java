@@ -19,7 +19,7 @@ public class SnowFlakeWorker {
     private final long sequenceMask = -1L ^ (-1L << sequenceBits);
 
     private long workerId;
-    private long datacenterId;
+    private long dataCenterId;
     private long sequence = 0L;
     private long lastTimestamp = -1L;
 
@@ -28,12 +28,12 @@ public class SnowFlakeWorker {
             throw new IllegalArgumentException(String.format("worker Id can't be greater " +
                     "than %d or less than 0", maxWorkerId));
         }
-        if (datacenterId > maxDataCenterId || datacenterId < 0) {
+        if (this.dataCenterId > maxDataCenterId || this.dataCenterId < 0) {
             throw new IllegalArgumentException(String.format("data center Id can't be greater " +
                     "than %d or less than 0", maxDataCenterId));
         }
         this.workerId = workerId;
-        this.datacenterId = dataCenterId;
+        this.dataCenterId = dataCenterId;
     }
 
     public synchronized long nextId() {
@@ -54,7 +54,7 @@ public class SnowFlakeWorker {
         lastTimestamp = timestamp;
 
         return ((timestamp - twepoch) << timestampLeftShift) |
-               (datacenterId << dataCenterIdShift) |
+               (dataCenterId << dataCenterIdShift) |
                (workerId << workerIdShift) | sequence;
     }
 

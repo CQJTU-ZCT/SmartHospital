@@ -20,11 +20,18 @@
   		<property name="suppressAllComments" value="true"/>
 	</commentGenerator>
     
+    <!--<jdbcConnection-->
+    	<!--driverClass="com.mysql.jdbc.Driver"-->
+        <!--connectionURL="jdbc:mysql://10.0.0.13:3306/smarthospital_test"-->
+        <!--userId="zct"-->
+        <!--password="123456">-->
+    <!--</jdbcConnection>-->
+
     <jdbcConnection
-    	driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://10.0.0.13:3306/smarthospital_test"
-        userId="zct"
-        password="123456">
+            driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://198.13.46.57:3306/smart_hospital"
+            userId="sh"
+            password="kele991146">
     </jdbcConnection>
 
 

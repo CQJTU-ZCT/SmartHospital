@@ -7,7 +7,7 @@ public class EmrRecord {
 
     private String emrId;
 
-    private String createTime;
+    private Date createTime;
 
     private String title;
 
@@ -20,31 +20,6 @@ public class EmrRecord {
     private Integer branchId;
 
     private Integer doctorId;
-
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getTreatment() {
-        return treatment;
-    }
-
-    public void setTreatment(String treatment) {
-        this.treatment = treatment;
-    }
 
     public String getRecordId() {
         return recordId;
@@ -62,7 +37,13 @@ public class EmrRecord {
         this.emrId = emrId == null ? null : emrId.trim();
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
 
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public String getTitle() {
         return title;
@@ -70,6 +51,22 @@ public class EmrRecord {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(String treatment) {
+        this.treatment = treatment == null ? null : treatment.trim();
     }
 
     public String getHospitalId() {
@@ -94,20 +91,5 @@ public class EmrRecord {
 
     public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
-    }
-
-    @Override
-    public String toString() {
-        return "EmrRecord{" +
-                "recordId='" + recordId + '\'' +
-                ", emrId='" + emrId + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", treatment='" + treatment + '\'' +
-                ", hospitalId='" + hospitalId + '\'' +
-                ", branchId=" + branchId +
-                ", doctorId=" + doctorId +
-                '}';
     }
 }

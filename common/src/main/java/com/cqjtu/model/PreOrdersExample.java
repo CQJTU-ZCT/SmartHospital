@@ -296,63 +296,63 @@ public class PreOrdersExample {
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeIsNull() {
-            addCriterion("cancle_time is null");
+        public Criteria andCancelTimeIsNull() {
+            addCriterion("cancel_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeIsNotNull() {
-            addCriterion("cancle_time is not null");
+        public Criteria andCancelTimeIsNotNull() {
+            addCriterion("cancel_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeEqualTo(Date value) {
-            addCriterion("cancle_time =", value, "cancleTime");
+        public Criteria andCancelTimeEqualTo(Date value) {
+            addCriterion("cancel_time =", value, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeNotEqualTo(Date value) {
-            addCriterion("cancle_time <>", value, "cancleTime");
+        public Criteria andCancelTimeNotEqualTo(Date value) {
+            addCriterion("cancel_time <>", value, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeGreaterThan(Date value) {
-            addCriterion("cancle_time >", value, "cancleTime");
+        public Criteria andCancelTimeGreaterThan(Date value) {
+            addCriterion("cancel_time >", value, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("cancle_time >=", value, "cancleTime");
+        public Criteria andCancelTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("cancel_time >=", value, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeLessThan(Date value) {
-            addCriterion("cancle_time <", value, "cancleTime");
+        public Criteria andCancelTimeLessThan(Date value) {
+            addCriterion("cancel_time <", value, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeLessThanOrEqualTo(Date value) {
-            addCriterion("cancle_time <=", value, "cancleTime");
+        public Criteria andCancelTimeLessThanOrEqualTo(Date value) {
+            addCriterion("cancel_time <=", value, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeIn(List<Date> values) {
-            addCriterion("cancle_time in", values, "cancleTime");
+        public Criteria andCancelTimeIn(List<Date> values) {
+            addCriterion("cancel_time in", values, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeNotIn(List<Date> values) {
-            addCriterion("cancle_time not in", values, "cancleTime");
+        public Criteria andCancelTimeNotIn(List<Date> values) {
+            addCriterion("cancel_time not in", values, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeBetween(Date value1, Date value2) {
-            addCriterion("cancle_time between", value1, value2, "cancleTime");
+        public Criteria andCancelTimeBetween(Date value1, Date value2) {
+            addCriterion("cancel_time between", value1, value2, "cancelTime");
             return (Criteria) this;
         }
 
-        public Criteria andCancleTimeNotBetween(Date value1, Date value2) {
-            addCriterion("cancle_time not between", value1, value2, "cancleTime");
+        public Criteria andCancelTimeNotBetween(Date value1, Date value2) {
+            addCriterion("cancel_time not between", value1, value2, "cancelTime");
             return (Criteria) this;
         }
 

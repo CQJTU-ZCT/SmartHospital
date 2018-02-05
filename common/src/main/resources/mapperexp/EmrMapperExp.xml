@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.EmrMapperExp">
+    <select id="getEmr" resultType="com.cqjtu.model.Emr">
+        SELECT * FROM emr
+        <if test="page != null and null != limit">
+            LIMIT ${page}, ${limit}
+        </if>
+    </select>
+
+    <select id="count" parameterType="java.util.Map" resultType="Integer">
+        SELECT COUNT(*) FROM emr
+        <if test="null != param">
+            WHERE
+            <foreach collection="param" item="key" separator=",">
+                ${key} = ${param[${key}]}
+            </foreach>
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.cqjtu.model.Emr">
+        INSERT INTO emr
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != emrId">
+                emr_id,
+            </if>
+            <if test="null != createTime">
+                create_time,
+            </if>
+            <if test="null != createAge">
+                create_age,
+            </if>
+            <if test="null != idCard">
+                id_card
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != emrId">
+                ${emrId},
+            </if>
+            <if test="null != createTime">
+                "${createTime}",
+            </if>
+            <if test="null != createAge">
+                ${createAge},
+            </if>
+            <if test="null != idCard">
+                ${idCard}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.cqjtu.model.Emr">
+        UPDATE emr
+        <set>
+            <if test="null != createTime">
+                create_time = "${createTime}",
+            </if>
+            <if test="null != createAge">
+                create_age = ${createAge},
+            </if>
+            <if test="null != idCard">
+                id_card = ${idCard}
+            </if>
+        </set>
+        <if test="null != emrId">
+            WHERE emr_id = ${emrId}
+        </if>
+    </update>
+
+    <select id="selectById" resultType="com.cqjtu.model.Emr">
+        SELECT * FROM emr WHERE emr_id = ${emrId}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM emr WHERE emr_id = ${emrId}
+    </delete>
+
+</mapper>

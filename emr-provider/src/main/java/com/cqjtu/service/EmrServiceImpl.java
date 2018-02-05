@@ -9,7 +9,6 @@
  */
 package com.cqjtu.service;
 
-import com.cqjtu.mapper.EmrMapper;
 import com.cqjtu.mapperexp.EmrMapperExp;
 import com.cqjtu.model.Emr;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,11 @@ import java.util.Map;
 public class EmrServiceImpl implements EmrService, Pageable {
 
     @Autowired
-    EmrMapper mapper;
-
-    @Autowired
-    EmrMapperExp emrMapperExp;
+    EmrMapperExp mapperExp;
 
     @Override
     public Emr insert(Emr emr) {
-        if (mapper.insert(emr) > 0) {
+        if (mapperExp.insert(emr) > 0) {
             return emr;
         } else {
             return null;
@@ -38,7 +34,7 @@ public class EmrServiceImpl implements EmrService, Pageable {
 
     @Override
     public Emr update(Emr emr) {
-        if (mapper.updateByPrimaryKeySelective(emr) > 0) {
+        if (mapperExp.update(emr) > 0) {
             return emr;
         } else {
             return null;
@@ -47,17 +43,17 @@ public class EmrServiceImpl implements EmrService, Pageable {
 
     @Override
     public Emr getEmrById(String id) {
-        return mapper.selectByPrimaryKey(id);
+        return mapperExp.selectById(id);
     }
 
     @Override
     public Emr delete(String id) {
-        Emr emr = mapper.selectByPrimaryKey(id);
+        Emr emr = mapperExp.selectById(id);
         if (null == emr) {
             //emr don't exist
             return null;
         } else  {
-            if (mapper.deleteByPrimaryKey(id) == 1) {
+            if (mapperExp.delete(id) == 1) {
                 return emr;
             } else {
                 //delete failed
@@ -68,16 +64,16 @@ public class EmrServiceImpl implements EmrService, Pageable {
 
     @Override
     public List<Emr> getAll() {
-        return mapper.selectByExample(null);
+        return mapperExp.getEmr(null, null);
     }
 
     @Override
     public Integer count(Map<String, Object> param) {
-        return emrMapperExp.count();
+        return mapperExp.count(param);
     }
 
     @Override
     public List<Emr> emrs(Integer page, Integer limit) {
-        return emrMapperExp.getEmr(page, limit);
+        return mapperExp.getEmr(page, limit);
     }
 }
