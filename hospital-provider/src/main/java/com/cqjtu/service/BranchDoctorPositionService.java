@@ -1,6 +1,7 @@
 package com.cqjtu.service;
 
 import com.cqjtu.model.BranchDoctorPosition;
+import com.cqjtu.modelexp.BranchDoctorPositionExp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,6 +29,6 @@ public interface BranchDoctorPositionService {
     int updateBranchDoctorPosition(BranchDoctorPosition branchDoctorPosition);
 
 
-    List<BranchDoctorPosition> queryBranchDoctorPosition(BranchDoctorPosition  branchDoctorPosition);
+    List<BranchDoctorPositionExp> queryBranchDoctorPosition(BranchDoctorPosition  branchDoctorPosition);
 
 }

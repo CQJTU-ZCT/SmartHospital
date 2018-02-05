@@ -1,8 +1,8 @@
 package com.cqjtu.service;
 
 import com.cqjtu.mapperexp.BranchDoctorTitleMapperExp;
-import com.cqjtu.model.BranchDoctorPosition;
 import com.cqjtu.model.BranchDoctorTitle;
+import com.cqjtu.modelexp.BranchDoctorTitleExp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2018/1/26.
  */
 @Service
-public class BranchDoctorTitleServiceImpl implements BranchDoctorTtitleService {
+public class BranchDoctorTitleServiceImpl implements BranchDoctorTitleService {
 
 
     @Autowired
@@ -22,7 +22,7 @@ public class BranchDoctorTitleServiceImpl implements BranchDoctorTtitleService {
 
     @Override
     public int addBranchDoctorTitile(BranchDoctorTitle branchDoctorTitle) {
-        return branchDoctorTitleMapperExp.addBranchDoctorTitile(branchDoctorTitle);
+        return branchDoctorTitleMapperExp.addBranchDoctorTitle(branchDoctorTitle);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class BranchDoctorTitleServiceImpl implements BranchDoctorTtitleService {
     }
 
     @Override
-    public List<BranchDoctorTitle> queryBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle) {
+    public List<BranchDoctorTitleExp> queryBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle) {
         return branchDoctorTitleMapperExp.queryBranchDoctorTitle(branchDoctorTitle);
     }
 }

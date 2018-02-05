@@ -89,46 +89,63 @@ public class BranchController {
 
 
     private void checkBranchPropertiesAndOpt(String token ,Message message ,Branch branch,String optFlag){
-       if (token == null || token.length() <=0){
-           message.setInfo("未授权");
+        String info= "";
+        if (token == null || token.length() <=0){
+           info= "未授权";
        }else {
            boolean flag = true;
+           int paraNum = 0;
            if (optFlag.equals(optUpdate)){
                if (branch.getBranchId() == null || branch.getBranchId() <=0){
+                   info = "科室编号不能为空";
                    flag = false;
+               }
+               if (flag){
+                   if (branch.getName() != null && branch.getName().trim().length() >0){
+                       paraNum ++;
+                   }
+               }
+               if (flag){
+                   if (branch.getIntroduction() !=  null && branch.getIntroduction().trim().length() >0){
+                       paraNum ++;
+                   }
                }
            }
            if (optFlag.equals(optAdd)){
                if (branch.getIntroduction() == null || branch.getIntroduction().length()<=0){
+                   info= "科室简介不能为空";
                    flag = false;
                }
                if (branch.getName() == null || branch.getName().length()<=0){
+                   info = "科室名称不能为空";
                    flag = false;
                }
            }
-
            if (flag){
                if (optFlag.equals(optAdd)){
                    int add =  branchService.addBranch(branch);
                    if (add >0){
                        message.setCode(200);
-                       message.setInfo("添加科室成功");
+                       info = "添加科室成功";
                        branch.setBranchId(add);
                    }else {
-                       message.setInfo("添加科室失败");
+                       info = "添加科室失败";
                    }
                }
                if (optFlag.equals(optUpdate)){
-                   if (branchService.updateBranch(branch)>0){
-                       message.setCode(200);
-                       message.setInfo("更新科室成功");
+                   if (paraNum >0){
+                       if (branchService.updateBranch(branch)>0){
+                           message.setCode(200);
+                           info = "更新科室成功";
+                       }else {
+                           info = "更新科室失败";
+                       }
                    }else {
-                       message.setInfo("更新科室失败");
+                       info = "更新内容不能为空";
                    }
                }
-           }else {
-               message.setInfo("科室操作缺少参数");
            }
+           message.setInfo(info);
            message.put("branch",branch);
        }
     }

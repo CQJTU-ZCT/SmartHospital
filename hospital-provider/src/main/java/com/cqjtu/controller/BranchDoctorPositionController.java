@@ -4,6 +4,7 @@ import com.cqjtu.mapperexp.BranchDoctorPositionMapperExp;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.BranchDoctorPosition;
 import com.cqjtu.model.Title;
+import com.cqjtu.modelexp.BranchDoctorPositionExp;
 import com.cqjtu.service.BranchDoctorPositionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/branch-doctor-position/")
+@RequestMapping("/branch-doctor-position")
 public class BranchDoctorPositionController {
 
 
@@ -73,61 +74,72 @@ public class BranchDoctorPositionController {
 
 
     private void validateAndOpt(String token ,Message message ,RequestMethod method,BranchDoctorPosition branchDoctorPosition){
+
+        String info = "";
         if (token == null || token.length() <=0){
             //TODO  完成角色权限认证
-            message.setInfo("未授权");
+            info = "未授权";
         }else {
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){
                 //添加操作
                 if (branchDoctorPosition.getBranchId() == null || branchDoctorPosition.getBranchId() <=0){
+                    info = "科室编号不能为空";
                     flag = false;
                 }
                 if (branchDoctorPosition.getPositionId() == null || branchDoctorPosition.getPositionId() <=0){
+                    info = "职位编号不能为空";
                     flag = false;
                 }
                 if (branchDoctorPosition.getIdCard() == null || branchDoctorPosition.getIdCard().length() <=0){
+                    info = "用户标识不能为空";
                     flag = false;
                 }
                 if (flag){
                     int add = branchDoctorPositionService.addBranchDoctorPosition(branchDoctorPosition);
                     if (add >0 ){
                         message.setCode(200);
-                        message.setInfo("添加科室医生职位信息成功");
+                        info = "添加科室医生职位信息成功";
                         branchDoctorPosition.setBdpId(add);
                     }else {
-                        message.setInfo("添加科室医生职位信息失败");
+                        info = "添加科室医生职位信息失败";
                     }
                 }
             }else if (method.equals(RequestMethod.PUT)){
                 //修改操作
                 if (branchDoctorPosition.getBdpId() == null||branchDoctorPosition.getBdpId() <=0 ){
+                    info = "科室医生职位编号不能为空";
                     flag =false;
                 }
-                if (branchDoctorPosition.getBranchId() == null || branchDoctorPosition.getBranchId() <=0){
-                    flag = false;
-                }
-                if (branchDoctorPosition.getPositionId() == null || branchDoctorPosition.getPositionId() <=0){
-                    flag = false;
-                }
-                if (branchDoctorPosition.getIdCard() == null || branchDoctorPosition.getIdCard().length() <=0){
-                    flag = false;
+                int paraNum = 0;
+                if (flag){
+                    if (branchDoctorPosition.getBranchId() != null && branchDoctorPosition.getBranchId() >0){
+                        paraNum ++;
+                    }
+                    if (branchDoctorPosition.getPositionId() != null && branchDoctorPosition.getPositionId() >0){
+                        paraNum++;
+                    }
+                    if (branchDoctorPosition.getIdCard() != null && branchDoctorPosition.getIdCard().length() >0){
+                        paraNum++;
+                    }
                 }
                 if (flag){
-                    int update = branchDoctorPositionService.addBranchDoctorPosition(branchDoctorPosition);
-                    if (update == 1 ){
-                        message.setCode(200);
-                        message.setInfo("修改科室医生职位信息成功");
+                    if (paraNum >0){
+                        int update = branchDoctorPositionService.updateBranchDoctorPosition(branchDoctorPosition);
+                        if (update == 1 ){
+                            message.setCode(200);
+                            info = "修改科室医生职位信息成功";
+                        }else {
+                            info = "修改科室医生职位信息失败";
+                        }
                     }else {
-                        message.setInfo("修改科室医生职位信息失败");
+                        info = "要修改的内容不能为空";
                     }
                 }
             }
-            if (!flag){
-                message.setInfo("参数错误");
-            }
-            message.put("branchDoctorPosition",branchDoctorPosition);
         }
+        message.setInfo(info);
+        message.put("branchDoctorPosition",branchDoctorPosition);
     }
 
 
@@ -167,7 +179,7 @@ public class BranchDoctorPositionController {
             }
             //开始分页查询
             PageHelper.startPage(pageNum,pageSize);
-            List<BranchDoctorPosition> branchDoctorPositions = branchDoctorPositionService.queryBranchDoctorPosition(branchDoctorPosition);
+            List<BranchDoctorPositionExp> branchDoctorPositions = branchDoctorPositionService.queryBranchDoctorPosition(branchDoctorPosition);
             PageInfo pageInfo = new PageInfo(branchDoctorPositions,navigatePages);
             message.setCode(200);
             message.setInfo("获取科室医生职位信息成功");

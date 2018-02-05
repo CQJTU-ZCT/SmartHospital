@@ -50,7 +50,7 @@
     </update>
 
     <insert id="addBranch" parameterType="com.cqjtu.model.Branch">
-        <selectKey resultType="java.lang.Integer" keyColumn="branch_id">
+        <selectKey resultType="java.lang.Integer" keyProperty="branchId">
             SELECT last_insert_id();
         </selectKey>
 
