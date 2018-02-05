@@ -39,4 +39,14 @@ public interface DoctorService {
      * @return
      */
     int updateDoctorIdCard( String idCard);
+
+
+
+    /**
+     * 根据身份证号码查询医生信息
+     * @param idCard
+     * @return
+     */
+    Doctor queryDoctorByIdCard(@Param("idCard") String idCard);
+
 }

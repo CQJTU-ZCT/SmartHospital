@@ -3,14 +3,14 @@ package com.cqjtu.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUseExample {
+public class ExclusiveDoctorStatusExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public FileUseExample() {
+    public ExclusiveDoctorStatusExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,133 +104,133 @@ public class FileUseExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andStatusIdIsNull() {
+            addCriterion("status_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andStatusIdIsNotNull() {
+            addCriterion("status_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Short value) {
-            addCriterion("id =", value, "id");
+        public Criteria andStatusIdEqualTo(Integer value) {
+            addCriterion("status_id =", value, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Short value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andStatusIdNotEqualTo(Integer value) {
+            addCriterion("status_id <>", value, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Short value) {
-            addCriterion("id >", value, "id");
+        public Criteria andStatusIdGreaterThan(Integer value) {
+            addCriterion("status_id >", value, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Short value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andStatusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status_id >=", value, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Short value) {
-            addCriterion("id <", value, "id");
+        public Criteria andStatusIdLessThan(Integer value) {
+            addCriterion("status_id <", value, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Short value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andStatusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("status_id <=", value, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Short> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andStatusIdIn(List<Integer> values) {
+            addCriterion("status_id in", values, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Short> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andStatusIdNotIn(List<Integer> values) {
+            addCriterion("status_id not in", values, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Short value1, Short value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andStatusIdBetween(Integer value1, Integer value2) {
+            addCriterion("status_id between", value1, value2, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Short value1, Short value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andStatusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("status_id not between", value1, value2, "statusId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNull() {
-            addCriterion("description is null");
+        public Criteria andStatusDescIsNull() {
+            addCriterion("status_desc is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNotNull() {
-            addCriterion("description is not null");
+        public Criteria andStatusDescIsNotNull() {
+            addCriterion("status_desc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionEqualTo(String value) {
-            addCriterion("description =", value, "description");
+        public Criteria andStatusDescEqualTo(String value) {
+            addCriterion("status_desc =", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotEqualTo(String value) {
-            addCriterion("description <>", value, "description");
+        public Criteria andStatusDescNotEqualTo(String value) {
+            addCriterion("status_desc <>", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThan(String value) {
-            addCriterion("description >", value, "description");
+        public Criteria andStatusDescGreaterThan(String value) {
+            addCriterion("status_desc >", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("description >=", value, "description");
+        public Criteria andStatusDescGreaterThanOrEqualTo(String value) {
+            addCriterion("status_desc >=", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThan(String value) {
-            addCriterion("description <", value, "description");
+        public Criteria andStatusDescLessThan(String value) {
+            addCriterion("status_desc <", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThanOrEqualTo(String value) {
-            addCriterion("description <=", value, "description");
+        public Criteria andStatusDescLessThanOrEqualTo(String value) {
+            addCriterion("status_desc <=", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLike(String value) {
-            addCriterion("description like", value, "description");
+        public Criteria andStatusDescLike(String value) {
+            addCriterion("status_desc like", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotLike(String value) {
-            addCriterion("description not like", value, "description");
+        public Criteria andStatusDescNotLike(String value) {
+            addCriterion("status_desc not like", value, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIn(List<String> values) {
-            addCriterion("description in", values, "description");
+        public Criteria andStatusDescIn(List<String> values) {
+            addCriterion("status_desc in", values, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotIn(List<String> values) {
-            addCriterion("description not in", values, "description");
+        public Criteria andStatusDescNotIn(List<String> values) {
+            addCriterion("status_desc not in", values, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionBetween(String value1, String value2) {
-            addCriterion("description between", value1, value2, "description");
+        public Criteria andStatusDescBetween(String value1, String value2) {
+            addCriterion("status_desc between", value1, value2, "statusDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotBetween(String value1, String value2) {
-            addCriterion("description not between", value1, value2, "description");
+        public Criteria andStatusDescNotBetween(String value1, String value2) {
+            addCriterion("status_desc not between", value1, value2, "statusDesc");
             return (Criteria) this;
         }
     }

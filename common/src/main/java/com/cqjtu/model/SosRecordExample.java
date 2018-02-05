@@ -315,6 +315,66 @@ public class SosRecordExample {
             return (Criteria) this;
         }
 
+        public Criteria andStatusIdIsNull() {
+            addCriterion("status_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdIsNotNull() {
+            addCriterion("status_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdEqualTo(Integer value) {
+            addCriterion("status_id =", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdNotEqualTo(Integer value) {
+            addCriterion("status_id <>", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdGreaterThan(Integer value) {
+            addCriterion("status_id >", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status_id >=", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdLessThan(Integer value) {
+            addCriterion("status_id <", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("status_id <=", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdIn(List<Integer> values) {
+            addCriterion("status_id in", values, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdNotIn(List<Integer> values) {
+            addCriterion("status_id not in", values, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdBetween(Integer value1, Integer value2) {
+            addCriterion("status_id between", value1, value2, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("status_id not between", value1, value2, "statusId");
+            return (Criteria) this;
+        }
+
         public Criteria andLongitudeIsNull() {
             addCriterion("longitude is null");
             return (Criteria) this;

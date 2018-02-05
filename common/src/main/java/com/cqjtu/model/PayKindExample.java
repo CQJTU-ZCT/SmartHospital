@@ -104,63 +104,63 @@ public class PayKindExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andPayWayIdIsNull() {
+            addCriterion("pay_way_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andPayWayIdIsNotNull() {
+            addCriterion("pay_way_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Short value) {
-            addCriterion("id =", value, "id");
+        public Criteria andPayWayIdEqualTo(Integer value) {
+            addCriterion("pay_way_id =", value, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Short value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andPayWayIdNotEqualTo(Integer value) {
+            addCriterion("pay_way_id <>", value, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Short value) {
-            addCriterion("id >", value, "id");
+        public Criteria andPayWayIdGreaterThan(Integer value) {
+            addCriterion("pay_way_id >", value, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Short value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andPayWayIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("pay_way_id >=", value, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Short value) {
-            addCriterion("id <", value, "id");
+        public Criteria andPayWayIdLessThan(Integer value) {
+            addCriterion("pay_way_id <", value, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Short value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andPayWayIdLessThanOrEqualTo(Integer value) {
+            addCriterion("pay_way_id <=", value, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Short> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andPayWayIdIn(List<Integer> values) {
+            addCriterion("pay_way_id in", values, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Short> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andPayWayIdNotIn(List<Integer> values) {
+            addCriterion("pay_way_id not in", values, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Short value1, Short value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andPayWayIdBetween(Integer value1, Integer value2) {
+            addCriterion("pay_way_id between", value1, value2, "payWayId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Short value1, Short value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andPayWayIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("pay_way_id not between", value1, value2, "payWayId");
             return (Criteria) this;
         }
 

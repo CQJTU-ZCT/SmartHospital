@@ -27,8 +27,8 @@ public interface TitleService {
 
     /**
      * 根据名称模糊查询
-     * @param name
+     * @param title
      * @return
      */
-    List<Title> queryTitle(String name);
+    List<Title> queryTitle(Title title);
 }

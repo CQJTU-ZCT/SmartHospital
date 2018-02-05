@@ -4,15 +4,15 @@
 
 
     <select id="queryFeedback" resultType="com.cqjtu.model.Feedback">
-        SELECT feedback_id,id,title,description
+        SELECT feedback_id,feedback_status_id,title,description
         from feedback
         <where>
             <trim prefixOverrides="and">
                 <if test="feedbackId != null ">
                     and  feedback_id LIKE  CONCAT(CONCAT('%', #{feedbackId}), '%')
                 </if>
-                <if test="id != null ">
-                    and   id =#{id}
+                <if test="feedbackStatusId != null ">
+                    and   feedback_status_id =#{feedbackStatusId}
                 </if>
                 <if test="title != null ">
                     and   title LIKE  CONCAT(CONCAT('%', #{title}), '%')
@@ -28,8 +28,14 @@
     <update id="updateFeedback" parameterType="com.cqjtu.model.Feedback">
         update feedback
         <set>
-            <if test="id != null">
-                id=#{id}
+            <if test="feedbackStatusId != null">
+                feedback_status_id=#{feedbackStatusId},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="title != null">
+                title=#{title}
             </if>
         </set>
         where feedback_id = #{feedbackId}
@@ -53,11 +59,11 @@
             <if test="description != null">
                 description,
             </if>
-            <if test="id != null">
-                id
+            <if test="feedbackStatusId != null">
+                feedback_status_id
             </if>
-            <if test="id == null">
-                id
+            <if test="feedbackStatusId == null">
+                feedback_status_id
             </if>
         </trim>
         values
@@ -71,10 +77,10 @@
             <if test="description != null">
                 #{description},
             </if>
-            <if test="id != null">
-                #{id}
+            <if test="feedbackStatusId != null">
+                #{feedbackStatusId}
             </if>
-            <if test="id == null">
+            <if test="feedbackStatusId == null">
                 1
             </if>
         </trim>

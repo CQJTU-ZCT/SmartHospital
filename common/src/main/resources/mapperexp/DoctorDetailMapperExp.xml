@@ -4,8 +4,8 @@
 
 
     <select id="queryDoctorDetail" resultType="com.cqjtu.model.DoctorDetail">
-        SELECT id_card,id,name,mail,phone
-        from doctor
+        SELECT id_card,photo_id,sex_id,profile_id,nation_id,address,birth_y_m_d
+        from doctor_detail
         <where>
             <trim prefixOverrides="and">
                 <if test="idCard != null ">
@@ -14,24 +14,24 @@
                 <if test="address != null ">
                     and   address LIKE  CONCAT(CONCAT('%', #{address}), '%')
                 </if>
-                <if test="sex != null ">
-                    and   sex =#{sex}
+                <if test="sexId != null ">
+                    and   sex_id =#{sexId}
                 </if>
-                <if test="profile != null ">
-                    and   profile LIKE  CONCAT(CONCAT('%', #{profile}), '%')
+                <if test="profileId != null ">
+                    and   profile_id LIKE  CONCAT(CONCAT('%', #{profileId}), '%')
                 </if>
                 <if test="birthYMD != null ">
                     and   birth_y_m_d = #{birthYMD},
                 </if>
-                <if test="nationality != null ">
-                    and   nationality = CONCAT(CONCAT('%', #{nationality}), '%')
+                <if test="nationId != null ">
+                    and   nation_id = #{nationId}
                 </if>
             </trim>
         </where>
     </select>
 
 
-    <update id="updateDotorDetail" parameterType="com.cqjtu.model.DoctorDetail">
+    <update id="updateDoctorDetail" parameterType="com.cqjtu.model.DoctorDetail">
         update doctor_detail
         <set>
             <if test="idCard != null">
@@ -40,17 +40,17 @@
             <if test="address != null">
                 address =#{address},
             </if>
-            <if test="sex != null">
-                sex =#{sex},
+            <if test="sexId != null">
+                sex_id =#{sexId},
             </if>
-            <if test="profile != null">
-                profile = #{profile},
+            <if test="profileId != null">
+                profile_id = #{profile_id},
             </if>
             <if test="birthYMD != null">
                 birth_y_m_d =#{birthYMD},
             </if>
-            <if test="nationality != null">
-                nationality =#{nationality}
+            <if test="nationId != null">
+                nation_id =#{nationId}
             </if>
         </set>
         where id_card = #{idCard}
@@ -72,20 +72,20 @@
             <if test="address != null">
                 address ,
             </if>
-            <if test="sex != null">
-                sex,
+            <if test="sexId != null">
+                sex_id,
             </if>
-            <if test="sex == null">
-                sex,
+            <if test="sexId == null">
+                sex_id,
             </if>
-            <if test="profile != null">
-                profile,
+            <if test="profileId != null">
+                profile_id,
             </if>
             <if test="birthYMD != null">
                 birth_y_m_d,
             </if>
-            <if test="nationality != null">
-                nationality
+            <if test="nationId != null">
+                nation_id
             </if>
         </trim>
         values
@@ -96,20 +96,20 @@
             <if test="address != null">
                 #{address} ,
             </if>
-            <if test="sex != null">
-                #{sex},
+            <if test="sexId != null">
+                #{sexId},
             </if>
-            <if test="sex == null">
+            <if test="sexId == null">
                 1,
             </if>
-            <if test="profile != null">
-                #{profile},
+            <if test="profileId != null">
+                #{profileId},
             </if>
             <if test="birthYMD != null">
                 #{birthYMD},
             </if>
-            <if test="nationality != null">
-                #{nationality}
+            <if test="nationId != null">
+                #{nationId}
             </if>
         </trim>
 

@@ -130,7 +130,7 @@ public class PositionController {
                     if (addPosition > 0){
                         message.setCode(200);
                         message.setInfo("添加职位信息成功");
-                        position.setPositionId(Short.parseShort(String.valueOf(addPosition)));
+                        position.setPositionId(addPosition);
                     }else {
                         message.setInfo("添加职位信息失败");
                     }

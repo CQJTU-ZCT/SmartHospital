@@ -32,6 +32,6 @@ public interface TitleMapperExp {
      * @param name
      * @return
      */
-    List<Title> queryTitle(String name);
+    List<Title> queryTitle(Title title);
 
 }

@@ -1,33 +1,33 @@
 package com.cqjtu.model;
 
 public class RoleAction {
-    private Integer id;
+    private Integer roleAccessId;
 
-    private Short roleId;
+    private Integer roleId;
 
-    private String description;
+    private String accessDescription;
 
-    public Integer getId() {
-        return id;
+    public Integer getRoleAccessId() {
+        return roleAccessId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRoleAccessId(Integer roleAccessId) {
+        this.roleAccessId = roleAccessId;
     }
 
-    public Short getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Short roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAccessDescription() {
+        return accessDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+    public void setAccessDescription(String accessDescription) {
+        this.accessDescription = accessDescription == null ? null : accessDescription.trim();
     }
 }

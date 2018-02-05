@@ -5,15 +5,17 @@ import java.util.Date;
 public class UsersDetail {
     private String idCard;
 
+    private Integer nationId;
+
+    private String photoId;
+
+    private String profileId;
+
+    private Integer sexId;
+
     private String address;
 
-    private Short sex;
-
-    private String profile;
-
     private Date birthYMD;
-
-    private String nationality;
 
     public String getIdCard() {
         return idCard;
@@ -21,6 +23,38 @@ public class UsersDetail {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard == null ? null : idCard.trim();
+    }
+
+    public Integer getNationId() {
+        return nationId;
+    }
+
+    public void setNationId(Integer nationId) {
+        this.nationId = nationId;
+    }
+
+    public String getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId == null ? null : photoId.trim();
+    }
+
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId == null ? null : profileId.trim();
+    }
+
+    public Integer getSexId() {
+        return sexId;
+    }
+
+    public void setSexId(Integer sexId) {
+        this.sexId = sexId;
     }
 
     public String getAddress() {
@@ -31,35 +65,11 @@ public class UsersDetail {
         this.address = address == null ? null : address.trim();
     }
 
-    public Short getSex() {
-        return sex;
-    }
-
-    public void setSex(Short sex) {
-        this.sex = sex;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile == null ? null : profile.trim();
-    }
-
     public Date getBirthYMD() {
         return birthYMD;
     }
 
     public void setBirthYMD(Date birthYMD) {
         this.birthYMD = birthYMD;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality == null ? null : nationality.trim();
     }
 }

@@ -2,6 +2,7 @@ package com.cqjtu.service;
 
 import com.cqjtu.mapperexp.DoctorMapperExp;
 import com.cqjtu.model.Doctor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +39,17 @@ public class DoctorServiceImpl implements DoctorService{
     public int updateDoctorIdCard(String idCard) {
         return doctorMapperExp.updateDoctorIdCard(idCard);
     }
+
+
+
+    /**
+     * 根据身份证号码查询医生信息
+     * @param idCard
+     * @return
+     */
+    @Override
+    public Doctor queryDoctorByIdCard(@Param("idCard") String idCard){
+        return doctorMapperExp.queryDoctorByIdCard(idCard);
+    }
+
 }

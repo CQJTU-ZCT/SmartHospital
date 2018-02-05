@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqjtu.mapper.PictureMapper">
-  <resultMap id="BaseResultMap" type="com.cqjtu.model.Picture">
-    <id column="picture_id" jdbcType="VARCHAR" property="pictureId" />
-    <result column="picture_path" jdbcType="VARCHAR" property="picturePath" />
+<mapper namespace="com.cqjtu.mapper.NationMapper">
+  <resultMap id="BaseResultMap" type="com.cqjtu.model.Nation">
+    <id column="nation_id" jdbcType="INTEGER" property="nationId" />
+    <result column="nation_desc" jdbcType="VARCHAR" property="nationDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    picture_id, picture_path
+    nation_id, nation_desc
   </sql>
-  <select id="selectByExample" parameterType="com.cqjtu.model.PictureExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cqjtu.model.NationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from picture
+    from nation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -80,60 +80,59 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from picture
-    where picture_id = #{pictureId,jdbcType=VARCHAR}
+    from nation
+    where nation_id = #{nationId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from picture
-    where picture_id = #{pictureId,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nation
+    where nation_id = #{nationId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cqjtu.model.PictureExample">
-    delete from picture
+  <delete id="deleteByExample" parameterType="com.cqjtu.model.NationExample">
+    delete from nation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cqjtu.model.Picture">
-    insert into picture (picture_id, picture_path)
-    values (#{pictureId,jdbcType=VARCHAR}, #{picturePath,jdbcType=VARCHAR})
-
+  <insert id="insert" parameterType="com.cqjtu.model.Nation">
+    insert into nation (nation_id, nation_desc)
+    values (#{nationId,jdbcType=INTEGER}, #{nationDesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.cqjtu.model.Picture">
-    insert into picture
+  <insert id="insertSelective" parameterType="com.cqjtu.model.Nation">
+    insert into nation
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="pictureId != null">
-        picture_id,
+      <if test="nationId != null">
+        nation_id,
       </if>
-      <if test="picturePath != null">
-        picture_path,
+      <if test="nationDesc != null">
+        nation_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="pictureId != null">
-        #{pictureId,jdbcType=VARCHAR},
+      <if test="nationId != null">
+        #{nationId,jdbcType=INTEGER},
       </if>
-      <if test="picturePath != null">
-        #{picturePath,jdbcType=VARCHAR},
+      <if test="nationDesc != null">
+        #{nationDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cqjtu.model.PictureExample" resultType="java.lang.Long">
-    select count(*) from picture
+  <select id="countByExample" parameterType="com.cqjtu.model.NationExample" resultType="java.lang.Long">
+    select count(*) from nation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update picture
+    update nation
     <set>
-      <if test="record.pictureId != null">
-        picture_id = #{record.pictureId,jdbcType=VARCHAR},
+      <if test="record.nationId != null">
+        nation_id = #{record.nationId,jdbcType=INTEGER},
       </if>
-      <if test="record.picturePath != null">
-        picture_path = #{record.picturePath,jdbcType=VARCHAR},
+      <if test="record.nationDesc != null">
+        nation_desc = #{record.nationDesc,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -141,25 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update picture
-    set picture_id = #{record.pictureId,jdbcType=VARCHAR},
-      picture_path = #{record.picturePath,jdbcType=VARCHAR}
+    update nation
+    set nation_id = #{record.nationId,jdbcType=INTEGER},
+      nation_desc = #{record.nationDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.Picture">
-    update picture
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.Nation">
+    update nation
     <set>
-      <if test="picturePath != null">
-        picture_path = #{picturePath,jdbcType=VARCHAR},
+      <if test="nationDesc != null">
+        nation_desc = #{nationDesc,jdbcType=VARCHAR},
       </if>
     </set>
-    where picture_id = #{pictureId,jdbcType=VARCHAR}
+    where nation_id = #{nationId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Picture">
-    update picture
-    set picture_path = #{picturePath,jdbcType=VARCHAR}
-    where picture_id = #{pictureId,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Nation">
+    update nation
+    set nation_desc = #{nationDesc,jdbcType=VARCHAR}
+    where nation_id = #{nationId,jdbcType=INTEGER}
   </update>
 </mapper>

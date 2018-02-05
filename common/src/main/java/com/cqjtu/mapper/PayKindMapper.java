@@ -10,7 +10,7 @@ public interface PayKindMapper {
 
     int deleteByExample(PayKindExample example);
 
-    int deleteByPrimaryKey(Short id);
+    int deleteByPrimaryKey(Integer payWayId);
 
     int insert(PayKind record);
 
@@ -18,7 +18,7 @@ public interface PayKindMapper {
 
     List<PayKind> selectByExample(PayKindExample example);
 
-    PayKind selectByPrimaryKey(Short id);
+    PayKind selectByPrimaryKey(Integer payWayId);
 
     int updateByExampleSelective(@Param("record") PayKind record, @Param("example") PayKindExample example);
 

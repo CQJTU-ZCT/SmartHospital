@@ -3,7 +3,7 @@
 <mapper namespace="com.cqjtu.mapperexp.BranchDoctorPositionMapperExp">
 
     <select id="queryBranchDoctorPosition" resultType="com.cqjtu.model.BranchDoctorPosition" >
-        SELECT branch_id,position_id,id,id_card
+        SELECT branch_id,position_id,bdpId,id_card
         from branch_doctor_position
         <where>
             <trim prefixOverrides="and">
@@ -13,8 +13,11 @@
                 <if test="positionId != null">
                    and  position_id = #{positionId}
                 </if>
-                <if test="idCard">
+                <if test="idCard != null">
                     and id_card = #{idCard}
+                </if>
+                <if test="bdpId != null">
+                    and bdp_id = #{bdpId}
                 </if>
             </trim>
         </where>
@@ -35,7 +38,7 @@
                 position_id=#{positionId}
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where bdp_id = #{bdpId,jdbcType=INTEGER}
     </update>
 
     <insert id="addBranchDoctorPosition" parameterType="com.cqjtu.model.BranchDoctorPosition">
@@ -46,8 +49,8 @@
         INSERT  INTO branch_doctor_position
 
         <trim prefix="(" suffixOverrides="," suffix=")">
-            <if test="id != null">
-                id ,
+            <if test="bdpId != null">
+                bdp_id ,
             </if>
             <if test="idCard != null">
                 id_card ,
@@ -61,8 +64,8 @@
         </trim>
         values
         <trim prefix="(" suffixOverrides="," suffix=")">
-            <if test="id != null">
-                #{id} ,
+            <if test="bdpId != null">
+                #{bdpId} ,
             </if>
             <if test="idCard != null">
                 #{idCard} ,

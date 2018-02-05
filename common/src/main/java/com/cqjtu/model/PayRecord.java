@@ -6,9 +6,11 @@ import java.util.Date;
 public class PayRecord {
     private String recordId;
 
-    private Short id;
+    private Integer payStatusId;
 
-    private Short payId;
+    private Integer payWayId;
+
+    private String orderId;
 
     private Date createTime;
 
@@ -26,20 +28,28 @@ public class PayRecord {
         this.recordId = recordId == null ? null : recordId.trim();
     }
 
-    public Short getId() {
-        return id;
+    public Integer getPayStatusId() {
+        return payStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setPayStatusId(Integer payStatusId) {
+        this.payStatusId = payStatusId;
     }
 
-    public Short getPayId() {
-        return payId;
+    public Integer getPayWayId() {
+        return payWayId;
     }
 
-    public void setPayId(Short payId) {
-        this.payId = payId;
+    public void setPayWayId(Integer payWayId) {
+        this.payWayId = payWayId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId == null ? null : orderId.trim();
     }
 
     public Date getCreateTime() {

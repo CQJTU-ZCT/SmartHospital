@@ -28,12 +28,13 @@ public class RegularTool {
     }
 
 
+
     public static boolean isPhone(String phone){
         boolean result = false;
         if (phone == null){
 
         }else {
-            String reg="^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\\\d{8}$";
+            String reg="^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$";
             if (phone.matches(reg)){
                 result = true;
             }

@@ -3,7 +3,7 @@ package com.cqjtu.model;
 public class Feedback {
     private String feedbackId;
 
-    private Short id;
+    private Integer feedbackStatusId;
 
     private String title;
 
@@ -17,12 +17,12 @@ public class Feedback {
         this.feedbackId = feedbackId == null ? null : feedbackId.trim();
     }
 
-    public Short getId() {
-        return id;
+    public Integer getFeedbackStatusId() {
+        return feedbackStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setFeedbackStatusId(Integer feedbackStatusId) {
+        this.feedbackStatusId = feedbackStatusId;
     }
 
     public String getTitle() {

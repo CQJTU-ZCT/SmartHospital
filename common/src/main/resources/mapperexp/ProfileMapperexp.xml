@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.ProfileMapperExp">
+
+  <insert id="insertProfile" parameterType="com.cqjtu.model.Profile">
+    insert into profile (profile_id, profile_path) values (#{profileId}, #{profilePath})
+  </insert>
+
+
+  <update id="updateProfile" parameterType="com.cqjtu.model.Profile">
+    <if test="profilePath != null">
+
+      <if test="profileId != null">
+        UPDATE  profile SET profile_path = #{profilePath} where profile_id = #{profileId}
+      </if>
+
+    </if>
+  </update>
+
+
+  <select id="queryProfile" parameterType="com.cqjtu.model.Profile" resultType="com.cqjtu.model.Profile">
+    SELECT profile_id,profile_path FROM profile WHERE profile_id = #{profileId}
+  </select>
+
+
+</mapper>

@@ -55,4 +55,16 @@ public class FilterMessage extends Message {
         return message;
     }
 
+
+    /**
+     * 验证服务出错
+     * @return
+     */
+    public static FilterMessage getErrorMessage(){
+        FilterMessage message = new FilterMessage();
+        message.setCode(-5);
+        message.setInfo("验证服务出错，请稍后再试");
+        return message;
+    }
+
 }

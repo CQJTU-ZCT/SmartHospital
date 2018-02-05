@@ -3,7 +3,7 @@
 <mapper namespace="com.cqjtu.mapper.DoctorMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.Doctor">
     <id column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <result column="id" jdbcType="SMALLINT" property="id" />
+    <result column="account_status_id" jdbcType="INTEGER" property="accountStatusId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id_card, id, name, phone, password, mail
+    id_card, account_status_id, name, phone, password, mail
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.DoctorExample" resultMap="BaseResultMap">
     select
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.Doctor">
-    insert into doctor (id_card, id, name, 
+    insert into doctor (id_card, account_status_id, name, 
       phone, password, mail
       )
-    values (#{idCard,jdbcType=VARCHAR}, #{id,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR}, 
+    values (#{idCard,jdbcType=VARCHAR}, #{accountStatusId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}
       )
   </insert>
@@ -114,8 +114,8 @@
       <if test="idCard != null">
         id_card,
       </if>
-      <if test="id != null">
-        id,
+      <if test="accountStatusId != null">
+        account_status_id,
       </if>
       <if test="name != null">
         name,
@@ -134,8 +134,8 @@
       <if test="idCard != null">
         #{idCard,jdbcType=VARCHAR},
       </if>
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
+      <if test="accountStatusId != null">
+        #{accountStatusId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -163,8 +163,8 @@
       <if test="record.idCard != null">
         id_card = #{record.idCard,jdbcType=VARCHAR},
       </if>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=SMALLINT},
+      <if test="record.accountStatusId != null">
+        account_status_id = #{record.accountStatusId,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
   <update id="updateByExample" parameterType="map">
     update doctor
     set id_card = #{record.idCard,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=SMALLINT},
+      account_status_id = #{record.accountStatusId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
@@ -198,8 +198,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.Doctor">
     update doctor
     <set>
-      <if test="id != null">
-        id = #{id,jdbcType=SMALLINT},
+      <if test="accountStatusId != null">
+        account_status_id = #{accountStatusId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -218,7 +218,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Doctor">
     update doctor
-    set id = #{id,jdbcType=SMALLINT},
+    set account_status_id = #{accountStatusId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

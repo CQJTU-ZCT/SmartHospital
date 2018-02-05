@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapper.RoleActionMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.RoleAction">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="role_id" jdbcType="SMALLINT" property="roleId" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
+    <id column="role_access_id" jdbcType="INTEGER" property="roleAccessId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="access_description" jdbcType="VARCHAR" property="accessDescription" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, role_id, description
+    role_access_id, role_id, access_description
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.RoleActionExample" resultMap="BaseResultMap">
     select
@@ -85,11 +85,11 @@
     select 
     <include refid="Base_Column_List" />
     from role_action
-    where id = #{id,jdbcType=INTEGER}
+    where role_access_id = #{roleAccessId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from role_action
-    where id = #{id,jdbcType=INTEGER}
+    where role_access_id = #{roleAccessId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.cqjtu.model.RoleActionExample">
     delete from role_action
@@ -98,33 +98,33 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.RoleAction">
-    insert into role_action (id, role_id, description
+    insert into role_action (role_access_id, role_id, access_description
       )
-    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=SMALLINT}, #{description,jdbcType=VARCHAR}
+    values (#{roleAccessId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{accessDescription,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.RoleAction">
     insert into role_action
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="roleAccessId != null">
+        role_access_id,
       </if>
       <if test="roleId != null">
         role_id,
       </if>
-      <if test="description != null">
-        description,
+      <if test="accessDescription != null">
+        access_description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="roleAccessId != null">
+        #{roleAccessId,jdbcType=INTEGER},
       </if>
       <if test="roleId != null">
-        #{roleId,jdbcType=SMALLINT},
+        #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
+      <if test="accessDescription != null">
+        #{accessDescription,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -137,14 +137,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update role_action
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.roleAccessId != null">
+        role_access_id = #{record.roleAccessId,jdbcType=INTEGER},
       </if>
       <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=SMALLINT},
+        role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=VARCHAR},
+      <if test="record.accessDescription != null">
+        access_description = #{record.accessDescription,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -153,9 +153,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update role_action
-    set id = #{record.id,jdbcType=INTEGER},
-      role_id = #{record.roleId,jdbcType=SMALLINT},
-      description = #{record.description,jdbcType=VARCHAR}
+    set role_access_id = #{record.roleAccessId,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
+      access_description = #{record.accessDescription,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -164,18 +164,18 @@
     update role_action
     <set>
       <if test="roleId != null">
-        role_id = #{roleId,jdbcType=SMALLINT},
+        role_id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
+      <if test="accessDescription != null">
+        access_description = #{accessDescription,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where role_access_id = #{roleAccessId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.RoleAction">
     update role_action
-    set role_id = #{roleId,jdbcType=SMALLINT},
-      description = #{description,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set role_id = #{roleId,jdbcType=INTEGER},
+      access_description = #{accessDescription,jdbcType=VARCHAR}
+    where role_access_id = #{roleAccessId,jdbcType=INTEGER}
   </update>
 </mapper>

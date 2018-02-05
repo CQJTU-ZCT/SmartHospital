@@ -1,16 +1,16 @@
 package com.cqjtu.model;
 
 public class PayStatus {
-    private Short id;
+    private Integer payStatusId;
 
     private String description;
 
-    public Short getId() {
-        return id;
+    public Integer getPayStatusId() {
+        return payStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setPayStatusId(Integer payStatusId) {
+        this.payStatusId = payStatusId;
     }
 
     public String getDescription() {

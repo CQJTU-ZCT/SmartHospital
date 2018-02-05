@@ -104,63 +104,63 @@ public class BranchDoctorTitleExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andBdtIdIsNull() {
+            addCriterion("bdt_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andBdtIdIsNotNull() {
+            addCriterion("bdt_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andBdtIdEqualTo(Integer value) {
+            addCriterion("bdt_id =", value, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andBdtIdNotEqualTo(Integer value) {
+            addCriterion("bdt_id <>", value, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andBdtIdGreaterThan(Integer value) {
+            addCriterion("bdt_id >", value, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andBdtIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("bdt_id >=", value, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andBdtIdLessThan(Integer value) {
+            addCriterion("bdt_id <", value, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andBdtIdLessThanOrEqualTo(Integer value) {
+            addCriterion("bdt_id <=", value, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andBdtIdIn(List<Integer> values) {
+            addCriterion("bdt_id in", values, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andBdtIdNotIn(List<Integer> values) {
+            addCriterion("bdt_id not in", values, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andBdtIdBetween(Integer value1, Integer value2) {
+            addCriterion("bdt_id between", value1, value2, "bdtId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andBdtIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("bdt_id not between", value1, value2, "bdtId");
             return (Criteria) this;
         }
 
@@ -244,52 +244,52 @@ public class BranchDoctorTitleExample {
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdEqualTo(Short value) {
+        public Criteria andTitleIdEqualTo(Integer value) {
             addCriterion("title_id =", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdNotEqualTo(Short value) {
+        public Criteria andTitleIdNotEqualTo(Integer value) {
             addCriterion("title_id <>", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdGreaterThan(Short value) {
+        public Criteria andTitleIdGreaterThan(Integer value) {
             addCriterion("title_id >", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdGreaterThanOrEqualTo(Short value) {
+        public Criteria andTitleIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("title_id >=", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdLessThan(Short value) {
+        public Criteria andTitleIdLessThan(Integer value) {
             addCriterion("title_id <", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdLessThanOrEqualTo(Short value) {
+        public Criteria andTitleIdLessThanOrEqualTo(Integer value) {
             addCriterion("title_id <=", value, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdIn(List<Short> values) {
+        public Criteria andTitleIdIn(List<Integer> values) {
             addCriterion("title_id in", values, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdNotIn(List<Short> values) {
+        public Criteria andTitleIdNotIn(List<Integer> values) {
             addCriterion("title_id not in", values, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdBetween(Short value1, Short value2) {
+        public Criteria andTitleIdBetween(Integer value1, Integer value2) {
             addCriterion("title_id between", value1, value2, "titleId");
             return (Criteria) this;
         }
 
-        public Criteria andTitleIdNotBetween(Short value1, Short value2) {
+        public Criteria andTitleIdNotBetween(Integer value1, Integer value2) {
             addCriterion("title_id not between", value1, value2, "titleId");
             return (Criteria) this;
         }

@@ -10,7 +10,7 @@ public interface FeedbackStatusMapper {
 
     int deleteByExample(FeedbackStatusExample example);
 
-    int deleteByPrimaryKey(Short id);
+    int deleteByPrimaryKey(Integer feedbackStatusId);
 
     int insert(FeedbackStatus record);
 
@@ -18,7 +18,7 @@ public interface FeedbackStatusMapper {
 
     List<FeedbackStatus> selectByExample(FeedbackStatusExample example);
 
-    FeedbackStatus selectByPrimaryKey(Short id);
+    FeedbackStatus selectByPrimaryKey(Integer feedbackStatusId);
 
     int updateByExampleSelective(@Param("record") FeedbackStatus record, @Param("example") FeedbackStatusExample example);
 

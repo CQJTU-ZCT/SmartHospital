@@ -1,20 +1,20 @@
 package com.cqjtu.model;
 
 public class BranchDoctorPosition {
-    private Integer id;
+    private Integer bdpId;
 
     private String idCard;
 
     private Integer branchId;
 
-    private Short positionId;
+    private Integer positionId;
 
-    public Integer getId() {
-        return id;
+    public Integer getBdpId() {
+        return bdpId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBdpId(Integer bdpId) {
+        this.bdpId = bdpId;
     }
 
     public String getIdCard() {
@@ -33,11 +33,11 @@ public class BranchDoctorPosition {
         this.branchId = branchId;
     }
 
-    public Short getPositionId() {
+    public Integer getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(Short positionId) {
+    public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
 }

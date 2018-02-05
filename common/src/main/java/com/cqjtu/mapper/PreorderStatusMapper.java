@@ -10,7 +10,7 @@ public interface PreorderStatusMapper {
 
     int deleteByExample(PreorderStatusExample example);
 
-    int deleteByPrimaryKey(Short id);
+    int deleteByPrimaryKey(Integer appointmentStatusId);
 
     int insert(PreorderStatus record);
 
@@ -18,7 +18,7 @@ public interface PreorderStatusMapper {
 
     List<PreorderStatus> selectByExample(PreorderStatusExample example);
 
-    PreorderStatus selectByPrimaryKey(Short id);
+    PreorderStatus selectByPrimaryKey(Integer appointmentStatusId);
 
     int updateByExampleSelective(@Param("record") PreorderStatus record, @Param("example") PreorderStatusExample example);
 

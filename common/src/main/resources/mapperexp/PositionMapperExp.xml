@@ -18,7 +18,7 @@
     </update>
 
     <insert id="addPosition" parameterType="com.cqjtu.model.Position">
-        <selectKey resultType="java.lang.Integer" keyColumn="position_id">
+        <selectKey resultType="java.lang.Integer" keyProperty="positionId">
             SELECT last_insert_id();
         </selectKey>
 

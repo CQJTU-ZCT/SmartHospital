@@ -5,6 +5,7 @@
     <id column="emr_id" jdbcType="VARCHAR" property="emrId" />
     <result column="create_time" jdbcType="DATE" property="createTime" />
     <result column="create_age" jdbcType="INTEGER" property="createAge" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    emr_id, create_time, create_age
+    emr_id, create_time, create_age, id_card
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.EmrExample" resultMap="BaseResultMap">
     select
@@ -99,10 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.Emr">
-    insert into emr (emr_id, create_time, create_age
-      )
-    values (#{emrId,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{createAge,jdbcType=INTEGER}
-      )
+    insert into emr (emr_id, create_time, create_age, 
+      id_card)
+    values (#{emrId,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{createAge,jdbcType=INTEGER}, 
+      #{idCard,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.Emr">
     insert into emr
@@ -116,6 +117,9 @@
       <if test="createAge != null">
         create_age,
       </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="emrId != null">
@@ -126,6 +130,9 @@
       </if>
       <if test="createAge != null">
         #{createAge,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -147,6 +154,9 @@
       <if test="record.createAge != null">
         create_age = #{record.createAge,jdbcType=INTEGER},
       </if>
+      <if test="record.idCard != null">
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -156,7 +166,8 @@
     update emr
     set emr_id = #{record.emrId,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=DATE},
-      create_age = #{record.createAge,jdbcType=INTEGER}
+      create_age = #{record.createAge,jdbcType=INTEGER},
+      id_card = #{record.idCard,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -170,13 +181,17 @@
       <if test="createAge != null">
         create_age = #{createAge,jdbcType=INTEGER},
       </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
     </set>
     where emr_id = #{emrId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Emr">
     update emr
     set create_time = #{createTime,jdbcType=DATE},
-      create_age = #{createAge,jdbcType=INTEGER}
+      create_age = #{createAge,jdbcType=INTEGER},
+      id_card = #{idCard,jdbcType=VARCHAR}
     where emr_id = #{emrId,jdbcType=VARCHAR}
   </update>
 </mapper>

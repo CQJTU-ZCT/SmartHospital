@@ -2,7 +2,7 @@ package com.cqjtu.controller;
 
 import com.cqjtu.domain.Zfile;
 import com.cqjtu.messages.Message;
-import com.cqjtu.model.Picture;
+import com.cqjtu.model.Profile;
 import com.cqjtu.model.Users;
 import com.cqjtu.service.ProfileService;
 import com.cqjtu.tools.LoggerTool;
@@ -94,16 +94,16 @@ public class ProfileController {
                                     +File.separator+newFileName;
                             zfile.setFilePath(fileUrl);
 
-                            LoggerTool.getLogger(FileController.class).info("上传文件名:"+zfile.getFileName()+"     上传文件大小:"
+                                LoggerTool.getLogger(ProfileController.class).info("上传文件名:"+zfile.getFileName()+"     上传文件大小:"
                                     +zfile.getSize()+"      文件类型:"+zfile.getFileType()+"       新的文件路径:"
                                     +zfile.getFilePath()+"   md5值:"+zfile.getMd5());
                             //将Zfile存进数据库
-                            Picture picture = new Picture();
+                            Profile profile = new Profile();
                             Users user= (Users) request.getAttribute("user");
-                            picture.setPictureId(user.getIdCard());
-                            picture.setPicturePath(zfile.getFilePath());
-                            boolean addResult = profileService.addProfile(picture);
-                            if (addResult){
+                            profile.setProfileId(user.getIdCard());
+                            profile.setProfilePath(zfile.getFilePath());
+                            int addResult = profileService.addProfile(profile);
+                            if (addResult == 1){
                                 message.setCode(200);
                                 message.setInfo("文件上传成功");
                                 message.put("profile",zfile);
@@ -139,7 +139,7 @@ public class ProfileController {
                 message.setCode(203);
                 message.setInfo("登录信息失效，请重新登录");
             }else {
-                Picture profile = profileService.getProfile(user.getIdCard());
+                Profile profile = profileService.getProfile(user.getIdCard());
                 message.setCode(200);
                 message.setInfo("获取头像成功");
                 message.put("profile",profile);

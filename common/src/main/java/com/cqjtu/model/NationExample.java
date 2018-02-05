@@ -3,14 +3,14 @@ package com.cqjtu.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PictureExample {
+public class NationExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public PictureExample() {
+    public NationExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,143 +104,133 @@ public class PictureExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andPictureIdIsNull() {
-            addCriterion("picture_id is null");
+        public Criteria andNationIdIsNull() {
+            addCriterion("nation_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdIsNotNull() {
-            addCriterion("picture_id is not null");
+        public Criteria andNationIdIsNotNull() {
+            addCriterion("nation_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdEqualTo(String value) {
-            addCriterion("picture_id =", value, "pictureId");
+        public Criteria andNationIdEqualTo(Integer value) {
+            addCriterion("nation_id =", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdNotEqualTo(String value) {
-            addCriterion("picture_id <>", value, "pictureId");
+        public Criteria andNationIdNotEqualTo(Integer value) {
+            addCriterion("nation_id <>", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdGreaterThan(String value) {
-            addCriterion("picture_id >", value, "pictureId");
+        public Criteria andNationIdGreaterThan(Integer value) {
+            addCriterion("nation_id >", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdGreaterThanOrEqualTo(String value) {
-            addCriterion("picture_id >=", value, "pictureId");
+        public Criteria andNationIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("nation_id >=", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdLessThan(String value) {
-            addCriterion("picture_id <", value, "pictureId");
+        public Criteria andNationIdLessThan(Integer value) {
+            addCriterion("nation_id <", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdLessThanOrEqualTo(String value) {
-            addCriterion("picture_id <=", value, "pictureId");
+        public Criteria andNationIdLessThanOrEqualTo(Integer value) {
+            addCriterion("nation_id <=", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdLike(String value) {
-            addCriterion("picture_id like", value, "pictureId");
+        public Criteria andNationIdIn(List<Integer> values) {
+            addCriterion("nation_id in", values, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdNotLike(String value) {
-            addCriterion("picture_id not like", value, "pictureId");
+        public Criteria andNationIdNotIn(List<Integer> values) {
+            addCriterion("nation_id not in", values, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdIn(List<String> values) {
-            addCriterion("picture_id in", values, "pictureId");
+        public Criteria andNationIdBetween(Integer value1, Integer value2) {
+            addCriterion("nation_id between", value1, value2, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdNotIn(List<String> values) {
-            addCriterion("picture_id not in", values, "pictureId");
+        public Criteria andNationIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("nation_id not between", value1, value2, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdBetween(String value1, String value2) {
-            addCriterion("picture_id between", value1, value2, "pictureId");
+        public Criteria andNationDescIsNull() {
+            addCriterion("nation_desc is null");
             return (Criteria) this;
         }
 
-        public Criteria andPictureIdNotBetween(String value1, String value2) {
-            addCriterion("picture_id not between", value1, value2, "pictureId");
+        public Criteria andNationDescIsNotNull() {
+            addCriterion("nation_desc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathIsNull() {
-            addCriterion("picture_path is null");
+        public Criteria andNationDescEqualTo(String value) {
+            addCriterion("nation_desc =", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathIsNotNull() {
-            addCriterion("picture_path is not null");
+        public Criteria andNationDescNotEqualTo(String value) {
+            addCriterion("nation_desc <>", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathEqualTo(String value) {
-            addCriterion("picture_path =", value, "picturePath");
+        public Criteria andNationDescGreaterThan(String value) {
+            addCriterion("nation_desc >", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathNotEqualTo(String value) {
-            addCriterion("picture_path <>", value, "picturePath");
+        public Criteria andNationDescGreaterThanOrEqualTo(String value) {
+            addCriterion("nation_desc >=", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathGreaterThan(String value) {
-            addCriterion("picture_path >", value, "picturePath");
+        public Criteria andNationDescLessThan(String value) {
+            addCriterion("nation_desc <", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathGreaterThanOrEqualTo(String value) {
-            addCriterion("picture_path >=", value, "picturePath");
+        public Criteria andNationDescLessThanOrEqualTo(String value) {
+            addCriterion("nation_desc <=", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathLessThan(String value) {
-            addCriterion("picture_path <", value, "picturePath");
+        public Criteria andNationDescLike(String value) {
+            addCriterion("nation_desc like", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathLessThanOrEqualTo(String value) {
-            addCriterion("picture_path <=", value, "picturePath");
+        public Criteria andNationDescNotLike(String value) {
+            addCriterion("nation_desc not like", value, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathLike(String value) {
-            addCriterion("picture_path like", value, "picturePath");
+        public Criteria andNationDescIn(List<String> values) {
+            addCriterion("nation_desc in", values, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathNotLike(String value) {
-            addCriterion("picture_path not like", value, "picturePath");
+        public Criteria andNationDescNotIn(List<String> values) {
+            addCriterion("nation_desc not in", values, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathIn(List<String> values) {
-            addCriterion("picture_path in", values, "picturePath");
+        public Criteria andNationDescBetween(String value1, String value2) {
+            addCriterion("nation_desc between", value1, value2, "nationDesc");
             return (Criteria) this;
         }
 
-        public Criteria andPicturePathNotIn(List<String> values) {
-            addCriterion("picture_path not in", values, "picturePath");
-            return (Criteria) this;
-        }
-
-        public Criteria andPicturePathBetween(String value1, String value2) {
-            addCriterion("picture_path between", value1, value2, "picturePath");
-            return (Criteria) this;
-        }
-
-        public Criteria andPicturePathNotBetween(String value1, String value2) {
-            addCriterion("picture_path not between", value1, value2, "picturePath");
+        public Criteria andNationDescNotBetween(String value1, String value2) {
+            addCriterion("nation_desc not between", value1, value2, "nationDesc");
             return (Criteria) this;
         }
     }

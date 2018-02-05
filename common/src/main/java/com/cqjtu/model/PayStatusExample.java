@@ -104,63 +104,63 @@ public class PayStatusExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andPayStatusIdIsNull() {
+            addCriterion("pay_status_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andPayStatusIdIsNotNull() {
+            addCriterion("pay_status_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Short value) {
-            addCriterion("id =", value, "id");
+        public Criteria andPayStatusIdEqualTo(Integer value) {
+            addCriterion("pay_status_id =", value, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Short value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andPayStatusIdNotEqualTo(Integer value) {
+            addCriterion("pay_status_id <>", value, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Short value) {
-            addCriterion("id >", value, "id");
+        public Criteria andPayStatusIdGreaterThan(Integer value) {
+            addCriterion("pay_status_id >", value, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Short value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andPayStatusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("pay_status_id >=", value, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Short value) {
-            addCriterion("id <", value, "id");
+        public Criteria andPayStatusIdLessThan(Integer value) {
+            addCriterion("pay_status_id <", value, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Short value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andPayStatusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("pay_status_id <=", value, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Short> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andPayStatusIdIn(List<Integer> values) {
+            addCriterion("pay_status_id in", values, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Short> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andPayStatusIdNotIn(List<Integer> values) {
+            addCriterion("pay_status_id not in", values, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Short value1, Short value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andPayStatusIdBetween(Integer value1, Integer value2) {
+            addCriterion("pay_status_id between", value1, value2, "payStatusId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Short value1, Short value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andPayStatusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("pay_status_id not between", value1, value2, "payStatusId");
             return (Criteria) this;
         }
 

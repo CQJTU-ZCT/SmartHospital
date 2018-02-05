@@ -2,7 +2,6 @@ package com.cqjtu.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.Charset;
@@ -14,7 +13,7 @@ import java.util.Base64;
  * @date 2017/12/11.
  */
 @Component
-public class SecurityFilter  extends ZuulFilter {
+public class SecurityFilter extends ZuulFilter {
     @Override
     public String filterType() {
         return "pre";

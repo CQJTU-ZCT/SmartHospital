@@ -1,16 +1,16 @@
 package com.cqjtu.model;
 
 public class FeedbackStatus {
-    private Short id;
+    private Integer feedbackStatusId;
 
     private String description;
 
-    public Short getId() {
-        return id;
+    public Integer getFeedbackStatusId() {
+        return feedbackStatusId;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public void setFeedbackStatusId(Integer feedbackStatusId) {
+        this.feedbackStatusId = feedbackStatusId;
     }
 
     public String getDescription() {

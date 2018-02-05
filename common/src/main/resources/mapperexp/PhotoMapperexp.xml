@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.P">
+
+  <insert id="insertPhoto" parameterType="com.cqjtu.model.Photo">
+    insert into photo (photo_id, phoyo_path) values (#{photoId}, #{photoPath})
+  </insert>
+
+
+  <update id="updatePhoto" parameterType="com.cqjtu.model.Photo">
+    <if test="photoPath != null">
+
+      <if test="photoId != null">
+        UPDATE  photo SET photo_path = #{photoPath} where photo_id = #{photoId}
+      </if>
+
+    </if>
+  </update>
+
+
+  <select id="queryPhoto" parameterType="com.cqjtu.model.Photo" resultType="com.cqjtu.model.Photo">
+    SELECT photo_id,photo_path FROM photo WHERE photo_id = #{photoId}
+  </select>
+
+
+</mapper>

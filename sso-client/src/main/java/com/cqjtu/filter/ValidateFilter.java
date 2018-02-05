@@ -2,10 +2,8 @@ package com.cqjtu.filter;
 
 import com.cqjtu.messages.FilterMessage;
 import com.cqjtu.messages.Message;
-import com.cqjtu.messages.ValidateMessage;
 import com.cqjtu.model.Users;
 import com.cqjtu.tools.JsonUtil;
-
 import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.ServerInfo;
 import org.apache.commons.logging.Log;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -29,7 +26,7 @@ import java.net.URL;
  * @Desc
  * @date 2017/12/26.
  */
-@WebFilter(filterName = "AuthenticationFilter",urlPatterns = "/*")
+//@WebFilter(filterName = "AuthenticationFilter",urlPatterns = "/*")
 public class ValidateFilter implements Filter{
 
     private int targetResponseCode = 200;

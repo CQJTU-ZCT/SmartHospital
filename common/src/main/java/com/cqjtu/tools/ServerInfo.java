@@ -26,6 +26,17 @@ public class  ServerInfo {
     @Value("${SSOServer.logoutAddress}")
     private   String logoutAddress;
 
+    @Value("${SSOServer.loginService}")
+    private String loginService;
+
+
+    @Value("${SSOServer.logoutService}")
+    private String logoutService;
+
+
+    @Value("${SSOServer.validateService}")
+    private String validateService;
+
     public ServerInfo() {
 
     }
@@ -50,7 +61,33 @@ public class  ServerInfo {
         return logoutAddress;
     }
 
+
     public void setLogoutAddress(String logoutAddress) {
         this.logoutAddress = logoutAddress;
+    }
+
+
+    public String getLoginService() {
+        return loginService;
+    }
+
+    public void setLoginService(String loginService) {
+        this.loginService = loginService;
+    }
+
+    public String getLogoutService() {
+        return logoutService;
+    }
+
+    public void setLogoutService(String logoutService) {
+        this.logoutService = logoutService;
+    }
+
+    public String getValidateService() {
+        return validateService;
+    }
+
+    public void setValidateService(String validateService) {
+        this.validateService = validateService;
     }
 }
