@@ -106,6 +106,7 @@ public class DoctorController {
         String info= "";
         if (token == null || token.length() <=0){
             info = "未授权";
+            message.setCode(403);
         }else {
             //todo 完成角色权限认证
 
@@ -225,6 +226,7 @@ public class DoctorController {
     private void validateAndGet(String token ,String pn ,Doctor doctor,Message message){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

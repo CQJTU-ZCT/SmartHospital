@@ -92,6 +92,7 @@ public class BranchController {
         String info= "";
         if (token == null || token.length() <=0){
            info= "未授权";
+            message.setCode(403);
        }else {
            boolean flag = true;
            int paraNum = 0;
@@ -145,9 +146,9 @@ public class BranchController {
                    }
                }
            }
-           message.setInfo(info);
-           message.put("branch",branch);
        }
+        message.setInfo(info);
+        message.put("branch",branch);
     }
 
 
@@ -166,6 +167,7 @@ public class BranchController {
                                       String pn , String token, Message message ){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

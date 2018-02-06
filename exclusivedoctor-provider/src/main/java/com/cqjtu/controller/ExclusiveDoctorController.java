@@ -50,6 +50,7 @@ public class ExclusiveDoctorController {
     private void validateAndOpt(String token, Message message, RequestMethod method, ExclusiveDoctor exclusiveDoctor) {
         String info = "";
         if (token == null || token.length() <=0){
+            message.setCode(403);
             info = "未授权";
         }else {
             boolean flag = true;
@@ -89,6 +90,7 @@ public class ExclusiveDoctorController {
                             //1代表刚申请
                             exclusiveDoctor.setStatusId(1);
                             if (exclusiveDoctorService.addExclusiveDoctor(exclusiveDoctor) ==1){
+                                message.setCode(200);
                                 info = "申请专属医生成功，等待医生接受";
                             }
                         }catch (Exception e){
@@ -111,6 +113,7 @@ public class ExclusiveDoctorController {
                 if (flag){
                     try {
                         if (exclusiveDoctorService.updateExclusiveDoctor(exclusiveDoctor) ==1){
+                            message.setCode(200);
                             info = "修改专属医生成功";
                         }
                     }catch (Exception e){
@@ -148,6 +151,7 @@ public class ExclusiveDoctorController {
     private void validateAndGet(String token, String pn, Message message, ExclusiveDoctor exclusiveDoctor) {
         if (token == null){
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

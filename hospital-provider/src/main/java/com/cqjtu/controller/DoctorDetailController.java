@@ -83,6 +83,7 @@ public class DoctorDetailController {
         String info="";
         if (token == null || token.length() <=0){
             info = "未授权";
+            message.setCode(403);
         }else {
             boolean flag = true;
             //todo 完全角色身份认证
@@ -153,10 +154,9 @@ public class DoctorDetailController {
                     }
                 }
             }
-            message.setInfo(info);
-            message.put("doctorDetail",doctorDetail);
         }
-
+        message.setInfo(info);
+        message.put("doctorDetail",doctorDetail);
     }
 
 
@@ -165,6 +165,7 @@ public class DoctorDetailController {
     private void validateAndGet(String token ,Message message ,DoctorDetail doctorDetail,String pn){
         if (token == null){
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

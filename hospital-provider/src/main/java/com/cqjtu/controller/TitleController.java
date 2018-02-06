@@ -78,6 +78,7 @@ public class TitleController {
         if (token == null ||token.length() <=0){
             //todo 为token做用户权限认证
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;
@@ -111,6 +112,7 @@ public class TitleController {
     private void validateAndOpt(String token ,Message message,Title title,RequestMethod method){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
+            message.setCode(403);
             //todo 完成角色权限认证
         }else {
             boolean flag = true;

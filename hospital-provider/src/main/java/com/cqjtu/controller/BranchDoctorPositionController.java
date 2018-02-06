@@ -79,6 +79,7 @@ public class BranchDoctorPositionController {
         if (token == null || token.length() <=0){
             //TODO  完成角色权限认证
             info = "未授权";
+            message.setCode(403);
         }else {
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){
@@ -159,6 +160,7 @@ public class BranchDoctorPositionController {
         if (token == null ||token.length() <=0){
             //todo 为token做用户权限认证
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;
