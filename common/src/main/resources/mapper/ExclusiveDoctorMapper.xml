@@ -3,9 +3,9 @@
 <mapper namespace="com.cqjtu.mapper.ExclusiveDoctorMapper">
   <resultMap id="BaseResultMap" type="com.cqjtu.model.ExclusiveDoctor">
     <id column="exclusive_doctor_id" jdbcType="VARCHAR" property="exclusiveDoctorId" />
-    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="doctor_id_card" jdbcType="VARCHAR" property="doctorIdCard" />
     <result column="status_id" jdbcType="INTEGER" property="statusId" />
-    <result column="use_id_card" jdbcType="VARCHAR" property="useIdCard" />
+    <result column="user_id_card" jdbcType="VARCHAR" property="userIdCard" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    exclusive_doctor_id, id_card, status_id, use_id_card
+    exclusive_doctor_id, doctor_id_card, status_id, user_id_card
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.ExclusiveDoctorExample" resultMap="BaseResultMap">
     select
@@ -99,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.ExclusiveDoctor">
-    insert into exclusive_doctor (exclusive_doctor_id, id_card, status_id, 
-      use_id_card)
-    values (#{exclusiveDoctorId,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{statusId,jdbcType=INTEGER}, 
-      #{useIdCard,jdbcType=VARCHAR})
+    insert into exclusive_doctor (exclusive_doctor_id, doctor_id_card, 
+      status_id, user_id_card)
+    values (#{exclusiveDoctorId,jdbcType=VARCHAR}, #{doctorIdCard,jdbcType=VARCHAR}, 
+      #{statusId,jdbcType=INTEGER}, #{userIdCard,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.ExclusiveDoctor">
     insert into exclusive_doctor
@@ -110,28 +110,28 @@
       <if test="exclusiveDoctorId != null">
         exclusive_doctor_id,
       </if>
-      <if test="idCard != null">
-        id_card,
+      <if test="doctorIdCard != null">
+        doctor_id_card,
       </if>
       <if test="statusId != null">
         status_id,
       </if>
-      <if test="useIdCard != null">
-        use_id_card,
+      <if test="userIdCard != null">
+        user_id_card,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="exclusiveDoctorId != null">
         #{exclusiveDoctorId,jdbcType=VARCHAR},
       </if>
-      <if test="idCard != null">
-        #{idCard,jdbcType=VARCHAR},
+      <if test="doctorIdCard != null">
+        #{doctorIdCard,jdbcType=VARCHAR},
       </if>
       <if test="statusId != null">
         #{statusId,jdbcType=INTEGER},
       </if>
-      <if test="useIdCard != null">
-        #{useIdCard,jdbcType=VARCHAR},
+      <if test="userIdCard != null">
+        #{userIdCard,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -147,14 +147,14 @@
       <if test="record.exclusiveDoctorId != null">
         exclusive_doctor_id = #{record.exclusiveDoctorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.idCard != null">
-        id_card = #{record.idCard,jdbcType=VARCHAR},
+      <if test="record.doctorIdCard != null">
+        doctor_id_card = #{record.doctorIdCard,jdbcType=VARCHAR},
       </if>
       <if test="record.statusId != null">
         status_id = #{record.statusId,jdbcType=INTEGER},
       </if>
-      <if test="record.useIdCard != null">
-        use_id_card = #{record.useIdCard,jdbcType=VARCHAR},
+      <if test="record.userIdCard != null">
+        user_id_card = #{record.userIdCard,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -164,9 +164,9 @@
   <update id="updateByExample" parameterType="map">
     update exclusive_doctor
     set exclusive_doctor_id = #{record.exclusiveDoctorId,jdbcType=VARCHAR},
-      id_card = #{record.idCard,jdbcType=VARCHAR},
+      doctor_id_card = #{record.doctorIdCard,jdbcType=VARCHAR},
       status_id = #{record.statusId,jdbcType=INTEGER},
-      use_id_card = #{record.useIdCard,jdbcType=VARCHAR}
+      user_id_card = #{record.userIdCard,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -174,23 +174,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.ExclusiveDoctor">
     update exclusive_doctor
     <set>
-      <if test="idCard != null">
-        id_card = #{idCard,jdbcType=VARCHAR},
+      <if test="doctorIdCard != null">
+        doctor_id_card = #{doctorIdCard,jdbcType=VARCHAR},
       </if>
       <if test="statusId != null">
         status_id = #{statusId,jdbcType=INTEGER},
       </if>
-      <if test="useIdCard != null">
-        use_id_card = #{useIdCard,jdbcType=VARCHAR},
+      <if test="userIdCard != null">
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
       </if>
     </set>
     where exclusive_doctor_id = #{exclusiveDoctorId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.ExclusiveDoctor">
     update exclusive_doctor
-    set id_card = #{idCard,jdbcType=VARCHAR},
+    set doctor_id_card = #{doctorIdCard,jdbcType=VARCHAR},
       status_id = #{statusId,jdbcType=INTEGER},
-      use_id_card = #{useIdCard,jdbcType=VARCHAR}
+      user_id_card = #{userIdCard,jdbcType=VARCHAR}
     where exclusive_doctor_id = #{exclusiveDoctorId,jdbcType=VARCHAR}
   </update>
 </mapper>
