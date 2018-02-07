@@ -3,7 +3,10 @@ package com.cqjtu.controller;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.Branch;
 import com.cqjtu.model.Hospital;
+import com.cqjtu.model.Title;
+import com.cqjtu.model.Users;
 import com.cqjtu.service.BranchService;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.bouncycastle.cert.ocsp.Req;
@@ -40,6 +43,11 @@ public class BranchController {
     private String navigatePagesString;
 
 
+    @Value("${hospitalAdmin.code}")
+    private  String adminCode;
+
+
+
     @Autowired
     private BranchService branchService;
 
@@ -71,7 +79,15 @@ public class BranchController {
                              HttpServletRequest request){
         Message message = new Message();
         String token = request.getHeader("token");
-        checkBranchPropertiesAndOpt(token ,message ,branch ,optAdd);
+        if (token == null || token.length()<=0){
+            token = request.getHeader("token");
+        }
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            checkBranchPropertiesAndOpt(token ,message ,branch ,optAdd);
+        }else {
+            message.setInfo("没有权限，不是管理员");
+            message.setCode(403);
+        }
         return  message;
     }
 
@@ -82,7 +98,15 @@ public class BranchController {
                                 HttpServletRequest request){
         Message message = new Message();
         String token = request.getHeader("token");
-        checkBranchPropertiesAndOpt(token ,message ,branch ,optUpdate);
+        if (token == null || token.length()<=0){
+            token = request.getHeader("token");
+        }
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            checkBranchPropertiesAndOpt(token ,message ,branch ,optUpdate);
+        }else {
+            message.setInfo("没有权限，不是管理员");
+            message.setCode(403);
+        }
         return  message;
     }
 
@@ -92,7 +116,7 @@ public class BranchController {
         String info= "";
         if (token == null || token.length() <=0){
            info= "未授权";
-            message.setCode(403);
+           message.setCode(403);
        }else {
            boolean flag = true;
            int paraNum = 0;
@@ -167,7 +191,7 @@ public class BranchController {
                                       String pn , String token, Message message ){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
-            message.setCode(403);
+            message.setCode(401);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

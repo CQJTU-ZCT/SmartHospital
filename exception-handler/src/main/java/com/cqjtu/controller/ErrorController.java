@@ -43,11 +43,13 @@ public class ErrorController extends AbstractErrorController {
         }else if(status == HttpStatus.BAD_GATEWAY){
             message.setCode(502);
             message.setInfo("网关错误");
-        }else {
-            message.setCode(503);
-            message.setInfo("服务器忙，请稍后再试...");
+        }else if (status == HttpStatus.UNAUTHORIZED){
+            message.setCode(401);
+            message.setInfo("未授权");
+        }else if (status == HttpStatus.FORBIDDEN){
+            message.setCode(403);
+            message.setInfo("未授权");
         }
-        LoggerTool.getLogger(this.getClass()).info(exception.getMessage());
         return message;
     }
 }

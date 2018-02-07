@@ -33,7 +33,7 @@ public class ExclusiveDoctorStatusController {
         }
         if (token == null || token.length() <=0){
             info = "未授权";
-            message.setCode(403);
+            message.setCode(401);
         }else {
             List<ExclusiveDoctorStatus> status = exclusiveDoctorStatusService.getStatus();
             info = "获取专属医生状态信息成功";

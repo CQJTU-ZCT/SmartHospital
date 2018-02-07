@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqjtu.mapper.sexMapper">
-  <resultMap id="BaseResultMap" type="com.cqjtu.model.sex">
+<mapper namespace="com.cqjtu.mapper.SexMapper">
+  <resultMap id="BaseResultMap" type="com.cqjtu.model.Sex">
     <id column="sex_id" jdbcType="INTEGER" property="sexId" />
     <result column="sex_desc" jdbcType="VARCHAR" property="sexDesc" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List">
     sex_id, sex_desc
   </sql>
-  <select id="selectByExample" parameterType="com.cqjtu.model.sexExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cqjtu.model.SexExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -90,17 +90,17 @@
     delete from sex
     where sex_id = #{sexId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cqjtu.model.sexExample">
+  <delete id="deleteByExample" parameterType="com.cqjtu.model.SexExample">
     delete from sex
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cqjtu.model.sex">
+  <insert id="insert" parameterType="com.cqjtu.model.Sex">
     insert into sex (sex_id, sex_desc)
     values (#{sexId,jdbcType=INTEGER}, #{sexDesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.cqjtu.model.sex">
+  <insert id="insertSelective" parameterType="com.cqjtu.model.Sex">
     insert into sex
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="sexId != null">
@@ -119,7 +119,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cqjtu.model.sexExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.cqjtu.model.SexExample" resultType="java.lang.Long">
     select count(*) from sex
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -147,7 +147,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.sex">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.Sex">
     update sex
     <set>
       <if test="sexDesc != null">
@@ -156,7 +156,7 @@
     </set>
     where sex_id = #{sexId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.sex">
+  <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.Sex">
     update sex
     set sex_desc = #{sexDesc,jdbcType=VARCHAR}
     where sex_id = #{sexId,jdbcType=INTEGER}

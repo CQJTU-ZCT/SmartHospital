@@ -4,8 +4,10 @@ import com.cqjtu.mapperexp.BranchDoctorPositionMapperExp;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.BranchDoctorPosition;
 import com.cqjtu.model.Title;
+import com.cqjtu.model.Users;
 import com.cqjtu.modelexp.BranchDoctorPositionExp;
 import com.cqjtu.service.BranchDoctorPositionService;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +55,13 @@ public class BranchDoctorPositionController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,RequestMethod.POST,branchDoctorPosition);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,RequestMethod.POST,branchDoctorPosition);
+        }else {
+            message.setCode(403);
+            message.setInfo("未授权，不是管理员");
+        }
+
         return  message;
     }
 
@@ -68,16 +76,25 @@ public class BranchDoctorPositionController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,RequestMethod.PUT,branchDoctorPosition);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,RequestMethod.PUT,branchDoctorPosition);
+        }else {
+            message.setCode(403);
+            message.setInfo("未授权，不是管理员");
+        }
         return  message;
     }
 
 
-    private void validateAndOpt(String token ,Message message ,RequestMethod method,BranchDoctorPosition branchDoctorPosition){
 
+
+
+
+
+
+    private void validateAndOpt(String token ,Message message ,RequestMethod method,BranchDoctorPosition branchDoctorPosition){
         String info = "";
         if (token == null || token.length() <=0){
-            //TODO  完成角色权限认证
             info = "未授权";
             message.setCode(403);
         }else {

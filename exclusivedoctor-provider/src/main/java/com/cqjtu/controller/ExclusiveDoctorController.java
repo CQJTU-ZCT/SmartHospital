@@ -50,7 +50,7 @@ public class ExclusiveDoctorController {
     private void validateAndOpt(String token, Message message, RequestMethod method, ExclusiveDoctor exclusiveDoctor) {
         String info = "";
         if (token == null || token.length() <=0){
-            message.setCode(403);
+            message.setCode(401);
             info = "未授权";
         }else {
             boolean flag = true;
@@ -151,7 +151,7 @@ public class ExclusiveDoctorController {
     private void validateAndGet(String token, String pn, Message message, ExclusiveDoctor exclusiveDoctor) {
         if (token == null){
             message.setInfo("未授权");
-            message.setCode(403);
+            message.setCode(401);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

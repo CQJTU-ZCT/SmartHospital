@@ -11,6 +11,8 @@ spring:
     - mybatis
     - eureka
     - datasource
+    - common
+    - sso
   mvc:
     throw-exception-if-no-handler-found: true
   resources:

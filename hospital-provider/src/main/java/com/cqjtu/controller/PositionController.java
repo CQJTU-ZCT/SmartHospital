@@ -4,6 +4,7 @@ import com.cqjtu.messages.Message;
 import com.cqjtu.model.Branch;
 import com.cqjtu.model.Position;
 import com.cqjtu.service.PositionService;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.List;
 @RequestMapping("/hospital/position")
 public class PositionController {
 
-    @Value("${HospitalAdmin.code}")
+    @Value("${hospitalAdmin.code}")
     private String adminCode;
 
 
@@ -63,7 +64,12 @@ public class PositionController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(message,token,position,RequestMethod.POST);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(message,token,position,RequestMethod.POST);
+        }else {
+            message.setCode(403);
+            message.setInfo("非管理员");
+        }
         return message;
     }
 
@@ -76,14 +82,18 @@ public class PositionController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(message,token,position,RequestMethod.PUT);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(message,token,position,RequestMethod.PUT);
+        }else {
+            message.setCode(403);
+            message.setInfo("非管理员");
+        }
         return message;
     }
 
 
     private void validateAndGet(Message message, String token, String name,String pn){
         if (token == null ||token.length() <=0){
-            //todo 为token做用户权限认证
             message.setInfo("未授权");
             message.setCode(403);
         }else {
@@ -116,7 +126,6 @@ public class PositionController {
 
     private void validateAndOpt(Message message, String token, Position position,RequestMethod method){
         if (token == null || token.length() <=0){
-            //todo 完成角色权限认证
             message.setInfo("未授权");
             message.setCode(403);
         }else {

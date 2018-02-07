@@ -4,6 +4,7 @@ import com.cqjtu.messages.Message;
 import com.cqjtu.model.BranchDoctorTitle;
 import com.cqjtu.modelexp.BranchDoctorTitleExp;
 import com.cqjtu.service.BranchDoctorTitleService;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import java.util.List;
 public class BranchDoctorTitleController {
 
 
-    @Value("${HospitalAdmin.code}")
+    @Value("${hospitalAdmin.code}")
     private String adminCode;
 
 
@@ -51,7 +52,13 @@ public class BranchDoctorTitleController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,RequestMethod.POST,branchDoctorTitle);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,RequestMethod.POST,branchDoctorTitle);
+        }else {
+            message.setCode(403);
+            message.setInfo("非管理员");
+        }
+
         return  message;
     }
 
@@ -66,7 +73,13 @@ public class BranchDoctorTitleController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,RequestMethod.PUT,branchDoctorTitle);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,RequestMethod.PUT,branchDoctorTitle);
+        }else {
+            message.setInfo("非管理员");
+            message.setCode(403);
+        }
+
         return  message;
     }
 
@@ -74,7 +87,6 @@ public class BranchDoctorTitleController {
     private void validateAndOpt(String token ,Message message ,RequestMethod method,BranchDoctorTitle branchDoctorTitle){
         String info ="";
         if (token == null || token.length() <=0){
-            //TODO  完成角色权限认证
             info = "未授权";
             message.setCode(403);
         }else {
@@ -154,9 +166,8 @@ public class BranchDoctorTitleController {
 
     private void validateAndGet(Message message ,String token ,BranchDoctorTitle branchDoctorTitle ,String pn){
         if (token == null ||token.length() <=0){
-            //todo 为token做用户权限认证
             message.setInfo("未授权");
-            message.setCode(403);
+            message.setCode(401);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

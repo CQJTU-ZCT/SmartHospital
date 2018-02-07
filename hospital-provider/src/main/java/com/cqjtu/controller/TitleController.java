@@ -4,6 +4,7 @@ import com.cqjtu.messages.Message;
 import com.cqjtu.model.Position;
 import com.cqjtu.model.Title;
 import com.cqjtu.service.TitleService;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.List;
 @RestController
 public class TitleController {
 
-    @Value("${HospitalAdmin.code}")
+    @Value("${hospitalAdmin.code}")
     private String adminCode;
 
 
@@ -47,7 +48,12 @@ public class TitleController {
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,title,RequestMethod.POST);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,title,RequestMethod.POST);
+        }else {
+            message.setInfo("非管理员");
+            message.setCode(403);
+        }
         return message;
     }
 
@@ -59,7 +65,12 @@ public class TitleController {
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,title,RequestMethod.PUT);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,title,RequestMethod.PUT);
+        }else {
+            message.setInfo("非管理员");
+            message.setCode(403);
+        }
         return message;
     }
 
@@ -76,7 +87,6 @@ public class TitleController {
 
     private void validateAndGet(Message message ,String token ,Title title,String pn){
         if (token == null ||token.length() <=0){
-            //todo 为token做用户权限认证
             message.setInfo("未授权");
             message.setCode(403);
         }else {
@@ -113,7 +123,6 @@ public class TitleController {
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
             message.setCode(403);
-            //todo 完成角色权限认证
         }else {
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){

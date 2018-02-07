@@ -1,30 +1,30 @@
 package com.cqjtu.mapper;
 
-import com.cqjtu.model.sex;
-import com.cqjtu.model.sexExample;
+import com.cqjtu.model.Sex;
+import com.cqjtu.model.SexExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface sexMapper {
-    long countByExample(sexExample example);
+public interface SexMapper {
+    long countByExample(SexExample example);
 
-    int deleteByExample(sexExample example);
+    int deleteByExample(SexExample example);
 
     int deleteByPrimaryKey(Integer sexId);
 
-    int insert(sex record);
+    int insert(Sex record);
 
-    int insertSelective(sex record);
+    int insertSelective(Sex record);
 
-    List<sex> selectByExample(sexExample example);
+    List<Sex> selectByExample(SexExample example);
 
-    sex selectByPrimaryKey(Integer sexId);
+    Sex selectByPrimaryKey(Integer sexId);
 
-    int updateByExampleSelective(@Param("record") sex record, @Param("example") sexExample example);
+    int updateByExampleSelective(@Param("record") Sex record, @Param("example") SexExample example);
 
-    int updateByExample(@Param("record") sex record, @Param("example") sexExample example);
+    int updateByExample(@Param("record") Sex record, @Param("example") SexExample example);
 
-    int updateByPrimaryKeySelective(sex record);
+    int updateByPrimaryKeySelective(Sex record);
 
-    int updateByPrimaryKey(sex record);
+    int updateByPrimaryKey(Sex record);
 }
