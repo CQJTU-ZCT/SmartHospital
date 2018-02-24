@@ -6,6 +6,7 @@ import com.cqjtu.model.Hospital;
 import com.cqjtu.service.DoctorDetailService;
 import com.cqjtu.service.DoctorService;
 import com.cqjtu.tools.RegularTool;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
@@ -35,6 +36,12 @@ public class DoctorDetailController {
     private String navigatePagesString;
 
 
+    @Value("${hospitalAdmin.code}")
+    private String adminCode;
+
+    @Value("${hospitalDoctor.code}")
+    private String doctorCode;
+
     @Autowired
     private DoctorDetailService doctorDetailService;
 
@@ -49,7 +56,13 @@ public class DoctorDetailController {
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,doctorDetail,RequestMethod.POST);
+        if (ValidateAdminTool.isAdmin(request,adminCode) || ValidateAdminTool.isAdmin(request,doctorCode)){
+            validateAndOpt(token,message,doctorDetail,RequestMethod.POST);
+        }else {
+            message.setInfo("非管理员或医生");
+            message.setCode(403);
+        }
+
         return message;
     }
 
@@ -60,7 +73,12 @@ public class DoctorDetailController {
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,doctorDetail,RequestMethod.PUT);
+        if (ValidateAdminTool.isAdmin(request,adminCode) || ValidateAdminTool.isAdmin(request,doctorCode)){
+            validateAndOpt(token,message,doctorDetail,RequestMethod.PUT);
+        }else {
+            message.setInfo("非管理员或医生");
+            message.setCode(403);
+        }
         return message;
     }
 
@@ -83,10 +101,9 @@ public class DoctorDetailController {
         String info="";
         if (token == null || token.length() <=0){
             info = "未授权";
+            message.setCode(403);
         }else {
             boolean flag = true;
-            //todo 完全角色身份认证
-
             if (method.equals(RequestMethod.POST)){
                 if (doctorDetail.getIdCard() == null || doctorDetail.getIdCard().length()<=0){
                     info = "身份证号码不能为空";
@@ -153,10 +170,9 @@ public class DoctorDetailController {
                     }
                 }
             }
-            message.setInfo(info);
-            message.put("doctorDetail",doctorDetail);
         }
-
+        message.setInfo(info);
+        message.put("doctorDetail",doctorDetail);
     }
 
 
@@ -165,6 +181,7 @@ public class DoctorDetailController {
     private void validateAndGet(String token ,Message message ,DoctorDetail doctorDetail,String pn){
         if (token == null){
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

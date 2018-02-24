@@ -3,14 +3,14 @@ package com.cqjtu.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class sexExample {
+public class SexExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public sexExample() {
+    public SexExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

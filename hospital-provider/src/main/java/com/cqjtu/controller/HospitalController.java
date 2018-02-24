@@ -108,6 +108,7 @@ public class HospitalController {
     private void getHospitalsAndValidate(Message message , String pn, String token, String name, String address){
         if (token == null){
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

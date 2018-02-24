@@ -1,10 +1,10 @@
 package com.cqjtu.controller;
 
 import com.cqjtu.messages.Message;
-import com.cqjtu.model.BranchDoctorPosition;
 import com.cqjtu.model.BranchDoctorTitle;
-import com.cqjtu.service.BranchDoctorPositionService;
-import com.cqjtu.service.BranchDoctorTtitleService;
+import com.cqjtu.modelexp.BranchDoctorTitleExp;
+import com.cqjtu.service.BranchDoctorTitleService;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,11 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/branch-doctor-title/")
-public class BranchDoctorTtitleController {
+@RequestMapping("/branch-doctor-title")
+public class BranchDoctorTitleController {
 
 
-    @Value("${HospitalAdmin.code}")
+    @Value("${hospitalAdmin.code}")
     private String adminCode;
 
 
@@ -41,7 +41,7 @@ public class BranchDoctorTtitleController {
 
 
     @Autowired
-    private BranchDoctorTtitleService branchDoctorTtitleService;
+    private BranchDoctorTitleService branchDoctorTitleService;
 
 
     @RequestMapping(value = {"","/"},method = RequestMethod.POST)
@@ -52,7 +52,13 @@ public class BranchDoctorTtitleController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,RequestMethod.POST,branchDoctorTitle);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,RequestMethod.POST,branchDoctorTitle);
+        }else {
+            message.setCode(403);
+            message.setInfo("非管理员");
+        }
+
         return  message;
     }
 
@@ -67,67 +73,82 @@ public class BranchDoctorTtitleController {
         if (token == null){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,message,RequestMethod.PUT,branchDoctorTitle);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,message,RequestMethod.PUT,branchDoctorTitle);
+        }else {
+            message.setInfo("非管理员");
+            message.setCode(403);
+        }
+
         return  message;
     }
 
 
     private void validateAndOpt(String token ,Message message ,RequestMethod method,BranchDoctorTitle branchDoctorTitle){
+        String info ="";
         if (token == null || token.length() <=0){
-            //TODO  完成角色权限认证
-            message.setInfo("未授权");
+            info = "未授权";
+            message.setCode(403);
         }else {
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){
                 //添加操作
                 if (branchDoctorTitle.getBranchId() == null || branchDoctorTitle.getBranchId() <=0){
+                    info = "科室编号不能为空";
                     flag = false;
                 }
                 if (branchDoctorTitle.getTitleId() == null || branchDoctorTitle.getTitleId() <=0){
+                    info = "职称编号不能为空";
                     flag = false;
                 }
                 if (branchDoctorTitle.getIdCard() == null || branchDoctorTitle.getIdCard().length() <=0){
+                    info = "用户标识不能为空";
                     flag = false;
                 }
                 if (flag){
-                    int add = branchDoctorTtitleService.addBranchDoctorTitile(branchDoctorTitle);
+                    int add = branchDoctorTitleService.addBranchDoctorTitile(branchDoctorTitle);
                     if (add >0 ){
                         message.setCode(200);
-                        message.setInfo("添加科室医生职称信息成功");
+                        info="添加科室医生职称信息成功";
                         branchDoctorTitle.setBdtId(add);
                     }else {
-                        message.setInfo("添加科室医生职称信息失败");
+                        info = "添加科室医生职称信息失败";
                     }
                 }
             }else if (method.equals(RequestMethod.PUT)){
+                int paraNum =0;
                 //修改操作
                 if (branchDoctorTitle.getBdtId() == null||branchDoctorTitle.getBdtId() <=0 ){
+                    info = "科室医生职称编号不能为空";
                     flag =false;
                 }
-                if (branchDoctorTitle.getBranchId() == null || branchDoctorTitle.getBranchId() <=0){
-                    flag = false;
-                }
-                if (branchDoctorTitle.getTitleId() == null || branchDoctorTitle.getTitleId() <=0){
-                    flag = false;
-                }
-                if (branchDoctorTitle.getIdCard() == null || branchDoctorTitle.getIdCard().length() <=0){
-                    flag = false;
+                if (flag){
+                    if (branchDoctorTitle.getBranchId() != null && branchDoctorTitle.getBranchId() >0){
+                        paraNum++;
+                    }
+                    if (branchDoctorTitle.getTitleId() != null && branchDoctorTitle.getTitleId() >0){
+                        paraNum++;
+                    }
+                    if (branchDoctorTitle.getIdCard() != null && branchDoctorTitle.getIdCard().length() >0){
+                        paraNum++;
+                    }
                 }
                 if (flag){
-                    int update = branchDoctorTtitleService.updateBranchDoctorTitle(branchDoctorTitle);
-                    if (update == 1 ){
-                        message.setCode(200);
-                        message.setInfo("修改科室医生职称信息成功");
+                    if (paraNum >= 1){int update = branchDoctorTitleService.updateBranchDoctorTitle(branchDoctorTitle);
+                        if (update == 1 ){
+                            message.setCode(200);
+                            info = "修改科室医生职称信息成功";
+                        }else {
+                            info = "修改科室医生职称信息失败";
+                        }
                     }else {
-                        message.setInfo("修改科室医生职称信息失败");
+                        info = "要修改的信息不能为空";
                     }
                 }
             }
-            if (!flag){
-                message.setInfo("参数错误");
-            }
-            message.put("branchDoctorTitle",branchDoctorTitle);
         }
+        message.setInfo(info);
+        message.put("branchDoctorTitle",branchDoctorTitle);
     }
 
 
@@ -145,8 +166,8 @@ public class BranchDoctorTtitleController {
 
     private void validateAndGet(Message message ,String token ,BranchDoctorTitle branchDoctorTitle ,String pn){
         if (token == null ||token.length() <=0){
-            //todo 为token做用户权限认证
             message.setInfo("未授权");
+            message.setCode(401);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;
@@ -167,7 +188,7 @@ public class BranchDoctorTtitleController {
             }
             //开始分页查询
             PageHelper.startPage(pageNum,pageSize);
-            List<BranchDoctorTitle> branchDoctorTitles = branchDoctorTtitleService.queryBranchDoctorTitle(branchDoctorTitle);
+            List<BranchDoctorTitleExp> branchDoctorTitles = branchDoctorTitleService.queryBranchDoctorTitle(branchDoctorTitle);
             PageInfo pageInfo = new PageInfo(branchDoctorTitles,navigatePages);
             message.setCode(200);
             message.setInfo("获取科室医生职称信息成功");

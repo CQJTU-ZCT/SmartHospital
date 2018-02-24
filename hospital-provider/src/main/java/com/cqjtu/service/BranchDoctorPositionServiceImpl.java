@@ -3,6 +3,7 @@ package com.cqjtu.service;
 import com.cqjtu.mapperexp.BranchDoctorPositionMapperExp;
 import com.cqjtu.model.Branch;
 import com.cqjtu.model.BranchDoctorPosition;
+import com.cqjtu.modelexp.BranchDoctorPositionExp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class BranchDoctorPositionServiceImpl implements BranchDoctorPositionServ
     }
 
     @Override
-    public List<BranchDoctorPosition> queryBranchDoctorPosition(BranchDoctorPosition branchDoctorPosition) {
+    public List<BranchDoctorPositionExp> queryBranchDoctorPosition(BranchDoctorPosition branchDoctorPosition) {
         return branchDoctorPositionMapperExp.queryBranchDoctorPosition(branchDoctorPosition);
     }
 }

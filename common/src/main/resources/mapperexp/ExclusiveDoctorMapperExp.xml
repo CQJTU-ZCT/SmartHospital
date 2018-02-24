@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.ExclusiveDoctorMapperExp">
+
+
+
+    <resultMap id="exclusiveDoctorExp" type="com.cqjtu.modelexp.ExclusiveDoctorExp">
+        <id column="exclusive_doctor_id" property="exclusiveDoctorId"></id>
+        <association property="doctor" javaType="com.cqjtu.model.Doctor">
+            <id column="doctor_id_card" property="idCard"></id>
+            <result column="doctor_name" property="name" ></result>
+        </association>
+
+        <association property="users" javaType="com.cqjtu.model.Users" >
+            <id column="users_id_card" property="idCard"></id>
+            <result column="users_name" property="realname"></result>
+        </association>
+
+        <association property="status" javaType="com.cqjtu.model.ExclusiveDoctorStatus" >
+            <id column="status_id" property="statusId"></id>
+            <result column="status_desc" property="statusDesc"></result>
+        </association>
+    </resultMap>
+
+
+    <select id="queryExclusiveDoctor" resultMap="exclusiveDoctorExp"
+            parameterType="com.cqjtu.model.ExclusiveDoctor">
+        SELECT
+        exclusive_doctor.exclusive_doctor_id , exclusive_doctor.status_id ,
+        exclusive_doctor_status.status_id , exclusive_doctor_status.status_desc,
+        doctor.id_card as doctor_id_card, doctor.name as doctor_name,
+        users.id_card  as users_id_card, users.realname as users_name
+        from doctor,users,exclusive_doctor,exclusive_doctor_status
+        <where>
+            <trim prefixOverrides="and">
+                <if test="exclusiveDoctorId != null">
+                    exclusive_doctor.exclusive_doctor_id = #{exclusiveDoctorId}
+                </if>
+                <if test="doctorIdCard != null">
+                    and  doctor.id_card = #{doctorIdCard}
+                </if>
+                <if test="userIdCard != null">
+                    and users.id_card = #{userIdCard}
+                </if>
+                <if test="statusId != null">
+                    and exclusive_doctor.status_id = #{statusId}
+                </if>
+                and exclusive_doctor.doctor_id_card = doctor.id_card
+                and exclusive_doctor.user_id_card = users.id_card
+                and exclusive_doctor.status_id = exclusive_doctor.status_id
+            </trim>
+        </where>
+    </select>
+
+
+
+    <update id="updateExclusiveDoctor" parameterType="com.cqjtu.model.ExclusiveDoctor">
+        update exclusive_doctor
+        <set>
+            <if test="statusId != null">
+                status_id=#{statusId}
+            </if>
+        </set>
+        where exclusive_doctor_id = #{exclusiveDoctorId}
+    </update>
+
+
+
+    <insert id="addExclusiveDoctor" parameterType="com.cqjtu.model.ExclusiveDoctor">
+        INSERT  INTO exclusive_doctor
+
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="exclusiveDoctorId != null">
+                exclusive_doctor_id ,
+            </if>
+            <if test="doctorIdCard != null">
+                doctor_id_card ,
+            </if>
+            <if test="userIdCard != null">
+                user_id_card,
+            </if>
+            <if test="statusId != null">
+                status_id
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="exclusiveDoctorId != null">
+                #{exclusiveDoctorId} ,
+            </if>
+            <if test="doctorIdCard != null">
+                #{doctorIdCard} ,
+            </if>
+            <if test="userIdCard != null">
+                #{userIdCard},
+            </if>
+            <if test="statusId != null">
+                #{statusId}
+            </if>
+        </trim>
+
+    </insert>
+
+
+</mapper>

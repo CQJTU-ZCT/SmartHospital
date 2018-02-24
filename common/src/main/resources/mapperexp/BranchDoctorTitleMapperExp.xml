@@ -2,23 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapperexp.BranchDoctorTitleMapperExp">
 
-    <select id="queryBranchDoctorTitle" resultType="com.cqjtu.model.BranchDoctorTitle" >
-        SELECT branch_id,title_id,bdt_id,id_card
-        from branch_doctor_title
+
+
+    <resultMap id="branchDoctorTitleExp" type="com.cqjtu.modelexp.BranchDoctorTitleExp">
+        <id column="bdt_id" property="bdtId"></id>
+        <association property="doctor" javaType="com.cqjtu.model.Doctor">
+            <id column="id_card" property="idCard"></id>
+            <result column="dname" property="name" ></result>
+        </association>
+
+        <association property="title" javaType="com.cqjtu.model.Title" >
+            <id column="title_id" property="titleId"></id>
+            <result column="tname" property="name"></result>
+        </association>
+
+
+        <association property="branch" javaType="com.cqjtu.model.Branch" >
+            <id column="branch_id" property="branchId"></id>
+            <result column="bname" property="name"></result>
+            <result column="introduction" property="introduction"></result>
+        </association>
+    </resultMap>
+
+
+    <select id="queryBranchDoctorTitle" resultMap="branchDoctorTitleExp" parameterType="com.cqjtu.model.BranchDoctorTitle">
+        SELECT branch.branch_id ,branch.name as bname, branch.introduction ,
+                title.title_id , title.name as tname,
+                bdt_id,
+                doctor.id_card, doctor.name as dname
+        from branch_doctor_title,branch,doctor,title
         <where>
             <trim prefixOverrides="and">
                 <if test="titleId != null">
-                    title_id = #{titleId}
+                    branch_doctor_title.title_id = #{titleId}
                 </if>
                 <if test="branchId != null">
-                   and  branch_id = #{branchId}
+                   and  branch_doctor_title.branch_id = #{branchId}
                 </if>
                 <if test="idCard != null">
-                    and id_card = #{idCard}
+                    and branch_doctor_title.id_card = #{idCard}
                 </if>
                 <if test="bdtId != null">
-                    and bdt_id = #{bdtId}
+                    and branch_doctor_title.bdt_id = #{bdtId}
                 </if>
+                and branch_doctor_title.id_card = doctor.id_card
+                and branch_doctor_title.title_id = title.title_id
+                and branch_doctor_title.branch_id = branch.branch_id
             </trim>
         </where>
     </select>
@@ -42,7 +71,7 @@
     </update>
 
     <insert id="addBranchDoctorTitle" parameterType="com.cqjtu.model.BranchDoctorTitle">
-        <selectKey resultType="java.lang.Integer" keyColumn="id">
+        <selectKey resultType="java.lang.Integer" keyProperty="bdtId">
             SELECT last_insert_id();
         </selectKey>
 
@@ -74,7 +103,7 @@
                 #{branchId},
             </if>
             <if test="titleId != null">
-                #{title_id}
+                #{titleId}
             </if>
         </trim>
 

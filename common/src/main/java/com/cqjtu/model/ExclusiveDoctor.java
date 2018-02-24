@@ -3,11 +3,11 @@ package com.cqjtu.model;
 public class ExclusiveDoctor {
     private String exclusiveDoctorId;
 
-    private String idCard;
+    private String doctorIdCard;
 
     private Integer statusId;
 
-    private String useIdCard;
+    private String userIdCard;
 
     public String getExclusiveDoctorId() {
         return exclusiveDoctorId;
@@ -17,12 +17,12 @@ public class ExclusiveDoctor {
         this.exclusiveDoctorId = exclusiveDoctorId == null ? null : exclusiveDoctorId.trim();
     }
 
-    public String getIdCard() {
-        return idCard;
+    public String getDoctorIdCard() {
+        return doctorIdCard;
     }
 
-    public void setIdCard(String idCard) {
-        this.idCard = idCard == null ? null : idCard.trim();
+    public void setDoctorIdCard(String doctorIdCard) {
+        this.doctorIdCard = doctorIdCard == null ? null : doctorIdCard.trim();
     }
 
     public Integer getStatusId() {
@@ -33,11 +33,11 @@ public class ExclusiveDoctor {
         this.statusId = statusId;
     }
 
-    public String getUseIdCard() {
-        return useIdCard;
+    public String getUserIdCard() {
+        return userIdCard;
     }
 
-    public void setUseIdCard(String useIdCard) {
-        this.useIdCard = useIdCard == null ? null : useIdCard.trim();
+    public void setUserIdCard(String userIdCard) {
+        this.userIdCard = userIdCard == null ? null : userIdCard.trim();
     }
 }

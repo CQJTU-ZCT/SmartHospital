@@ -1,6 +1,6 @@
 package com.cqjtu.model;
 
-public class sex {
+public class Sex {
     private Integer sexId;
 
     private String sexDesc;

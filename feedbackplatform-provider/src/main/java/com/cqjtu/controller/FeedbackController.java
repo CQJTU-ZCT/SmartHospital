@@ -72,6 +72,7 @@ public class FeedbackController {
 
     private void validateAndGet(String token ,String pn,Message message,Feedback feedback){
         if (token == null){
+            message.setCode(401);
             message.setInfo("未授权");
         }else {
             //尝试设置配置文件中配置参数的值
@@ -105,6 +106,7 @@ public class FeedbackController {
     private void validateAndOpt(String token ,Message message ,RequestMethod method ,Feedback feedback){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
+            message.setCode(401);
         }else {
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){

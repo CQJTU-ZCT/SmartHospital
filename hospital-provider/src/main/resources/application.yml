@@ -31,6 +31,8 @@ sendTokenToAdminMail:
   smtpServer: smtp.qq.com
 
 
-HospitalAdmin:
+hospitalAdmin:
   code: 3 #标识医院管理员的用户类别编码
+hospitalDoctor:
+  code: 2
 

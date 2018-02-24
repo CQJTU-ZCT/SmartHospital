@@ -1,6 +1,7 @@
 package com.cqjtu.service;
 
 import com.cqjtu.model.BranchDoctorTitle;
+import com.cqjtu.modelexp.BranchDoctorTitleExp;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @Desc
  * @date 2018/1/26.
  */
-public interface BranchDoctorTtitleService {
+public interface BranchDoctorTitleService {
 
     /**
      * 添加科室 医生 职称
@@ -31,5 +32,5 @@ public interface BranchDoctorTtitleService {
      * @param branchDoctorTitle
      * @return
      */
-    List<BranchDoctorTitle> queryBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle);
+    List<BranchDoctorTitleExp> queryBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle);
 }

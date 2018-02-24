@@ -5,6 +5,7 @@ import com.cqjtu.model.Doctor;
 import com.cqjtu.model.Position;
 import com.cqjtu.service.DoctorService;
 import com.cqjtu.tools.RegularTool;
+import com.cqjtu.tools.ValidateAdminTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sun.mail.imap.protocol.ID;
@@ -27,6 +28,14 @@ import java.util.List;
 @RequestMapping("/hospital/doctor")
 public class DoctorController {
 
+
+
+
+    @Value("${hospitalAdmin.code}")
+    private String adminCode;
+
+    @Value("${hospitalDoctor.code}")
+    private String doctorCode;
 
     @Value("${pageInfo.pageSize}")
     private String pageSizeString;
@@ -57,7 +66,12 @@ public class DoctorController {
         if (token == null ||  token.length() <=0 ){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,doctor,RequestMethod.POST,message);
+        if (ValidateAdminTool.isAdmin(request,adminCode)){
+            validateAndOpt(token,doctor,RequestMethod.POST,message);
+        }else {
+            message.setCode(403);
+            message.setInfo("非管理员");
+        }
         return message;
     }
 
@@ -69,7 +83,12 @@ public class DoctorController {
         if (token == null ||  token.length() <=0 ){
             token = request.getHeader("token");
         }
-        validateAndOpt(token,doctor,RequestMethod.PUT,message);
+        if (ValidateAdminTool.isAdmin(request,adminCode) || ValidateAdminTool.isAdmin(request,doctorCode)){
+            validateAndOpt(token,doctor,RequestMethod.PUT,message);
+        }else {
+            message.setCode(403);
+            message.setInfo("非管理员或医生");
+        }
         return message;
     }
 
@@ -81,17 +100,21 @@ public class DoctorController {
         if (token == null ||  token.length() <=0 ){
             token = request.getHeader("token");
         }else {
-            //todo 完成角色权限认证
-            if (idCard != null && idCard.length()>0 && RegularTool.isIdCard(idCard)){
-                int i = doctorService.updateDoctorIdCard(idCard);
-                if (i ==1){
-                    message.setCode(200);
-                    message.setInfo("修改医生身份证号码成功");
+            if (ValidateAdminTool.isAdmin(request,adminCode) || ValidateAdminTool.isAdmin(request,doctorCode)){
+                if (idCard != null && idCard.length()>0 && RegularTool.isIdCard(idCard)){
+                    int i = doctorService.updateDoctorIdCard(idCard);
+                    if (i ==1){
+                        message.setCode(200);
+                        message.setInfo("修改医生身份证号码成功");
+                    }else {
+                        message.setInfo("修改医生身份证号码失败");
+                    }
                 }else {
-                    message.setInfo("修改医生身份证号码失败");
+                    message.setInfo("参数错误，修改医生身份证号码失败");
                 }
             }else {
-                message.setInfo("参数错误，修改医生身份证号码失败");
+                message.setCode(403);
+                message.setInfo("非管理员或医生");
             }
             message.put("idCard",idCard);
         }
@@ -106,8 +129,8 @@ public class DoctorController {
         String info= "";
         if (token == null || token.length() <=0){
             info = "未授权";
+            message.setCode(403);
         }else {
-            //todo 完成角色权限认证
 
             boolean flag = true;
             if (method.equals(RequestMethod.POST)){
@@ -225,6 +248,7 @@ public class DoctorController {
     private void validateAndGet(String token ,String pn ,Doctor doctor,Message message){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");
+            message.setCode(403);
         }else {
             //尝试设置配置文件中配置参数的值
             int pageNum = 1;

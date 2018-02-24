@@ -1,6 +1,7 @@
 package com.cqjtu.mapperexp;
 
 import com.cqjtu.model.BranchDoctorTitle;
+import com.cqjtu.modelexp.BranchDoctorTitleExp;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface BranchDoctorTitleMapperExp {
      * @param branchDoctorTitle
      * @return
      */
-    int addBranchDoctorTitile(BranchDoctorTitle branchDoctorTitle);
+    int addBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle);
 
     /**
      *  添加科室 医生 职称
@@ -31,6 +32,6 @@ public interface BranchDoctorTitleMapperExp {
      * @param branchDoctorTitle
      * @return
      */
-    List<BranchDoctorTitle> queryBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle);
+    List<BranchDoctorTitleExp> queryBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle);
 
 }
