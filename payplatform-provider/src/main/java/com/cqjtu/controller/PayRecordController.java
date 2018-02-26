@@ -58,13 +58,11 @@ public class PayRecordController {
     @RequestMapping(value = "/pay-record/{id}", method = RequestMethod.GET)
     public Message getById(@PathVariable("id") String id) {
         Message msg = new Message(200, "");
-        Map<String, Object> param = new HashMap<>();
-        param.put("record_id", id);
-        List<PayRecord> records = service.get(param, null, null);
-        if (null == records || records.size() != 1) {
+        PayRecord record = service.getById(id);
+        if (null == record) {
             msg.setInfo("数据不存在");
         }
-        msg.put("pay_record", records.get(0));
+        msg.put("pay_record", record);
         return msg;
     }
 

@@ -46,11 +46,22 @@ public class PayRecordServiceImpl implements PayRecordService, Pageable {
     public List<PayRecord> get(Map<String, Object> param, Integer page, Integer limit) {
         // start = (page - 1) * limit
         // so page should be larger than zero
+        if (null == page) {
+            page = 1;
+        }
+        if (null == limit) {
+            limit = 20;
+        }
         return mapper.get(param, (page - 1) * limit, limit);
     }
 
     @Override
     public Integer count(Map<String, Object> param) {
         return mapper.count(param);
+    }
+
+    @Override
+    public PayRecord getById(String recordId) {
+        return mapper.getById(recordId);
     }
 }

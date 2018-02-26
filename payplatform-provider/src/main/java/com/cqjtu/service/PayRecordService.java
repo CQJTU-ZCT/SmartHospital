@@ -16,4 +16,6 @@ public interface PayRecordService {
     List<PayRecord> get(Map<String, Object> param, Integer page, Integer limit);
 
     Integer count(Map<String, Object> param);
+
+    PayRecord getById(String recordId);
 }

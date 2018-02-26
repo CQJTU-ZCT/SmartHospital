@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @Desc
  * @date 2017/12/28.
  */
-@EnableEurekaClient
+//@EnableEurekaClient
 @EnableAutoConfiguration
 @SpringBootApplication
 @MapperScan(value = {"com.cqjtu.mapper", "com.cqjtu.mapperexp"})

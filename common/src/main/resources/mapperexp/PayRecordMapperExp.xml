@@ -109,4 +109,11 @@
         </if>
     </delete>
 
+    <select id="getById" resultType="com.cqjtu.model.PayRecord">
+        SELECT * FROM pay_record
+        <if test="null != recordId">
+            WHERE record_id = ${recordId}
+        </if>
+    </select>
+
 </mapper>

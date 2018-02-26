@@ -4,6 +4,8 @@ package com.cqjtu.controller;
 import com.cqjtu.messages.ExceptionMessage;
 import com.cqjtu.messages.Message;
 import com.cqjtu.tools.LoggerTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class ErrorController extends AbstractErrorController {
 
+    private Logger logger = LoggerFactory.getLogger(ErrorController.class);
 
     public ErrorController(ErrorAttributes errorAttributes) {
         super(errorAttributes);
@@ -32,7 +35,8 @@ public class ErrorController extends AbstractErrorController {
 
     @RequestMapping(value = "/error")
     public Message error(HttpServletRequest request,Exception exception) {
-        Message message  = new ExceptionMessage();;
+        logger.info(request.getRemoteAddr() + " " + request.getMethod() + " " + request.getRequestURL());
+        Message message  = new ExceptionMessage();
         HttpStatus status = getStatus(request);
         if (status == HttpStatus.BAD_REQUEST){
             message.setCode(400);

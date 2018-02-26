@@ -1,7 +1,5 @@
 package com.cqjtu.tools;
 
-import org.omg.PortableInterceptor.INACTIVE;
-
 /**
  * @author mevur
  * @date 18/2/1

@@ -7,8 +7,8 @@ eureka:
     prefer-ip-address: true
   client:
     fetch-registry: true
-    serviceUrl:
-      defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/
+#    serviceUrl:
+#      defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/
 spring:
   datasource:
         name: smart_hospital

@@ -14,4 +14,6 @@ public interface PayRecordMapperExp {
                         @Param("page") Integer page,
                         @Param("limit") Integer limit);
     Integer count(@Param("param") Map<String, Object> param);
+
+    PayRecord getById(@Param("recordId") String recordId);
 }

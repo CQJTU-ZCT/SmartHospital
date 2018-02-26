@@ -138,6 +138,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ExceptionMessage handleServiceException(Exception exception){
         logger.error("处理逻辑异常"+ exception.getMessage());
+        exception.printStackTrace();
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(500,exception.getMessage());
         message.setInfo(exception.getMessage());
         message.put("exc", exception);
