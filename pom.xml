@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.cqjtu</groupId>
-    <artifactId>smart-hospital</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>eureka-server</module>
-        <module>common</module>
-        <module>user-provider</module>
-        <module>provider-security</module>
-        <module>appointment-provider</module>
-        <module>validate-provider</module>
-        <module>exception-handler</module>
-        <module>api-gateway</module>
-        <module>sso-client</module>
-        <module>sso-server-provider</module>
-        <module>emr-provider</module>
-        <module>onlinediagnose-provider</module>
-        <module>exclusivedoctor-provider</module>
-        <module>onekeyfirstaid-provider</module>
-        <module>medicalprogressmanagement-provider</module>
-        <module>healthmonitor-provider</module>
-        <module>feedbackplatform-provider</module>
-        <module>payplatform-provider</module>
-        <module>hospital-provider</module>
-        <module>file-provider</module>
-        <module>baseinfo-provider</module>
-    </modules>
+	<groupId>com.cqjtu</groupId>
+	<artifactId>smart-hospital</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<modules>
+		<module>eureka-server</module>
+		<module>common</module>
+		<module>user-provider</module>
+		<module>provider-security</module>
+		<module>appointment-provider</module>
+		<module>validate-provider</module>
+		<module>exception-handler</module>
+		<module>api-gateway</module>
+		<module>sso-client</module>
+		<module>sso-server-provider</module>
+		<module>emr-provider</module>
+		<module>onlinediagnose-provider</module>
+		<module>exclusivedoctor-provider</module>
+		<module>onekeyfirstaid-provider</module>
+		<module>medicalprogressmanagement-provider</module>
+		<module>healthmonitor-provider</module>
+		<module>feedbackplatform-provider</module>
+		<module>payplatform-provider</module>
+		<module>hospital-provider</module>
+		<module>file-provider</module>
+		<module>baseinfo-provider</module>
+	</modules>
 
-    <packaging>pom</packaging>
-
-
-
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <spring.boot.maven.plugin.version>1.5.9.RELEASE</spring.boot.maven.plugin.version>
-    </properties>
+	<packaging>pom</packaging>
 
 
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring.boot.maven.plugin.version>1.5.9.RELEASE</spring.boot.maven.plugin.version>
+	</properties>
+
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 
 </project>
