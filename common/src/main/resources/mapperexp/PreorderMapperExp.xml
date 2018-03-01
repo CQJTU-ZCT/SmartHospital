@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.PreorderProviderMapperExp">
+    <select id="count" resultType="Integer">
+        SELECT COUNT(*) FROM preorders
+        <if test="null != param">
+            WHERE
+            <foreach collection="param" item="key" separator=",">
+                ${key} = ${param[${key}]}
+            </foreach>
+        </if>
+    </select>
+    <select id="getById" resultType="com.cqjtu.model.PreOrders">
+        SELECT * FROM preorders
+        <if test="null != orderId">
+            WHERE record_id = ${orderId}
+        </if>
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM preorders
+        <if test="null != orderId">
+            WHERE record_id = ${orderId}
+        </if>
+    </delete>
+
+    <select id="get" resultType="com.cqjtu.model.PreOrders">
+        SELECT * FROM preorders
+        <if test="null != param">
+            WHERE
+            <foreach collection="param" item="key" separator=",">
+                ${key} = ${param[${key}]}
+            </foreach>
+        </if>
+        <if test="null != page and null != limit">
+            LIMIT ${page}, ${limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.cqjtu.model.PreOrders">
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != orderId">
+                order_id,
+            </if>
+            <if test="null != appointmentStatusId">
+                appointment_status_id,
+            </if>
+            <if test="null != createTime">
+                create_time,
+            </if>
+            <if test="null != cancelTime">
+                cancel_time,
+            </if>
+            <if test="null != finishTime">
+                finish_time,
+            </if>
+            <if test="null != price">
+                price,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != orderId">
+                ${orderId},
+            </if>
+            <if test="null != appointmentStatusId">
+                ${appointmentStatusId},
+            </if>
+            <if test="null != createTime">
+                ${createTime},
+            </if>
+            <if test="null != cancelTime">
+                ${cancelTime},
+            </if>
+            <if test="null != finishTime">
+                "${finishTime}",
+            </if>
+            <if test="null != price">
+                "${price}",
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.cqjtu.model.PreOrders">
+        UPDATE preorders
+        <set>
+            <if test="null != appointmentStatusId">
+                appointment_status_id = ${appointmentStatusId},
+            </if>
+            <if test="null != createTime">
+                create_time = ${createTime},
+            </if>
+            <if test="null != finishTime">
+                finish_time = ${finishTime},
+            </if>
+            <if test="null != cancelTime">
+                cancel_time = ${cancelTime},
+            </if>
+            <if test="null != price">
+                price = ${price}
+            </if>
+        </set>
+        <if test="null != orderId">
+            WHERE order_id = ${orderId}
+        </if>
+    </update>
+
+</mapper>

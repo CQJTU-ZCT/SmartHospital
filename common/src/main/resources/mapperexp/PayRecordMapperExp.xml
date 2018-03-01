@@ -72,13 +72,16 @@
     </insert>
 
     <update id="update" parameterType="com.cqjtu.model.PayRecord">
-        UPDATE emr_record
+        UPDATE pay_record
         <set>
-            <if test="null != id">
-                id = ${id},
+            <if test="null != orderId">
+                order_id = ${orderId},
             </if>
-            <if test="null != payId">
-                pay_id = ${payId},
+            <if test="null != payStatusId">
+                pay_status_id = ${payStatusId},
+            </if>
+            <if test="null != payWayId">
+                pay_way_id = ${payWayId},
             </if>
             <if test="null != createTime">
                 create_time = ${createTime},
@@ -109,7 +112,7 @@
     </select>
 
     <delete id="delete">
-        DELETE FROM emr_record
+        DELETE FROM pay_record
         <if test="null != recordId">
             WHERE record_id = ${recordId}
         </if>

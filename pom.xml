@@ -28,6 +28,7 @@
 		<module>hospital-provider</module>
 		<module>file-provider</module>
 		<module>baseinfo-provider</module>
+		<module>preorder-provider</module>
 	</modules>
 
 	<packaging>pom</packaging>
@@ -59,6 +60,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
