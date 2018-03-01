@@ -1,7 +1,7 @@
 package com.cqjtu.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import com.cqjtu.domain.Date;
 
 public class PreOrders {
     private String orderId;
