@@ -4,4 +4,4 @@ eureka:
   client:
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/
+      defaultZone: http://10.0.0.101:5555/eureka/,http://10.0.0.101:7777/eureka/ #http://10.0.0.8:8888/eureka/

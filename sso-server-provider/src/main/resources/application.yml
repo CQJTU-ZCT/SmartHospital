@@ -16,6 +16,6 @@ spring:
     - eureka
     - datasource
     - mybatis
-
+    - common
 
 

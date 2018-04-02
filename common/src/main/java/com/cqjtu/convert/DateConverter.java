@@ -1,7 +1,6 @@
 package com.cqjtu.convert;
 
 import com.cqjtu.tools.StringLengthTool;
-import com.sun.tools.internal.ws.wsdl.document.soap.SOAPUse;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

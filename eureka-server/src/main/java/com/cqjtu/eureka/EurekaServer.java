@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
-/**
+/**`
  * @author zjhfyq
  * @Desc
  * @date 2017/12/5.

@@ -2,19 +2,6 @@
 server:
   port: 7777
 
-
-eureka:
-  server:
-    enable-self-preservation: false #eureka的自我保护
-
-  instance:
-    hostname: eureka-server-one
-
-  client:
-    fetch-registry: false
-    register-with-eureka: true  #false是不自己注册到自己
-    serviceUrl:
-          defaultZone: http://127.0.0.1:5555/eureka/
 spring:
   application:
     name: smart-hospital-eureka-server-one
@@ -22,4 +9,19 @@ spring:
       inetutils:
         preferred-networks:
          - 10.0
+eureka:
+  server:
+    enable-self-preservation: false #eureka的自我保护
+
+  instance:
+    hostname: eureka-server-one
+    prefer-ip-address: true
+
+
+  client:
+    fetch-registry: false
+    register-with-eureka: true  #false是不自己注册到自己
+    serviceUrl:
+          defaultZone: http://10.0.0.101:5555/eureka/
+
 
