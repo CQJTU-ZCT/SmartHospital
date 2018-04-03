@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#构建docker镜像
+docker build -t zctJava:v1 -f Dockerfile .

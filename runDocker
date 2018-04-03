@@ -1,0 +1,19 @@
+##########################
+# docker 镜像启动 案例    #
+#########################
+
+#启动docker镜像，生成容器  使用内部配置文件
+docker run -d --name eurekaServerOne -p 7777:7777 \
+       --mount type=bind,source=/home/zjh/Dev/jars,target=/root/jars \
+       -it zctJava:v1  java -jar /root/jars/eureka-server-1.0-SNAPSHOT.jar  --spring.profiles.active=one
+
+docker run -d --name eurekaServerTwo -p 5555:5555 \
+       --mount type=bind,source=/home/zjh/Dev/jars,target=/root/jars \
+       -it zctJava:v1  java -jar /root/jars/eureka-server-1.0-SNAPSHOT.jar  --spring.profiles.active=two
+
+
+#启动docker镜像，生成容器  使用外部配置文件 并且让容器直接使用主机网络配置
+docker run -d --name eurekaServer -p 8888:8888 \
+       --mount type=bind,source=/home/zjh/Dev/jars,target=/root/jars \
+       --net=host \
+       -it dojava:v1  java -jar -Dspring.config.location=/root/jars/application-eureka.yml  /root/jars/eureka-server-1.0-SNAPSHOT.jar
