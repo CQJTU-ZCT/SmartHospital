@@ -14,6 +14,7 @@ import java.util.Base64;
  */
 @Component
 public class SecurityFilter extends ZuulFilter {
+
     @Override
     public String filterType() {
         return "pre";

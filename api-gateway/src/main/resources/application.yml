@@ -1,21 +1,101 @@
-
-
 spring:
   application:
     name: ApiGateway
+  cloud:
+    inetutils:
+      preferred-networks:
+        - 10.0.0.*
+
+  profiles:
+    include:
+      - eureka
+      - common
+      - sso
+      - datasource
 
 
 server:
-  port: 8089
-eureka:
-  client:
-    fetch-registry: true
-    serviceUrl:
-      defaultZone: http://10.0.0.12:5555/eureka/,http://10.0.0.12:7777/eureka/
-
+  port: 1819
 
 zuul:
-  add-host-header: true
+  routes:
+    #预约
+    api-appointment:
+      path: /api-appointment/**
+      serviceId: AppointmentProvider
+
+    #基础信息
+    api-baseinfo:
+      path: /api-beseinfo/**
+      serviceId: BaseinfoProvider
+
+    #电子病历
+    api-emr:
+      path: /api-emr/**
+      serviceId: EmrProvider
+
+    #专属医生
+    api-exclusivedoctor:
+      path: /api-exclusivedoctor/**
+      serviceId: ExclusiveDoctorProvider
+
+    #反馈平台
+    api-feedbackplatform:
+      path: /api-feedbackplatform/**
+      serviceId: FeedbackPlatformProvider
+
+    #文件（头像）
+    api-file:
+      path: /api-file/**
+      serviceId: FileProvider
+
+    #健康监测
+    api-healthmonitor:
+      path: /api-healthmonitor/**
+      serviceId: HealthMonitorProvider
+
+    #医院信息
+    api-hospital:
+      path: /api-hospital/**
+      serviceId: HospitalProvider
+
+    #医疗进度管理
+    api-medicalprogress:
+      path: /api-medicalprogress/**
+      serviceId: MedicalProcessManagementProvider
+
+    #一键急救
+    api-onekeyfirstaid:
+      path: /api-onekeyfirstaid/**
+      serviceId: OneKeyFirstAidProvider
+
+    #在线询诊
+    api-onlinediagnose:
+      path: /api-onelinediagnose/**
+      serviceId: OnlineDiagnoseProvider
+
+    #支付平台
+    api-payplatform:
+      path: /api-payplatform/**
+      serviceId: PayPlatformProvider
+
+    #单点登录
+    api-sso:
+      path: /api-sso/**
+      serviceId: SsoServerProvider
+
+    #用户信息
+    api-user:
+      path: /api-user/**
+      serviceId: UserProvider
+
+
+    #验证码类信息获取
+    api-validate:
+      path: /api-validate/**
+      serviceId: ValidateProvider
+
+  #add-host-header: true
 
 
 

@@ -18,7 +18,6 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @MapperScan({"com.cqjtu.mapperexp","com.cqjtu.mapper"})
 public class BaseinfoProviderApplication {
 
-
     public static void main(String [] args){
         SpringApplication.run(BaseinfoProviderApplication.class,args);
     }

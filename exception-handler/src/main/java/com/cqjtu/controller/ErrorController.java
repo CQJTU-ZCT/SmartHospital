@@ -35,7 +35,7 @@ public class ErrorController extends AbstractErrorController {
 
     @RequestMapping(value = "/error")
     public Message error(HttpServletRequest request,Exception exception) {
-        logger.info(request.getRemoteAddr() + " " + request.getMethod() + " " + request.getRequestURL());
+        logger.info(request.getRemoteAddr() + " " + request.getMethod() + " " + request.getRequestURL()+ " " +getStatus(request));
         Message message  = new ExceptionMessage();
         HttpStatus status = getStatus(request);
         if (status == HttpStatus.BAD_REQUEST){
@@ -53,7 +53,11 @@ public class ErrorController extends AbstractErrorController {
         }else if (status == HttpStatus.FORBIDDEN){
             message.setCode(403);
             message.setInfo("未授权");
+        }else if (status == HttpStatus.INTERNAL_SERVER_ERROR){
+            message.setCode(500);
+            message.setInfo("没有相关服务或服务正忙");
         }
+
         return message;
     }
 }
