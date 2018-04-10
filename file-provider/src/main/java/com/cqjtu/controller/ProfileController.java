@@ -23,7 +23,7 @@ import java.util.UUID;
  * @Desc 头像控制器
  * @date 2018/1/23.
  */
-@RestController
+@RestController("cqjtuProfileController")
 @RequestMapping("/profile")
 public class ProfileController {
 

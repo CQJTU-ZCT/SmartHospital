@@ -13,13 +13,14 @@ spring:
     throw-exception-if-no-handler-found: true
   resources:
         add-mappings: true
-        static-locations: file:/home/zjh/files  #file:/home/zjh/files #file:/Users/zjhfyq/Dev/Ftp/
+        static-locations: file:/root/jars/profile #/root/jars/profile  #file:/home/zjh/files #file:/Users/zjhfyq/Dev/Ftp/
   profiles:
     include:
     - sso
     - eureka
     - datasource
     - mybatis
+    - common
   application:
       name: FileProvider
 
@@ -28,7 +29,7 @@ spring:
 
 
 smartHospital:
-  filePath: /home/zjh/files  #/home/zjh/files #/Users/zjhfyq/Dev/Ftp/
+  filePath: /root/jars/profile #/root/jars/profile  #/home/zjh/files #/Users/zjhfyq/Dev/Ftp/
 
 
 

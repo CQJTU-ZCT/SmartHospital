@@ -1,7 +1,7 @@
 SSOServer:
-  loginAddress: http://10.0.0.14:8084/login
-  validateAddress: http://10.0.0.14:8084/validate
-  logoutAddress: http://10.0.0.14:8084/signout
+  loginAddress: http://api.zjhfyq.cn/api-sso/login
+  validateAddress: http://api.zjhfyq.cn/api-sso/validate
+  logoutAddress: http://api.zjhfyq.cn/api-sso/signout
 
   loginService: http://SSOSERVERPROVIDER/login
   validateService: http://SSOSERVERPROVIDER/validate

@@ -26,7 +26,7 @@ zuul:
 
     #基础信息
     api-baseinfo:
-      path: /api-beseinfo/**
+      path: /api-baseinfo/**
       serviceId: BaseinfoProvider
 
     #电子病历
