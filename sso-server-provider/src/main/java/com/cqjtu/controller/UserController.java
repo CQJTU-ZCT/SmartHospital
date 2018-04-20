@@ -66,7 +66,7 @@ public class UserController {
                 if(user == null){
                     message = LoginMessage.getUserNotExistMessage();
                 }else{
-                    if(!Md5Tool.stringMd5(user.getPassword()).equals(password)){
+                    if(!Md5Tool.stringMd5(password).equals(user.getPassword())){
                         message=  LoginMessage.getErrorPasswordMessage();
                     }else {
                         message = LoginMessage.getSuccessMessage();
