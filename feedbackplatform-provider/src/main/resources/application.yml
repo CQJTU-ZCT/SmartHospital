@@ -17,3 +17,4 @@ spring:
     - mybatis
     - datasource
     - pageinfo
+    - common

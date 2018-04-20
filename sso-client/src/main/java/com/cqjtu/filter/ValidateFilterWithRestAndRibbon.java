@@ -48,6 +48,10 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        if(request.getRequestURI().contains("/users/register") || request.getRequestURI().contains("/user/register")){
+            filterChain.doFilter(servletRequest,servletResponse);
+            return;
+        }
         HttpServletResponse response = (HttpServletResponse)servletResponse;
         Message responseMessage;
 

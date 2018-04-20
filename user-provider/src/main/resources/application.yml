@@ -18,5 +18,6 @@ spring:
       - mybatis
       - eureka
       - datasource
-
+      - common
+      - sso
 
