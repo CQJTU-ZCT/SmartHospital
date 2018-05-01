@@ -1,7 +1,6 @@
 package com.cqjtu.service;
 
 import com.cqjtu.model.Hospital;
-import sun.jvm.hotspot.utilities.BitMap;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -47,9 +47,24 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
     @HystrixCommand(fallbackMethod = "validateFailed",ignoreExceptions = {java.io.FileNotFoundException.class})
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
+
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+
+        if (request.getRequestURI().contains("users/register")){
+            LoggerTool.getLogger(this.getClass()).info("注册，直接跳过权限检测");
+            filterChain.doFilter(servletRequest,servletResponse);
+            return;
+        }
+
+
+
         HttpServletResponse response = (HttpServletResponse)servletResponse;
         Message responseMessage;
+
+
+
+
 
         //先从头部获取token
         String token = request.getHeader("token");

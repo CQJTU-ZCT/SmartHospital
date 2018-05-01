@@ -124,8 +124,7 @@ public class DoctorController {
 
 
 
-    private void validateAndOpt(String token ,Doctor doctor,
-                                RequestMethod method,Message message){
+    private void validateAndOpt(String token , Doctor doctor , RequestMethod method , Message message){
         String info= "";
         if (token == null || token.length() <=0){
             info = "未授权";
