@@ -130,7 +130,7 @@ public class HospitalController {
             //开始分页查询
             PageHelper.startPage(pageNum,pageSize);
             List<Hospital> hospitals=hospitalService.getHospitals(name,address);
-            PageInfo pageInfo = new PageInfo(hospitals,navigatePages);;
+            PageInfo pageInfo = new PageInfo(hospitals,navigatePages);
             message.setCode(200);
             message.setInfo("获取医院信息成功");
             message.put("pageInfo",pageInfo);

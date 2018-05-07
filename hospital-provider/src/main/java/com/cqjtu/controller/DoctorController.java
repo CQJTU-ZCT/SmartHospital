@@ -235,15 +235,6 @@ public class DoctorController {
         message.put("doctor",doctor);
     }
 
-
-
-
-
-
-
-
-
-
     private void validateAndGet(String token ,String pn ,Doctor doctor,Message message){
         if (token == null || token.length() <=0){
             message.setInfo("未授权");

@@ -89,19 +89,24 @@
         #{mail,jdbcType=VARCHAR})
     </insert>
 
-    <update id="updateUsers" parameterType="com.cqjtu.model.Users">
-        UPDATE users
-        SET
-        phone = #{phone}
-        mail = #{mail}
-        WHERE id_card = #{idCard}
-    </update>
-
     <!--修改用户电话号码-->
-    <update id="updateUserPhone" parameterType="java.lang.String">
+    <update id="updateUserPhone">
         UPDATE users
-        SET phone = #{phone }
+        SET phone = #{arg1}
+        WHERE id_card = #{arg0}
     </update>
 
+    <!--修改用户邮箱-->
+    <update id="updateUserMail">
+        UPDATE users
+        SET mail = #{arg1}
+        WHERE id_card = #{arg0}
+    </update>
+
+    <update id="updateUserPassword">
+        UPDATE users
+        SET password = #{arg1}
+        WHERE id_card = #{arg0}
+    </update>
 
 </mapper>

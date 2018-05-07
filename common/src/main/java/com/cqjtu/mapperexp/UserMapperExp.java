@@ -32,13 +32,21 @@ public interface UserMapperExp {
      * @param phone
      * @return
      */
-    int updateUserPhone(String phone);
-
+    int updateUserPhone(String idCard , String phone);
 
     /**
-     * 修改用户信息
-     * @param users
+     * 修改用户邮箱
+     * @param idCard
+     * @param mail
      * @return
      */
-    int updateUsers(Users users);
+    int updateUserMail(String idCard , String mail);
+
+    /**
+     * 更新用户账户密码
+     * @param idCard
+     * @param password
+     * @return
+     */
+    int updateUserPassword(String idCard , String password);
 }

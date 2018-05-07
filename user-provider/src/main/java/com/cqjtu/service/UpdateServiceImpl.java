@@ -18,9 +18,9 @@ public class UpdateServiceImpl implements UpdateService {
     private UserMapperExp userMapperExp;
 
     @Override
-    public int updateUserPhone(String phone) {
+    public int updateUserPhone(String idCard , String phone) {
         try {
-            return userMapperExp.updateUserPhone(phone);
+            return userMapperExp.updateUserPhone(idCard,phone);
         }catch (Exception e){
             LoggerTool.getLogger(this.getClass()).info(e.getMessage());
             return 0;
@@ -28,13 +28,22 @@ public class UpdateServiceImpl implements UpdateService {
     }
 
     @Override
-    public int updateUsers(Users users) {
+    public int updateUserMail(String idCard, String mail) {
         try {
-            return userMapperExp.updateUsers(users);
-        }catch (Exception e) {
+            return userMapperExp.updateUserMail(idCard , mail);
+        }catch (Exception e){
             LoggerTool.getLogger(this.getClass()).info(e.getMessage());
             return 0;
         }
     }
 
+    @Override
+    public int updateUserPassword(String idCard, String password) {
+        try {
+            return userMapperExp.updateUserPassword(idCard,password);
+        }catch (Exception e){
+            LoggerTool.getLogger(this.getClass()).info(e.getMessage());
+            return 0;
+        }
+    }
 }
