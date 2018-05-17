@@ -124,8 +124,7 @@ public class DoctorController {
 
 
 
-    private void validateAndOpt(String token ,Doctor doctor,
-                                RequestMethod method,Message message){
+    private void validateAndOpt(String token , Doctor doctor , RequestMethod method , Message message){
         String info= "";
         if (token == null || token.length() <=0){
             info = "未授权";
@@ -235,15 +234,6 @@ public class DoctorController {
         message.setInfo(info);
         message.put("doctor",doctor);
     }
-
-
-
-
-
-
-
-
-
 
     private void validateAndGet(String token ,String pn ,Doctor doctor,Message message){
         if (token == null || token.length() <=0){

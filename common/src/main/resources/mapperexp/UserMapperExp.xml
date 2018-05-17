@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.UserMapperExp">
+
+    <!--注意事项：
+    1. id 和 方法名一样
+    2. parameterType 和参数类型一样
+    3. 如果是链表查询 ， 注意封装相应的modelexp
+    4. 尽量不使用resultMap  使用resultType
+    5. resultType是你查询之类的返回结果的类型  和 mapper接口中的对应的方法的返回值是相同类型
+    6. 不要使用select *
+    7. 查询时候  ，如果存在外键  ，例如下面的role_id 和account_status_id 是外键 ，那么就需要 你自己主要去链表查询 ，返回结果不要出现只有外键的情况，要包括外键的对应的数据
+    8. 针对第七条  出现上面的情况，  由于没有对应的resultType ，所以  你就要自己去封装一个class   包含select的所有内容  注意命名规范
+
+
+    下面是演示，就不给你链表查询了
+    -->
+
+    <resultMap id="usersExp" type="com.cqjtu.modelexp.UsersExp">
+        <association property="users" javaType="com.cqjtu.model.Users">
+            <result property="idCard" column="id_card"></result>
+            <result property="phone" column="phone"></result>
+            <result property="mail" column="mail"></result>
+            <result property="accountStatusId" column="account_status_id"></result>
+            <result property="roleId" column="role_id"></result>
+            <result property="password" column="password"></result>
+            <result property="realname" column="realname"></result>
+        </association>
+        <association property="role" javaType="com.cqjtu.model.Role">
+            <result property="roleId" column="role_id"></result>
+            <result property="description" column="rd"></result>
+        </association>
+        <association property="accountStatus" javaType="com.cqjtu.model.AccountStatus">
+            <result property="accountStatusId" column="account_status_id"></result>
+            <result property="description" column="ad"></result>
+        </association>
+    </resultMap>
+
+
+
+   <select id="getUserByIdCard" parameterType="java.lang.String"  resultMap="usersExp">
+       SELECT id_card , users.account_status_id ,account_status.description as ad ,users.role_id , role.description as rd, realname , phone , password , mail
+       FROM users LEFT JOIN  account_status ON  users.account_status_id = account_status.account_status_id
+       LEFT  JOIN  role ON  role.role_id = users.role_id
+       WHERE id_card = #{VALUE }
+   </select>
+
+    <select id="getUserByPhone" parameterType="java.lang.String" resultMap="usersExp">
+        SELECT id_card , users.account_status_id , account_status.description as ad , users.role_id , role.description as rd , realname , phone , password , mail
+        FROM users LEFT JOIN account_status ON users.account_status_id = account_status.account_status_id
+        LEFT JOIN role ON role.role_id = users.role_id
+        WHERE phone = #{VALUE }
+    </select>
+    
+    <select id="getUserByRealname" parameterType="java.lang.String" resultMap="usersExp">
+        SELECT id_card , users.account_status_id , account_status.description as ad , users.role_id , role.description as rd , realname , phone , password , mail
+        FROM users LEFT JOIN account_status ON users.account_status_id = account_status.account_status_id
+        LEFT JOIN role ON users.role_id = role.role_id
+        WHERE realname = #{VALUE }
+    </select>
+
+    <select id="getUserByAccountStatusId" parameterType="java.lang.Integer" resultMap="usersExp">
+        SELECT id_card , users.account_status_id , account_status.description as ad , users.role_id , role.description as rd , realname , phone ,password, mail
+        FROM users LEFT JOIN account_status ON users.account_status_id = account_status.account_status_id
+        LEFT JOIN role ON users.role_id = role.role_id
+        WHERE users.account_status_id = #{VALUE }
+    </select>
+
+    <select id="getUserByRoleId" parameterType="java.lang.Integer" resultMap="usersExp">
+        SELECT id_card , users.account_status_id , account_status.description as ad , users.role_id , role.description as rd , realname , phone ,password, mail
+        FROM users LEFT JOIN account_status ON users.account_status_id = account_status.account_status_id
+        LEFT JOIN role ON users.role_id = role.role_id
+        WHERE users.role_id = #{VALUE }
+    </select>
+
+    <select id="getUserByMail" parameterType="java.lang.String" resultMap="usersExp">
+        SELECT id_card , users.account_status_id , account_status.description as ad , users.role_id , role.description as rd , realname , phone ,password, mail
+        FROM users LEFT JOIN account_status ON users.account_status_id = account_status.account_status_id
+        LEFT JOIN role ON users.role_id = role.role_id
+        WHERE mail = #{VALUE }
+    </select>
+    
+    <insert id="insertUsers" parameterType="com.cqjtu.model.Users">
+        insert into users (id_card, account_status_id, role_id,
+        realname, phone, password,
+        mail)
+        values (#{idCard,jdbcType=VARCHAR}, #{accountStatusId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER},
+        #{realname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{mail,jdbcType=VARCHAR})
+    </insert>
+
+    <!--修改用户电话号码-->
+    <update id="updateUserPhone">
+        UPDATE users
+        SET phone = #{arg1}
+        WHERE id_card = #{arg0}
+    </update>
+
+    <!--修改用户邮箱-->
+    <update id="updateUserMail">
+        UPDATE users
+        SET mail = #{arg1}
+        WHERE id_card = #{arg0}
+    </update>
+
+    <update id="updateUserPassword">
+        UPDATE users
+        SET password = #{arg1}
+        WHERE id_card = #{arg0}
+    </update>
+
+</mapper>
