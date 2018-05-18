@@ -43,7 +43,7 @@ public class UpdateController {
      * @param phone
      * @reurn
      */
-    @RequestMapping(value = {"/phone", "/phone/", "/phone/{phone}", "/phone/{phone}/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/phone", "/phone/", "/phone/{phone}", "/phone/{phone}/"}, method = RequestMethod.PUT)
     public Message updateUserPhone(String token, HttpServletRequest request, String phone) {
         Message message = new Message();
         Users users = (Users) request.getAttribute("user");
@@ -77,7 +77,7 @@ public class UpdateController {
      * @param mail
      * @return
      */
-    @RequestMapping(value = {"/mail", "/mail/", "/mail/{mail}", "/mail/{mail}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/mail", "/mail/", "/mail/{mail}", "/mail/{mail}"}, method = RequestMethod.PUT)
     public Message updateUserMail(String token , HttpServletRequest request ,String mail){
         Message message = new Message();
         Users users = (Users)request.getAttribute("user");
@@ -104,7 +104,7 @@ public class UpdateController {
         return message;
     }
 
-    @RequestMapping(value = {"/password", "/password/", "/password/{password}", "/password/{password}/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/password", "/password/", "/password/{password}", "/password/{password}/"}, method = RequestMethod.PUT)
     public Message updateUserPassword(String token , HttpServletRequest request , String  password){
         Message message = new Message();
         Users users = (Users)request.getAttribute("user");

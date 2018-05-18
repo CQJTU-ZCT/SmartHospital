@@ -41,7 +41,7 @@ public class SearchController {
      * @param idCard
      * @return
      */
-    @RequestMapping(value = {"/search/idcard"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/idcard","/idcard/","/idcard/{idcard}","/idcard/{idcard}/"}, method = {RequestMethod.GET})
     public Message searchByIdCard(HttpServletRequest request, String idCard) {
         Message message = new Message();
 
@@ -89,7 +89,7 @@ public class SearchController {
      * @param accoutStatusId
      * @return
      */
-    @RequestMapping(value = {"/search/accountstatusid"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/accountstatusid","/accountstatusid/","/accountstatusid/{accountstatusid}","/accountstatusid/{accountstatusid}/"}, method = {RequestMethod.GET})
     public Message searchByaccountStatusId(HttpServletRequest request, Integer accoutStatusId) {
         Message message = new Message();
         //获取当前用户信息
@@ -121,7 +121,7 @@ public class SearchController {
      * @param roleId
      * @return
      */
-    @RequestMapping(value = {"/search/roleid"},method = {RequestMethod.GET})
+    @RequestMapping(value = {"/roleid","/roleid/","/roleid/{roleid}","/roleid/{roleid}/"},method = {RequestMethod.GET})
     public Message searchByRoleId(HttpServletRequest request ,Integer roleId){
         Message message = new Message();
         Users user = (Users) request.getAttribute("user");
@@ -151,7 +151,7 @@ public class SearchController {
      * @param realname
      * @return
      */
-    @RequestMapping(value = {"/search/realname"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/realname","/realname/","/realname/{realname}","/realname/{realname}/"}, method = {RequestMethod.GET})
     public Message searchByRealname(HttpServletRequest request, String realname) {
         Message message = new Message();
 
@@ -196,7 +196,7 @@ public class SearchController {
      * @param phone
      * @return
      */
-    @RequestMapping(value = {"/search/phone"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/phone","/phone/","/phone/{phone}","/phone/{phone}/"}, method = {RequestMethod.GET})
     public Message searchByPhone(HttpServletRequest request, String phone) {
         Message message = new Message();
 
@@ -240,7 +240,7 @@ public class SearchController {
      * @param mail
      * @return
      */
-    @RequestMapping(value = {"/search/mail"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/mail","/mail/","/mail/{mail}","/mail/{mail}/"}, method = {RequestMethod.GET})
     public Message searchByMail(HttpServletRequest request, String mail) {
         Message message = new Message();
 

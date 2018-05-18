@@ -14,6 +14,13 @@ spring:
                 initial-size: 5  #初始化的连接数
                 max-total: 5 #最大的连接数
                 max-wait-millis: 200 #对大等待时间
+  profiles:
+     include:
+            - mybatis
+            - eureka
+            - datasource
+            - common
+            - sso
   application:
     name: preorder-provider
 

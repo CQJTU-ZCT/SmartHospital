@@ -25,7 +25,7 @@ public class RegisterController {
     @Autowired
     private RegisterService registerService;
 
-    @RequestMapping(value = {"/register","/register/"},method = {RequestMethod.POST})
+    @RequestMapping(value = {"/",""},method = {RequestMethod.POST})
     public Message register(Users users){
         Message message = new Message();
         /*格式校验：
