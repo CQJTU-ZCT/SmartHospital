@@ -6,19 +6,10 @@ import com.cqjtu.service.UpdateService;
 import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.Md5Tool;
 import com.cqjtu.tools.RegularTool;
-import com.cqjtu.tools.ValidateAdminTool;
-import com.sun.org.apache.regexp.internal.RE;
-import com.sun.xml.internal.bind.marshaller.MinimumEscapeHandler;
-import com.sun.xml.internal.ws.api.model.MEP;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import sun.rmi.runtime.Log;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
