@@ -13,7 +13,6 @@ spring:
       - sso
       - datasource
 
-
 server:
   port: 1819
 

@@ -246,14 +246,19 @@ public class ChatWebSocketHandler implements WebSocketHandler {
                    if (doctor.getBusy() == false){
                        //说明有空闲医生
 
+                       Users userDomain = (Users) user.getWebSocketSession().getAttributes().get("user");
+                       Users doctorDomain = (Users) doctor.getWebSocketSession().getAttributes().get("user");
+
+
                        //给医生发送 已经分配的消息
                        SocketMessage message = new SocketMessage();
                        message.setSender("Server");
-                       message.setMsg("已经为您分配用户：");
+                       message.setType("8");
+                       message.setMsg(userDomain.getRealname());
                        message.setDate(new Date().toString());
                        sendMessage(new TextMessage(JsonUtil.praseBeanToJson(message)),doctor.getWebSocketSession());
                        //给用户发送分配消息
-                       message.setMsg("已经为您分配医生：");
+                       message.setMsg(doctorDomain.getRealname());
                        sendMessage(new TextMessage(JsonUtil.praseBeanToJson(message)),user.getWebSocketSession());
 
                        //变更医生和用户状态

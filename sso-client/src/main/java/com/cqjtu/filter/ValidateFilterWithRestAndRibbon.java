@@ -10,6 +10,7 @@ import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.ServerInfo;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.*;
@@ -48,7 +49,9 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        if(request.getRequestURI().contains("/users/register") || request.getRequestURI().contains("/user/register")){
+        if((request.getRequestURI().contains("/users/") || request.getRequestURI().contains("/users")
+                ||request.getRequestURI().contains("/user")||request.getRequestURI().contains("/user/"))
+                && request.getMethod().equals(HttpMethod.POST.toString())){
             filterChain.doFilter(servletRequest,servletResponse);
             return;
         }

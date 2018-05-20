@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.ComponentScan;
+
 
 /**
  * @author zjhfyq
@@ -18,6 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @EnableEurekaClient
 @ServletComponentScan
+@EnableHystrix
 @MapperScan(value = {"com.cqjtu.mapper","com.cqjtu.mapperexp"})
 public class UserProviderApplication {
 

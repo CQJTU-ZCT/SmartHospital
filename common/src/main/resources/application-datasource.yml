@@ -1,7 +1,7 @@
 spring:
   datasource:
         name: smarthospital
-        url: jdbc:mysql://10.0.0.2:3306/smart_hospital?characterEncoding=utf8&useSSL=true
+        url: jdbc:mysql://10.0.0.101:3306/smart_hospital?characterEncoding=utf8&useSSL=true
         username: zct
         password: 123456
         # 使用druid数据源

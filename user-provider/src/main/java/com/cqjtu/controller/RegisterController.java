@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 用户注册控制器
  * Created by Tangyu on 2018/4/21.
@@ -26,7 +28,7 @@ public class RegisterController {
     private RegisterService registerService;
 
     @RequestMapping(value = {"/",""},method = {RequestMethod.POST})
-    public Message register(Users users){
+    public Message register(Users users, HttpServletRequest request){
         Message message = new Message();
         /*格式校验：
         idCard phone mail使用RegularTool校验

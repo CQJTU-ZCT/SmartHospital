@@ -1,6 +1,5 @@
 package com.cqjtu.filter;
 
-import com.cqjtu.tools.LoggerTool;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.stereotype.Component;
@@ -14,16 +13,16 @@ import java.util.Base64;
  * @date 2017/12/11.
  */
 @Component
-public class SecurityFilter extends ZuulFilter {
+public class CorsFilter extends ZuulFilter {
 
     @Override
     public String filterType() {
-        return "pre";
+        return "post";
     }
 
     @Override
     public int filterOrder() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -34,14 +33,7 @@ public class SecurityFilter extends ZuulFilter {
     @Override
     public Object run() {
         RequestContext context = RequestContext.getCurrentContext();
-        String auth = "test:test";
-        //加密处理
-        byte[] bytes = Base64.getEncoder().encode(auth.getBytes(Charset.forName("US-ASCII")));
-        //注意"Basic "后面追加一个空格
-        //LoggerTool.getLogger(this.getClass()).info("添加Basic认证");
-        String authResult = "Basic "+new String(bytes);
-        context.addZuulRequestHeader("Authorization",authResult);
-
+        context.addZuulResponseHeader("Access-Control-Allow-Origin","*");
         return null;
     }
 }
