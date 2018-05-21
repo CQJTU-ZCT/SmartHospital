@@ -25,7 +25,7 @@ public class ErrorFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 10;
+        return 0;
     }
 
     @Override
@@ -36,16 +36,16 @@ public class ErrorFilter extends ZuulFilter {
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        Throwable throwable = ctx.getThrowable();
-        log.error("this is a ErrorFilter : {}", throwable.getCause().getMessage());
 
-        //过滤该请求，不往下级服务去转发请求，到此结束
-        ctx.setSendZuulResponse(false);
+        ctx.setSendZuulResponse(true);
         ctx.setResponseStatusCode(ctx.getResponse().getStatus());
         Message message  = new ExceptionMessage();
         message.setCode(500);
         message.setInfo("没有相关服务或服务正忙...");
+
+
         ctx.setResponseBody(message.toString());
+        ctx.sendZuulResponse();
         return null;
     }
 }
