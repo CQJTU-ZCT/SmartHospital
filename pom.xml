@@ -29,7 +29,8 @@
 		<module>file-provider</module>
 		<module>baseinfo-provider</module>
 		<module>preorder-provider</module>
-	</modules>
+        <module>smarthospital-provider</module>
+    </modules>
 
 	<packaging>pom</packaging>
 
