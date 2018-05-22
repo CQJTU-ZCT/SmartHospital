@@ -11,10 +11,6 @@ public class EmrRecord {
 
     private String title;
 
-    private String description;
-
-    private String treatment;
-
     private String hospitalId;
 
     private Integer branchId;
@@ -51,22 +47,6 @@ public class EmrRecord {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
-    public String getTreatment() {
-        return treatment;
-    }
-
-    public void setTreatment(String treatment) {
-        this.treatment = treatment == null ? null : treatment.trim();
     }
 
     public String getHospitalId() {

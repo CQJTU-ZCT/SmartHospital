@@ -13,6 +13,8 @@ public class Hospital {
 
     private String address;
 
+    private String gateway;
+
     public String getHospitalId() {
         return hospitalId;
     }
@@ -51,5 +53,13 @@ public class Hospital {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getGateway() {
+        return gateway;
+    }
+
+    public void setGateway(String gateway) {
+        this.gateway = gateway == null ? null : gateway.trim();
     }
 }

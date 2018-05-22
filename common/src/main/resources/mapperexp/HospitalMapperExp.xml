@@ -3,7 +3,7 @@
 <mapper namespace="com.cqjtu.mapperexp.HospitalMapperExp">
 
     <select id="getHospitals" resultType="com.cqjtu.model.Hospital">
-        SELECT hospital_id,hospital_name,address,longitude,latitude
+        SELECT hospital_id,hospital_name,address,longitude,latitude,gateway
         from hospital
         <where>
             <trim suffixOverrides="and">
@@ -18,14 +18,14 @@
     </select>
 
     <select id="getHospitalByName" resultType="com.cqjtu.model.Hospital">
-        SELECT hospital_id,hospital_name,address,longitude,latitude
+        SELECT hospital_id,hospital_name,address,longitude,latitude,gateway
         from hospital
         WHERE hospital_name LIKE '%${value}%'
     </select>
 
 
     <select id="getHospitalByAddress" resultType="com.cqjtu.model.Hospital">
-        SELECT hospital_id,hospital_name,address,longitude,latitude
+        SELECT hospital_id,hospital_name,address,longitude,latitude,gateway
         from hospital
         WHERE hospital.address LIKE '%${value}%'
     </select>

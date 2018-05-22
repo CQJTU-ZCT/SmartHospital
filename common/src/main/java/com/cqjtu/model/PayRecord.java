@@ -1,7 +1,7 @@
 package com.cqjtu.model;
 
 import java.math.BigDecimal;
-import com.cqjtu.domain.Date;
+import java.util.Date;
 
 public class PayRecord {
     private String recordId;

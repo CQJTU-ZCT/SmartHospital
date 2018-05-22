@@ -434,6 +434,76 @@ public class HospitalExample {
             addCriterion("address not between", value1, value2, "address");
             return (Criteria) this;
         }
+
+        public Criteria andGatewayIsNull() {
+            addCriterion("gateway is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayIsNotNull() {
+            addCriterion("gateway is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayEqualTo(String value) {
+            addCriterion("gateway =", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayNotEqualTo(String value) {
+            addCriterion("gateway <>", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayGreaterThan(String value) {
+            addCriterion("gateway >", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayGreaterThanOrEqualTo(String value) {
+            addCriterion("gateway >=", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayLessThan(String value) {
+            addCriterion("gateway <", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayLessThanOrEqualTo(String value) {
+            addCriterion("gateway <=", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayLike(String value) {
+            addCriterion("gateway like", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayNotLike(String value) {
+            addCriterion("gateway not like", value, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayIn(List<String> values) {
+            addCriterion("gateway in", values, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayNotIn(List<String> values) {
+            addCriterion("gateway not in", values, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayBetween(String value1, String value2) {
+            addCriterion("gateway between", value1, value2, "gateway");
+            return (Criteria) this;
+        }
+
+        public Criteria andGatewayNotBetween(String value1, String value2) {
+            addCriterion("gateway not between", value1, value2, "gateway");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

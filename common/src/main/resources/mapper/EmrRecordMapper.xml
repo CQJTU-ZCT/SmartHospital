@@ -6,11 +6,13 @@
     <result column="emr_id" jdbcType="VARCHAR" property="emrId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
     <result column="hospital_id" jdbcType="VARCHAR" property="hospitalId" />
     <result column="branch_id" jdbcType="INTEGER" property="branchId" />
     <result column="doctor_id" jdbcType="INTEGER" property="doctorId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cqjtu.model.EmrRecordWithBLOBs">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="treament" jdbcType="LONGVARCHAR" property="treament" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,9 +73,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    record_id, emr_id, create_time, title, description, treatment, hospital_id, branch_id, 
-    doctor_id
+    record_id, emr_id, create_time, title, hospital_id, branch_id, doctor_id
   </sql>
+  <sql id="Blob_Column_List">
+    description, treament
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.cqjtu.model.EmrRecordExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from emr_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.cqjtu.model.EmrRecordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -88,9 +108,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from emr_record
     where record_id = #{recordId,jdbcType=VARCHAR}
   </select>
@@ -104,17 +126,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cqjtu.model.EmrRecord">
+  <insert id="insert" parameterType="com.cqjtu.model.EmrRecordWithBLOBs">
     insert into emr_record (record_id, emr_id, create_time, 
-      title, description, treatment, 
-      hospital_id, branch_id, doctor_id
+      title, hospital_id, branch_id, 
+      doctor_id, description, treament
       )
     values (#{recordId,jdbcType=VARCHAR}, #{emrId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{treatment,jdbcType=VARCHAR}, 
-      #{hospitalId,jdbcType=VARCHAR}, #{branchId,jdbcType=INTEGER}, #{doctorId,jdbcType=INTEGER}
+      #{title,jdbcType=VARCHAR}, #{hospitalId,jdbcType=VARCHAR}, #{branchId,jdbcType=INTEGER}, 
+      #{doctorId,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{treament,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cqjtu.model.EmrRecord">
+  <insert id="insertSelective" parameterType="com.cqjtu.model.EmrRecordWithBLOBs">
     insert into emr_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -129,12 +151,6 @@
       <if test="title != null">
         title,
       </if>
-      <if test="description != null">
-        description,
-      </if>
-      <if test="treatment != null">
-        treatment,
-      </if>
       <if test="hospitalId != null">
         hospital_id,
       </if>
@@ -143,6 +159,12 @@
       </if>
       <if test="doctorId != null">
         doctor_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="treament != null">
+        treament,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -158,12 +180,6 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="treatment != null">
-        #{treatment,jdbcType=VARCHAR},
-      </if>
       <if test="hospitalId != null">
         #{hospitalId,jdbcType=VARCHAR},
       </if>
@@ -172,6 +188,12 @@
       </if>
       <if test="doctorId != null">
         #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="treament != null">
+        #{treament,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -196,12 +218,6 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=VARCHAR},
-      </if>
-      <if test="record.treatment != null">
-        treatment = #{record.treatment,jdbcType=VARCHAR},
-      </if>
       <if test="record.hospitalId != null">
         hospital_id = #{record.hospitalId,jdbcType=VARCHAR},
       </if>
@@ -211,7 +227,28 @@
       <if test="record.doctorId != null">
         doctor_id = #{record.doctorId,jdbcType=INTEGER},
       </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.treament != null">
+        treament = #{record.treament,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update emr_record
+    set record_id = #{record.recordId,jdbcType=VARCHAR},
+      emr_id = #{record.emrId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR},
+      hospital_id = #{record.hospitalId,jdbcType=VARCHAR},
+      branch_id = #{record.branchId,jdbcType=INTEGER},
+      doctor_id = #{record.doctorId,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      treament = #{record.treament,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -222,8 +259,6 @@
       emr_id = #{record.emrId,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       title = #{record.title,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      treatment = #{record.treatment,jdbcType=VARCHAR},
       hospital_id = #{record.hospitalId,jdbcType=VARCHAR},
       branch_id = #{record.branchId,jdbcType=INTEGER},
       doctor_id = #{record.doctorId,jdbcType=INTEGER}
@@ -231,7 +266,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.EmrRecord">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqjtu.model.EmrRecordWithBLOBs">
     update emr_record
     <set>
       <if test="emrId != null">
@@ -243,12 +278,6 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="treatment != null">
-        treatment = #{treatment,jdbcType=VARCHAR},
-      </if>
       <if test="hospitalId != null">
         hospital_id = #{hospitalId,jdbcType=VARCHAR},
       </if>
@@ -258,7 +287,25 @@
       <if test="doctorId != null">
         doctor_id = #{doctorId,jdbcType=INTEGER},
       </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="treament != null">
+        treament = #{treament,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where record_id = #{recordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cqjtu.model.EmrRecordWithBLOBs">
+    update emr_record
+    set emr_id = #{emrId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      hospital_id = #{hospitalId,jdbcType=VARCHAR},
+      branch_id = #{branchId,jdbcType=INTEGER},
+      doctor_id = #{doctorId,jdbcType=INTEGER},
+      description = #{description,jdbcType=LONGVARCHAR},
+      treament = #{treament,jdbcType=LONGVARCHAR}
     where record_id = #{recordId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqjtu.model.EmrRecord">
@@ -266,8 +313,6 @@
     set emr_id = #{emrId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       title = #{title,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      treatment = #{treatment,jdbcType=VARCHAR},
       hospital_id = #{hospitalId,jdbcType=VARCHAR},
       branch_id = #{branchId,jdbcType=INTEGER},
       doctor_id = #{doctorId,jdbcType=INTEGER}

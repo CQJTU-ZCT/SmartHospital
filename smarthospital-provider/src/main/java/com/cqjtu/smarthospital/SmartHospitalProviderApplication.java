@@ -1,9 +1,9 @@
-package com.cqjtu;
+package com.cqjtu.smarthospital;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * @description: ${description}
@@ -13,7 +13,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableEurekaClient
+@MapperScan("com.cqjtu.smarthospital.mapper")
 public class SmartHospitalProviderApplication {
     public static void main(String []args){
         SpringApplication.run(SmartHospitalProviderApplication.class,args);
