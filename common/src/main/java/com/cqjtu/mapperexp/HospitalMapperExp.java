@@ -14,13 +14,10 @@ import java.util.List;
  */
 public interface HospitalMapperExp {
     /**
-     * 获取所有的医院列表，
-     * 可以通过分页插件优化
-     * @param name
-     * @param address
+     * 获取医院信息
      * @return
      */
-    List<Hospital> getHospitals(@Param("name") String name,@Param("address") String address);
+    Hospital getHospital();
 
     /**
      * 根据医院名称获取医院列表，

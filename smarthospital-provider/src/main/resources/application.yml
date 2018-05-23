@@ -33,7 +33,7 @@ sendTokenToAdminMail:
   adminMail: 799243917@qq.com
   keepTime: 6000000 #毫秒 6000秒
   sendMail: 1727078617@qq.com
-  sendPass: ryjculxdnrwmcbbb
+  sendPass: ryjculxdnrwmcbba
   smtpServer: smtp.qq.com
 
 pageInfo:

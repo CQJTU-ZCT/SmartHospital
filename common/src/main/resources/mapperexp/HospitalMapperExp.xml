@@ -2,19 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapperexp.HospitalMapperExp">
 
-    <select id="getHospitals" resultType="com.cqjtu.model.Hospital">
+    <select id="getHospital" resultType="com.cqjtu.model.Hospital">
         SELECT hospital_id,hospital_name,address,longitude,latitude,gateway
         from hospital
-        <where>
-            <trim suffixOverrides="and">
-                <if test="name != null">
-                    and hospital_name  LIKE  CONCAT(CONCAT('%', #{name}), '%')
-                </if>
-                <if test="address != null">
-                    and address   LIKE  CONCAT(CONCAT('%', #{address}), '%')
-                </if>
-            </trim>
-        </where>
     </select>
 
     <select id="getHospitalByName" resultType="com.cqjtu.model.Hospital">

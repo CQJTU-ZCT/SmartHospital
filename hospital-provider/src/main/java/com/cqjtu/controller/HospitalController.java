@@ -82,14 +82,10 @@ public class HospitalController {
 
     @RequestMapping(value = {"","/"},
             method = RequestMethod.GET)
-    public Message getHospitals(HttpServletRequest request,
-                                String pageNum,
-                                String name,
-                                String address){
+    public Message getHospitalInfo(){
         Message message = new Message();
-        String token = request.getHeader("token");
         //如果没带pageNum  则默认为1
-        getHospitalsAndValidate(message,pageNum,token,name,address);
+        getHospital(message);
         return message;
     }
 
@@ -100,41 +96,13 @@ public class HospitalController {
     /**
      *
      * @param message 消息
-     * @param pn 页数
-     * @param token 令牌
-     * @param name 名称
-     * @param address 地址
-     */
-    private void getHospitalsAndValidate(Message message , String pn, String token, String name, String address){
-        if (token == null){
-            message.setInfo("未授权");
-            message.setCode(403);
-        }else {
-            //尝试设置配置文件中配置参数的值
-            int pageNum = 1;
-            try {
-                pageNum = Integer.parseInt(pn);
-            }catch (Exception e){
 
-            }
-            int pageSize = 10;
-            try {
-                pageSize = Integer.parseInt(pageSizeString);
-            }catch (Exception e){
-            }
-            int navigatePages = 5;
-            try {
-                navigatePages = Integer.parseInt(navigatePagesString);
-            }catch (Exception e){
-            }
-            //开始分页查询
-            PageHelper.startPage(pageNum,pageSize);
-            List<Hospital> hospitals=hospitalService.getHospitals(name,address);
-            PageInfo pageInfo = new PageInfo(hospitals,navigatePages);
-            message.setCode(200);
-            message.setInfo("获取医院信息成功");
-            message.put("pageInfo",pageInfo);
-        }
+     */
+    private void getHospital(Message message ){
+        Hospital hospital=hospitalService.getHospital();
+        message.setCode(200);
+        message.setInfo("获取医院信息成功");
+        message.put("hospital",hospital);
     }
 
 

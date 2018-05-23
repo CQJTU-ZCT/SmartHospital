@@ -20,13 +20,10 @@ public interface HospitalService {
     boolean registerHospital(Hospital hospital);
 
     /**
-     * 获取所有的医院列表，
-     * 可以通过分页插件优化
-     * @param name
-     * @param address
+     * 获取医院信息
      * @return
      */
-    List<Hospital> getHospitals(String name ,String address);
+    Hospital getHospital();
 
     /**
      * 根据医院名称获取医院列表，
