@@ -1,6 +1,7 @@
 package com.cqjtu.mapperexp;
 
 import com.cqjtu.model.Users;
+import com.cqjtu.modelexp.UsersDetailExp;
 import com.cqjtu.modelexp.UsersExp;
 import org.apache.ibatis.annotations.Param;
 
@@ -49,4 +50,7 @@ public interface UserMapperExp {
      * @return
      */
     int updateUserPassword(String idCard , String password);
+
+
+    UsersDetailExp selectUsersDetailExpByIdCard(String idCard);
 }

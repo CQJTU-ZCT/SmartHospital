@@ -2,6 +2,7 @@ package com.cqjtu.service;
 
 import com.cqjtu.mapperexp.UserMapperExp;
 import com.cqjtu.model.Users;
+import com.cqjtu.modelexp.UsersDetailExp;
 import com.cqjtu.modelexp.UsersExp;
 import com.cqjtu.tools.LoggerTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,17 @@ public class SearchServiceImpl implements SearchService {
     public UsersExp selectUsersByMail(String mail) {
         try {
             return userMapperExp.getUserByMail(mail);
+        } catch (Exception e) {
+            LoggerTool.getLogger(this.getClass()).info(e.getMessage());
+            return null;
+        }
+    }
+
+
+    @Override
+    public UsersDetailExp selectUsersDetailExpByIdCard(String idCard) {
+        try {
+            return userMapperExp.selectUsersDetailExpByIdCard(idCard);
         } catch (Exception e) {
             LoggerTool.getLogger(this.getClass()).info(e.getMessage());
             return null;

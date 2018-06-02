@@ -2,6 +2,7 @@ package com.cqjtu.controller;
 
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.Users;
+import com.cqjtu.modelexp.UsersDetailExp;
 import com.cqjtu.modelexp.UsersExp;
 import com.cqjtu.service.SearchService;
 import com.cqjtu.tools.LoggerTool;
@@ -276,5 +277,22 @@ public class SearchController {
             }
         }
         return message;
+    }
+
+
+    @RequestMapping(value = {"/detail","/detail/"})
+    public Message searchUsersDetailExpBuIdCard(HttpServletRequest request){
+        Message message =  new Message();
+        if ( request.getAttribute("user") == null){
+            message.setInfo("未授权");
+            message.setCode(401);
+        }else {
+            Users users = (Users) request.getAttribute("user");
+            UsersDetailExp usersDetailExp = searchService.selectUsersDetailExpByIdCard(users.getIdCard());
+            message.put("userDetail",usersDetailExp);
+            message.setCode(200);
+            message.setInfo("查询用户详细信息成功");
+        }
+        return  message;
     }
 }

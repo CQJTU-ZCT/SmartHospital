@@ -30,6 +30,7 @@ public class RegisterController {
     @RequestMapping(value = {"/",""},method = {RequestMethod.POST})
     public Message register(Users users, HttpServletRequest request){
         Message message = new Message();
+        message.setCode(201);
         /*格式校验：
         idCard phone mail使用RegularTool校验
         password长度不少于8位
@@ -51,8 +52,8 @@ public class RegisterController {
                                 users.setRoleId(1);
                                 //调用registerService，进行注册
                                 if (registerService.addUsers(users) == 1){
-                                    message.setInfo("注册成功");
                                     message.setCode(200);
+                                    message.setInfo("注册成功");
                                     users.setPassword("***密码已经屏蔽***");
                                     message.put("user",users);
                                 }else {

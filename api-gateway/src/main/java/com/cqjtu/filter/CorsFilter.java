@@ -33,8 +33,6 @@ public class CorsFilter extends ZuulFilter {
     @Override
     public Object run() {
         RequestContext context = RequestContext.getCurrentContext();
-
-        System.out.println("post filter");
         context.addZuulRequestHeader("Access-Control-Allow-Origin","*");
         context.addZuulRequestHeader("Access-Control-Allow-Methods","*");
         context.addZuulRequestHeader("Access-Control-Allow-Headers","*");

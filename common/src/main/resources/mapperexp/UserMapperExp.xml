@@ -38,6 +38,48 @@
 
 
 
+    <resultMap id="usersDetailExp" type="com.cqjtu.modelexp.UsersDetailExp">
+        <association property="users" javaType="com.cqjtu.model.Users">
+            <result property="idCard" column="id_card"></result>
+            <result property="phone" column="phone"></result>
+            <result property="mail" column="mail"></result>
+            <result property="accountStatusId" column="account_status_id"></result>
+            <result property="roleId" column="role_id"></result>
+            <result property="realname" column="realname"></result>
+        </association>
+        <association property="role" javaType="com.cqjtu.model.Role">
+            <result property="roleId" column="role_id"></result>
+            <result property="description" column="role_desc"></result>
+        </association>
+        <association property="accountStatus" javaType="com.cqjtu.model.AccountStatus">
+            <result property="accountStatusId" column="account_status_id"></result>
+            <result property="description" column="account_status_desc"></result>
+        </association>
+        <association property="usersDetail" javaType="com.cqjtu.model.UsersDetail">
+            <result property="idCard" column="id_card"></result>
+            <result property="nationId" column="nation_id"></result>
+            <result property="photoId" column="photo_id"></result>
+            <result property="profileId" column="profile_id"></result>
+            <result property="sexId" column="sex_id"></result>
+            <result property="address" column="address"></result>
+            <result property="birthYMD" column="birth_y_m_d"></result>
+        </association>
+        <association property="nation" javaType="com.cqjtu.model.Nation">
+            <result property="nationId" column="nation_id"></result>
+            <result property="nationDesc" column="nation_desc"></result>
+        </association>
+        <association property="profile" javaType="com.cqjtu.model.Profile">
+            <result property="profileId" column="profile_id"></result>
+            <result property="profilePath" column="profile_path"></result>
+        </association>
+        <association property="photo" javaType="com.cqjtu.model.Photo">
+            <result property="photoId" column="photo_id"></result>
+            <result property="photoPath" column="photo_Path"></result>
+        </association>
+    </resultMap>
+
+
+
    <select id="getUserByIdCard" parameterType="java.lang.String"  resultMap="usersExp">
        SELECT id_card , users.account_status_id ,account_status.description as ad ,users.role_id , role.description as rd, realname , phone , password , mail
        FROM users LEFT JOIN  account_status ON  users.account_status_id = account_status.account_status_id
@@ -108,5 +150,29 @@
         SET password = #{arg1}
         WHERE id_card = #{arg0}
     </update>
+
+
+
+    <select id="selectUsersDetailExpByIdCard"  resultMap="usersDetailExp" >
+        SELECT
+        users.id_card , users.account_status_id ,users.role_id , users.realname , users.phone ,
+        users.mail ,users_detail.nation_id , users_detail.photo_id , users_detail.profile_id ,
+        users_detail.sex_id,users_detail.address , users_detail.birth_y_m_d ,
+        account_status.description as account_status_desc ,
+        role.description as role_desc ,nation.nation_desc ,
+        profile.profile_path ,
+        photo.photo_path ,
+        sex.sex_desc
+        FROM
+        users LEFT JOIN users_detail ON users.id_card = users_detail.id_card
+          LEFT JOIN account_status ON users.account_status_id = account_status.account_status_id
+          LEFT JOIN role ON users.role_id = role.role_id
+          LEFT JOIN nation ON users_detail.nation_id = nation.nation_id
+          LEFT JOIN `profile` ON users_detail.profile_id = profile.profile_id
+          LEFT JOIN photo ON users_detail.photo_id = photo.photo_id
+          LEFT JOIN sex ON users_detail.sex_id = sex.sex_id
+        WHERE
+        users.id_card = #{value}
+    </select>
 
 </mapper>

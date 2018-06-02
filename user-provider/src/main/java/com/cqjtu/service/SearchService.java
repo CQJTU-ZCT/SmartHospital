@@ -1,6 +1,7 @@
 package com.cqjtu.service;
 
 import com.cqjtu.model.Users;
+import com.cqjtu.modelexp.UsersDetailExp;
 import com.cqjtu.modelexp.UsersExp;
 import org.omg.CORBA.UserException;
 import org.springframework.stereotype.Service;
@@ -31,4 +32,9 @@ public interface SearchService {
 
     //按照mail查找
     UsersExp selectUsersByMail(String mail);
+
+
+
+    UsersDetailExp selectUsersDetailExpByIdCard(String idCard);
+
 }
