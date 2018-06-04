@@ -50,6 +50,7 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
 
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+<<<<<<< HEAD
 
         if (request.getRequestURI().contains("users/register")){
             LoggerTool.getLogger(this.getClass()).info("注册，直接跳过权限检测");
@@ -59,6 +60,12 @@ public class ValidateFilterWithRestAndRibbon implements Filter{
 
 
 
+=======
+        if(request.getRequestURI().contains("/users/register") || request.getRequestURI().contains("/user/register")){
+            filterChain.doFilter(servletRequest,servletResponse);
+            return;
+        }
+>>>>>>> ef17e8f56fccf253b0afc0ac66c5047b83427710
         HttpServletResponse response = (HttpServletResponse)servletResponse;
         Message responseMessage;
 

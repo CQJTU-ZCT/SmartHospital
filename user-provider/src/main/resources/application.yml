@@ -20,9 +20,12 @@ spring:
       - datasource
       - common
       - sso
+<<<<<<< HEAD
 
 hospitalAdmin:
   code: 3 #标识医院管理员的用户类别编码
 hospitalDoctor:
   code: 2
+=======
+>>>>>>> ef17e8f56fccf253b0afc0ac66c5047b83427710
 

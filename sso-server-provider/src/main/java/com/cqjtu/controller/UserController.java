@@ -7,6 +7,7 @@ import com.cqjtu.model.Users;
 import com.cqjtu.messages.LoginMessage;
 import com.cqjtu.messages.LogoutMessage;
 import com.cqjtu.tools.ImageCut;
+import com.cqjtu.tools.Md5Tool;
 import com.cqjtu.tools.Token;
 import com.cqjtu.tools.TokenData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class UserController {
                 if(user == null){
                     message = LoginMessage.getUserNotExistMessage();
                 }else{
-                    if(!user.getPassword().equals(password)){
+                    if(!Md5Tool.stringMd5(password).equals(user.getPassword())){
                         message=  LoginMessage.getErrorPasswordMessage();
                     }else {
                         message = LoginMessage.getSuccessMessage();

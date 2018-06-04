@@ -54,24 +54,31 @@ public class RegisterController {
                                     users.setPassword("***密码已经屏蔽***");
                                     message.put("user",users);
                                 }else {
+                                    message.setCode(500);
                                     message.setInfo("服务器忙，请稍后重试");
                                 }
                             }else {
+                                message.setCode(403);
                                 message.setInfo("该身份证号码已注册，请勿重复注册");
                             }
                         }else {
+                            message.setCode(403);
                             message.setInfo("密码长度不能小于8位");
                         }
                     }else {
+                        message.setCode(403);
                         message.setInfo("真实姓名不能为空");
                     }
                 }else {
+                    message.setCode(403);
                     message.setInfo("电话号码不合法");
                 }
             }else {
+                message.setCode(403);
                 message.setInfo("邮箱不合法");
             }
         }else {
+            message.setCode(403);
             message.setInfo("身份证号码不合法");
         }
         return message;

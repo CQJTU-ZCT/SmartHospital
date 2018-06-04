@@ -31,7 +31,7 @@ import java.util.List;
 public class BranchDoctorPositionController {
 
 
-    @Value("${HospitalAdmin.code}")
+    @Value("${hospitalAdmin.code}")
     private String adminCode;
 
 
