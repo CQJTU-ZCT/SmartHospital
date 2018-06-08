@@ -7,7 +7,9 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="doctor_id" jdbcType="VARCHAR" property="doctorId" />
+    <result column="preorder_time" jdbcType="VARCHAR" property="preorderTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, appointment_status_id, create_time, cancel_time, finish_time, price
+    order_id, appointment_status_id, create_time, cancel_time, finish_time, doctor_id, 
+    preorder_time, user_id
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.PreOrdersExample" resultMap="BaseResultMap">
     select
@@ -102,11 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.cqjtu.model.PreOrders">
     insert into preorders (order_id, appointment_status_id, create_time, 
-      cancel_time, finish_time, price
-      )
+      cancel_time, finish_time, doctor_id, 
+      preorder_time, user_id)
     values (#{orderId,jdbcType=VARCHAR}, #{appointmentStatusId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{cancelTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{price,jdbcType=DECIMAL}
-      )
+      #{cancelTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{doctorId,jdbcType=VARCHAR}, 
+      #{preorderTime,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.PreOrders">
     insert into preorders
@@ -126,8 +129,14 @@
       <if test="finishTime != null">
         finish_time,
       </if>
-      <if test="price != null">
-        price,
+      <if test="doctorId != null">
+        doctor_id,
+      </if>
+      <if test="preorderTime != null">
+        preorder_time,
+      </if>
+      <if test="userId != null">
+        user_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -146,8 +155,14 @@
       <if test="finishTime != null">
         #{finishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=VARCHAR},
+      </if>
+      <if test="preorderTime != null">
+        #{preorderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -175,8 +190,14 @@
       <if test="record.finishTime != null">
         finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
+      <if test="record.doctorId != null">
+        doctor_id = #{record.doctorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preorderTime != null">
+        preorder_time = #{record.preorderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -190,7 +211,9 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
       finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
-      price = #{record.price,jdbcType=DECIMAL}
+      doctor_id = #{record.doctorId,jdbcType=VARCHAR},
+      preorder_time = #{record.preorderTime,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,8 +233,14 @@
       <if test="finishTime != null">
         finish_time = #{finishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
+      <if test="doctorId != null">
+        doctor_id = #{doctorId,jdbcType=VARCHAR},
+      </if>
+      <if test="preorderTime != null">
+        preorder_time = #{preorderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
     </set>
     where order_id = #{orderId,jdbcType=VARCHAR}
@@ -222,7 +251,9 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
-      price = #{price,jdbcType=DECIMAL}
+      doctor_id = #{doctorId,jdbcType=VARCHAR},
+      preorder_time = #{preorderTime,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
 </mapper>

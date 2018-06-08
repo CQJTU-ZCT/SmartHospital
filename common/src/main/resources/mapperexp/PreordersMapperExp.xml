@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.PreordersMapperExp">
+
+    <select id="select" resultType="com.cqjtu.model.PreOrders" parameterType="com.cqjtu.model.PreOrders">
+        SELECT order_id,appointment_status_id,create_time,cancel_time,finish_time,doctor_id,preorder_time,user_id
+        from preorders
+        <where>
+            <trim prefixOverrides="and">
+                <if test="orderId != null ">
+                    and  order_id LIKE  CONCAT(CONCAT('%', #{orderId}), '%')
+                </if>
+                <if test="appointmentStatusId != null ">
+                    and   appointment_status_id = #{appointmentStatusId}
+                </if>
+                <if test="createTime != null ">
+                    and   create_time = #{createTime}
+                </if>
+                <if test="cancelTime != null ">
+                    and   cancle_time =#{cancleTime}
+                </if>
+                <if test="finishTime != null ">
+                    and   finish_time =#{finishTime}
+                </if>
+                <if test="doctorId != null ">
+                    and   doctor_id LIKE  CONCAT(CONCAT('%', #{doctorId}), '%')
+                </if>
+                <if test="preorderTime != null ">
+                    and   preorder_time = #{preorderTime}
+                </if>
+                <if test="userId != null ">
+                    and   user_id LIKE  CONCAT(CONCAT('%', #{userId}), '%')
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+
+    <insert id="insert" parameterType="com.cqjtu.model.PreOrders">
+        insert into preorders
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != orderId">
+                order_id,
+            </if>
+            <if test="null != appointmentStatusId">
+                appointment_status_id,
+            </if>
+            create_time,
+            <if test="null != preorderTime">
+                preorder_time,
+            </if>
+
+            <if test="null != doctorId">
+                doctor_id,
+            </if>
+            <if test="null != userId">
+                user_id,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="null != orderId">
+                #{orderId},
+            </if>
+            <if test="null != appointmentStatusId">
+                ${appointmentStatusId},
+            </if>
+            now(),
+            <if test="null != preorderTime">
+                #{preorderTime},
+            </if>
+            <if test="null != doctorId">
+                "${doctorId}",
+            </if>
+            <if test="null != userId">
+                #{userId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateCancleTime"  parameterType="com.cqjtu.model.PreOrders">
+        UPDATE preorders
+        set
+        cancel_time = now(),
+        appointment_status_id = 2
+        where
+        order_id = #{orderId}  and appointment_status_id = 1
+        and (doctor_id = #{doctorId} or  user_id = #{userId})
+    </update>
+
+
+    <update id="updateFinishTime"  parameterType="com.cqjtu.model.PreOrders">
+        UPDATE preorders
+        set
+        finish_time = now() ,
+        appointment_status_id = 3
+        where
+        order_id = #{orderId} and appointment_status_id = 1
+        and doctor_id = #{doctorId}
+    </update>
+
+</mapper>

@@ -27,7 +27,9 @@ public class ProviderSecurity  extends WebSecurityConfigurerAdapter{
                 .and()
                 .withUser("smartHospital").password("smartHospital").roles("smartHospital")
                 .and()
-                .withUser("zct").password("zct").roles("zct");
+                .withUser("zct").password("zct").roles("zct")
+                .and()
+                .withUser("zct1").password("zct1").roles("zct1");
     }
 
     @Override

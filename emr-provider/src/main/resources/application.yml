@@ -6,19 +6,6 @@ server:
 
 
 spring:
-    datasource:
-        name: EmrProvider
-        url: jdbc:mysql://198.13.46.57:3306/smart_hospital?characterEncoding=utf8&useSSL=true
-        username: sh
-        password: kele991146
-        # 使用druid数据源
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        dbcp2:
-              min-idle: 5   #最小维持的连接数
-              initial-size: 5  #初始化的连接数
-              max-total: 5 #最大的连接数
-              max-wait-millis: 200 #对大等待时间
     application:
       name: EmrProvider
     mvc:
@@ -27,8 +14,11 @@ spring:
       add-mappings: false
     profiles:
       include:
-      - mybatis
-      - sso
+        - mybatis
+        - eureka
+        - datasource
+        - common
+        - sso
     jackson:
       date-format: YYYY-MM-DD HH:mm:ss
       time-zone: GMT+8

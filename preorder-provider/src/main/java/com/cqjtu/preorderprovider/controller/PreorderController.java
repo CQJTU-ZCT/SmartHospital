@@ -50,8 +50,8 @@ public class PreorderController {
         if (null != preOrders.getFinishTime()) {
             params.put("finish_time", preOrders.getFinishTime());
         }
-        if (null != preOrders.getPrice()) {
-            params.put("price", preOrders.getPrice());
+        if (null != preOrders.getDoctorId()) {
+            params.put("price", preOrders.getDoctorId());
         }
         return params;
     }

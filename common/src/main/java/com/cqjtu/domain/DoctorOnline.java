@@ -9,7 +9,7 @@
  */
 package com.cqjtu.domain;
 
-public class Doctor {
+public class DoctorOnline {
     private Integer idCard;
     private String name;
     private String phone;

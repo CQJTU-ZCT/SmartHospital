@@ -1,7 +1,10 @@
 package com.cqjtu.controller;
 
+import com.cqjtu.mapper.NationMapper;
+import com.cqjtu.mapper.SexMapper;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.Users;
+import com.cqjtu.model.UsersDetail;
 import com.cqjtu.service.UpdateService;
 import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.Md5Tool;
@@ -122,4 +125,58 @@ public class UpdateController {
         }
         return message;
     }
+
+
+
+
+    @RequestMapping(value = {"/",""},method = RequestMethod.PUT)
+    public Message update(String token, HttpServletRequest request, UsersDetail usersDetail){
+        Message message = new Message();
+        message.setCode(200);
+        if (request.getAttribute("user") == null){
+            message.setCode(401);
+            message.setInfo("未登录");
+        }else {
+            Users users = (Users)request.getAttribute("user");
+            if (token == null || token.length()<=0){
+                token = request.getHeader("token");
+            }
+            if (token == null){
+                message.setCode(401);
+                message.setInfo("未登录");
+            }else {
+                if (usersDetail.getIdCard() == null || usersDetail.getIdCard().length() <=0){
+                    usersDetail.setIdCard(users.getIdCard());
+                }
+                if ((usersDetail.getAddress() == null || usersDetail.getAddress().length() <=0) &&
+                        (usersDetail.getBirthYMD() == null) &&
+                        (usersDetail.getNationId() == null) &&
+                        ( usersDetail.getSexId() == null)){
+                    message.setInfo("没有可以修改的信息");
+                }else {
+                    if (usersDetail.getNationId() != null && !updateService.exitsNationId(usersDetail.getNationId())){
+                        message.setInfo("不存在的民族编号");
+                    }else {
+                        if (usersDetail.getSexId()  != null && !updateService.exitsSexId(usersDetail.getSexId())){
+                            message.setInfo("不存在的性别编号");
+                        }else {
+                            if (updateService.updateUsersDetail(usersDetail) == 1){
+                                message.setInfo("更新成功");
+                            }else {
+                                message.setInfo("保存失败，请稍后再试");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        message.put("usersDetail",usersDetail);
+        return message;
+    }
+
+
+
+
+
+
 }

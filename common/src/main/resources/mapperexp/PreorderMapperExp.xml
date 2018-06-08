@@ -54,8 +54,8 @@
             <if test="null != finishTime">
                 finish_time,
             </if>
-            <if test="null != price">
-                price,
+            <if test="null != doctorId">
+                doctor_id,
             </if>
         </trim>
         VALUES
@@ -75,8 +75,8 @@
             <if test="null != finishTime">
                 "${finishTime}",
             </if>
-            <if test="null != price">
-                "${price}",
+            <if test="null != doctorId">
+                "${doctor_id}",
             </if>
         </trim>
     </insert>

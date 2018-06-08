@@ -1,6 +1,5 @@
 package com.cqjtu.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class PreOrders {
@@ -14,7 +13,11 @@ public class PreOrders {
 
     private Date finishTime;
 
-    private BigDecimal price;
+    private String doctorId;
+
+    private String preorderTime;
+
+    private String userId;
 
     public String getOrderId() {
         return orderId;
@@ -56,11 +59,27 @@ public class PreOrders {
         this.finishTime = finishTime;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getDoctorId() {
+        return doctorId;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId == null ? null : doctorId.trim();
+    }
+
+    public String getPreorderTime() {
+        return preorderTime;
+    }
+
+    public void setPreorderTime(String preorderTime) {
+        this.preorderTime = preorderTime == null ? null : preorderTime.trim();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 }

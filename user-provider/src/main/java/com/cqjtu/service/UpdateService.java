@@ -1,6 +1,8 @@
 package com.cqjtu.service;
 
 import com.cqjtu.model.Users;
+import com.cqjtu.model.UsersDetail;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,4 +34,15 @@ public interface UpdateService {
      * @return
      */
     int updateUserPassword(String idCard , String password);
+
+
+
+    boolean exitsNationId( int  nationId);
+
+
+    boolean exitsSexId( int sexId);
+
+
+    int updateUsersDetail(UsersDetail usersDetail);
+
 }

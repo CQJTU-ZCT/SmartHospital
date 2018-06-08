@@ -175,4 +175,24 @@
         users.id_card = #{value}
     </select>
 
+
+    <update id="updateUsersDetail" parameterType="com.cqjtu.model.UsersDetail">
+        update users_detail
+        <set>
+            <if test="nationId != null">
+                nation_id = #{nationId,jdbcType=INTEGER},
+            </if>
+            <if test="sexId != null">
+                sex_id = #{sexId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="birthYMD != null">
+                birth_y_m_d = #{birthYMD,jdbcType=DATE},
+            </if>
+        </set>
+        where id_card = #{idCard,jdbcType=VARCHAR}
+    </update>
+
 </mapper>

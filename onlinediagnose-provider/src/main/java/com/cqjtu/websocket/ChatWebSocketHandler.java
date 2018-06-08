@@ -1,10 +1,12 @@
 package com.cqjtu.websocket;
 
 
+import com.cqjtu.domain.DoctorOnline;
 import com.cqjtu.domain.SocketMessage;
 import com.cqjtu.domain.WebSocketSessionObject;
 import com.cqjtu.model.Users;
 import com.cqjtu.tools.JsonUtil;
+import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.Token;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
@@ -21,13 +23,29 @@ import java.util.*;
 public class ChatWebSocketHandler implements WebSocketHandler {
 
     //存放用户对话资源
-    private static List<WebSocketSessionObject> WEB_SOCKET_SESSION_LIST_USER;
-    private static List<WebSocketSessionObject> WEB_SOCKET_SESSION_LIST_DOCTOR;
+    public static List<WebSocketSessionObject> WEB_SOCKET_SESSION_LIST_USER;
+    public static List<WebSocketSessionObject> WEB_SOCKET_SESSION_LIST_DOCTOR;
 
 
     static {
         WEB_SOCKET_SESSION_LIST_USER = new ArrayList<>();
         WEB_SOCKET_SESSION_LIST_DOCTOR = new ArrayList<>();
+    }
+
+
+    public static List<DoctorOnline>  getDoctors(){
+        List<DoctorOnline> doctors = new ArrayList<>();
+        for (int i=0;i<WEB_SOCKET_SESSION_LIST_DOCTOR.size();i++){
+            Object o  = WEB_SOCKET_SESSION_LIST_DOCTOR.get(i).getWebSocketSession().getAttributes().get("user");
+            if (o != null){
+                try {
+                    doctors.add((DoctorOnline) o);
+                }catch (Exception e){
+                    LoggerTool.getLogger(ChatWebSocketHandler.class).info(e.getMessage());
+                }
+            }
+        }
+        return doctors;
     }
 
 

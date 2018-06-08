@@ -1,6 +1,7 @@
 package com.cqjtu.mapperexp;
 
 import com.cqjtu.model.Users;
+import com.cqjtu.model.UsersDetail;
 import com.cqjtu.modelexp.UsersDetailExp;
 import com.cqjtu.modelexp.UsersExp;
 import org.apache.ibatis.annotations.Param;
@@ -53,4 +54,8 @@ public interface UserMapperExp {
 
 
     UsersDetailExp selectUsersDetailExpByIdCard(String idCard);
+
+
+    int updateUsersDetail(UsersDetail usersDetail);
+
 }

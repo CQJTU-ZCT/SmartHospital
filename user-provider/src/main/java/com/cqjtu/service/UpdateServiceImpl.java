@@ -1,8 +1,14 @@
 package com.cqjtu.service;
 
+import com.cqjtu.mapper.NationMapper;
+import com.cqjtu.mapper.SexMapper;
 import com.cqjtu.mapperexp.UserMapperExp;
+import com.cqjtu.model.Nation;
+import com.cqjtu.model.Sex;
 import com.cqjtu.model.Users;
+import com.cqjtu.model.UsersDetail;
 import com.cqjtu.tools.LoggerTool;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.rmi.runtime.Log;
@@ -46,4 +52,43 @@ public class UpdateServiceImpl implements UpdateService {
             return 0;
         }
     }
+
+
+    @Autowired
+    private NationMapper nationMapper;
+
+    @Autowired
+    private SexMapper sexMapper;
+
+    @Override
+    public boolean exitsNationId(int nationId) {
+        Nation nation = nationMapper.selectByPrimaryKey(nationId);
+        if (nation == null){
+            return  false;
+        }else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean exitsSexId(int sexId) {
+        Sex sex = sexMapper.selectByPrimaryKey(sexId);
+        if (sex == null){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    @Override
+    public int updateUsersDetail(UsersDetail usersDetail) {
+        try {
+            return  userMapperExp.updateUsersDetail(usersDetail);
+        }catch (Exception e){
+            LoggerTool.getLogger(this.getClass()).info(e.getMessage());
+            return 0 ;
+        }
+    }
+
+
 }
