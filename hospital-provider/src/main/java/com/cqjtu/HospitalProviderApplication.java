@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @Desc
  * @date 2018/1/7.
  */
-@EnableHystrix
+
 @EnableAutoConfiguration
 @EnableEurekaClient
 @SpringBootApplication

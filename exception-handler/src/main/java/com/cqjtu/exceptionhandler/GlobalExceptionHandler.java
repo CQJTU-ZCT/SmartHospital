@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author zjhfyq
  * @Desc 全局异常处理
@@ -40,9 +42,10 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ExceptionMessage handleMissingServletRequestParameterException(MissingServletRequestParameterException exception){
+    public ExceptionMessage handleMissingServletRequestParameterException(MissingServletRequestParameterException exception, HttpServletResponse response){
         logger.error("缺少请求参数异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,exception.getMessage());
+        response.setStatus(200);
         return  message;
     }
 
@@ -55,7 +58,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    public ExceptionMessage handleBindException(BindException exception){
+    public ExceptionMessage handleBindException(BindException exception, HttpServletResponse response){
         logger.error("参数绑定异常"+exception.getMessage());
         BindingResult result = exception.getBindingResult();
         FieldError error = result.getFieldError();
@@ -63,6 +66,7 @@ public class GlobalExceptionHandler {
         String code = error.getDefaultMessage();
         String msg = String.format("%s:%s", field, code);
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,msg);
+        response.setStatus(200);
         return  message;
     }
 
@@ -75,9 +79,10 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ExceptionMessage handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
+    public ExceptionMessage handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, HttpServletResponse response){
         logger.error("请求参数验证失败"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,exception.getMessage());
+        response.setStatus(200);
         return  message;
     }
 
@@ -90,9 +95,10 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ExceptionMessage handleHttpMessageNotReadableException(HttpMessageNotReadableException exception){
+    public ExceptionMessage handleHttpMessageNotReadableException(HttpMessageNotReadableException exception, HttpServletResponse response){
         logger.error("请求参数解析失败"+exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(400,exception.getMessage());
+        response.setStatus(200);
         return  message;
     }
 
@@ -106,9 +112,10 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ExceptionMessage handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException exception){
+    public ExceptionMessage handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException exception, HttpServletResponse response){
         logger.error("请求方法不被允许异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(405,exception.getMessage());
+        response.setStatus(200);
         return  message;
     }
 
@@ -121,9 +128,10 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ExceptionMessage handleNoHandlerFoundException(NoHandlerFoundException exception){
+    public ExceptionMessage handleNoHandlerFoundException(NoHandlerFoundException exception, HttpServletResponse response){
         logger.error("请求地址未找到异常"+ exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(404,exception.getMessage());
+        response.setStatus(200);
         return  message;
     }
 
@@ -136,12 +144,13 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ExceptionMessage handleServiceException(Exception exception){
+    public ExceptionMessage handleServiceException(Exception exception, HttpServletResponse response){
         logger.error("处理逻辑异常"+ exception.getMessage());
         exception.printStackTrace();
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(500,exception.getMessage());
         message.setInfo(exception.getMessage());
         message.put("exc", exception);
+        response.setStatus(200);
         return  message;
     }
 
@@ -152,9 +161,10 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(MultipartException.class)
-    public ExceptionMessage handleSizeLimitExceededException(MultipartException exception){
+    public ExceptionMessage handleSizeLimitExceededException(MultipartException exception, HttpServletResponse response){
         logger.error("文件大小异常"+exception.getMessage());
         ExceptionMessage message = ExceptionMessage.getExceptionMessage(204,"文件大小异常");
+        response.setStatus(200);
         return  message;
     }
 

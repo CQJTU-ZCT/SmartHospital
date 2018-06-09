@@ -99,7 +99,7 @@
 
         <dependency>
             <groupId>com.cqjtu</groupId>
-            <artifactId>provider-security</artifactId>
+            <artifactId>sso-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

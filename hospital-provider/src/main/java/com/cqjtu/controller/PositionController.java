@@ -50,6 +50,9 @@ public class PositionController {
         if (token == null){
             token = request.getHeader("token");
         }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
+        }
         validateAndGet(message,token,name,pageNum);
         return  message;
     }
@@ -63,6 +66,9 @@ public class PositionController {
         Message message = new Message();
         if (token == null){
             token = request.getHeader("token");
+        }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
         }
         if (ValidateAdminTool.isAdmin(request,adminCode)){
             validateAndOpt(message,token,position,RequestMethod.POST);
@@ -81,6 +87,9 @@ public class PositionController {
         Message message = new Message();
         if (token == null){
             token = request.getHeader("token");
+        }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
         }
         if (ValidateAdminTool.isAdmin(request,adminCode)){
             validateAndOpt(message,token,position,RequestMethod.PUT);

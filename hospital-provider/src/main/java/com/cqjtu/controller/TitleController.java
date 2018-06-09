@@ -48,6 +48,9 @@ public class TitleController {
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
+        }
         if (ValidateAdminTool.isAdmin(request,adminCode)){
             validateAndOpt(token,message,title,RequestMethod.POST);
         }else {
@@ -65,6 +68,9 @@ public class TitleController {
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
+        }
         if (ValidateAdminTool.isAdmin(request,adminCode)){
             validateAndOpt(token,message,title,RequestMethod.PUT);
         }else {
@@ -79,6 +85,9 @@ public class TitleController {
         Message message =  new Message();
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
+        }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
         }
         validateAndGet(message,token,title,pageNum);
         return message;

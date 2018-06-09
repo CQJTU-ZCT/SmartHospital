@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.OneKeyFirstAidMapperExp">
+
+    <resultMap id="sosRecordExp" type="com.cqjtu.modelexp.SosRecordExp">
+        <association property="sosRecord"  javaType="com.cqjtu.model.SosRecord">
+            <id column="sos_id" property="sosId"></id>
+            <result column="id_card" property="idCard"></result>
+            <result column="status_id" property="statusId"></result>
+            <result column="longitude" property="longitude"></result>
+            <result column="latitude" property="latitude"></result>
+        </association>
+
+        <association property="users"  javaType="com.cqjtu.model.Users">
+            <id column="id_card" property="idCard"></id>
+            <result column="realname" property="realname"></result>
+            <result column="phone" property="phone"></result>
+        </association>
+
+        <association property="usersDetail"  javaType="com.cqjtu.model.UsersDetail">
+            <id column="id_card" property="idCard"></id>
+            <result column="sex_id" property="sexId"></result>
+            <result column="address" property="address"></result>
+            <result column="birth_y_m_d" property="birthYMD"></result>
+        </association>
+
+
+        <association property="okfaStatus" javaType="com.cqjtu.model.OkfaStatus">
+            <id column="status_id" property="statusId"></id>
+            <result column="status_desc" property="statusDesc"></result>
+        </association>
+
+
+        <association property="sex" javaType="com.cqjtu.model.Sex">
+            <id column="sex_id" property="sexId"></id>
+            <result column="sex_desc" property="sexDesc"></result>
+        </association>
+    </resultMap>
+
+
+
+
+
+
+    <select id="select" parameterType="com.cqjtu.model.SosRecord" resultMap="sosRecordExp">
+        select sos_id , sos_record.id_card , sos_record.status_id , longitude ,latitude ,
+        realname , phone ,
+        users_detail.sex_id , address , birth_y_m_d ,
+        status_desc ,
+        sex_desc
+        from sos_record
+        left join users on sos_record.id_card = users.id_card
+        left join users_detail on sos_record.id_card = users_detail.id_card
+        left join okfa_status on  sos_record.status_id = okfa_status.status_id
+        left join  sex on users_detail.sex_id = sex.sex_id
+        <where>
+            <trim prefixOverrides="and">
+                <if test="sosId != null ">
+                    and  sos_record.sos_id = #{sosId}
+                </if>
+                <if test="idCard != null ">
+                    and   sos_record.id_card = #{idCard}
+                </if>
+                <if test="statusId != null ">
+                    and   sos_record.status_id = #{statusId}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+
+
+
+    <insert id="insert" parameterType="com.cqjtu.model.SosRecord">
+        insert into sos_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sosId != null">
+                sos_id,
+            </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
+            <if test="hospitalId != null">
+                hospital_id,
+            </if>
+            <if test="statusId != null">
+                status_id,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+            <if test="carNumber != null">
+                car_number,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sosId != null">
+                #{sosId,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalId != null">
+                #{hospitalId,jdbcType=VARCHAR},
+            </if>
+            <if test="statusId != null">
+                #{statusId,jdbcType=INTEGER},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DECIMAL},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DECIMAL},
+            </if>
+            <if test="carNumber != null">
+                #{carNumber,jdbcType=VARCHAR},
+            </if>
+        </trim>
+
+    </insert>
+
+
+    <update id="finishSos" >
+        update sos_record set status_id = 2
+        where sos_id = #{sosId}
+    </update>
+
+
+
+
+</mapper>

@@ -66,9 +66,15 @@ public class BranchController {
     public Message getBranch(String pageNum,
                              String name,
                              String introduction,
-                             HttpServletRequest request){
+                             HttpServletRequest request,
+                             String token){
         Message  message = new Message();
-        String token = request.getHeader("token");
+        if (token == null){
+            token = (String) request.getAttribute("token");
+        }
+        if (token == null){
+            token  = request.getHeader("token");
+        }
         getBranchAndValidate(name,introduction,pageNum,token,message);
         return  message;
     }

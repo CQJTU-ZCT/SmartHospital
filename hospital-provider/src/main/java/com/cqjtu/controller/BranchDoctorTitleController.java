@@ -52,6 +52,9 @@ public class BranchDoctorTitleController {
         if (token == null){
             token = request.getHeader("token");
         }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
+        }
         if (ValidateAdminTool.isAdmin(request,adminCode)){
             validateAndOpt(token,message,RequestMethod.POST,branchDoctorTitle);
         }else {
@@ -72,6 +75,9 @@ public class BranchDoctorTitleController {
         Message message = new Message();
         if (token == null){
             token = request.getHeader("token");
+        }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
         }
         if (ValidateAdminTool.isAdmin(request,adminCode)){
             validateAndOpt(token,message,RequestMethod.PUT,branchDoctorTitle);

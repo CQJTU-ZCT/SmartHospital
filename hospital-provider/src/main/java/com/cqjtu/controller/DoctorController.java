@@ -55,6 +55,9 @@ public class DoctorController {
         if (token == null || token.length() <=0){
             token = request.getHeader("token");
         }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
+        }
         validateAndGet(token,pageNum,doctor,message);
         return message;
     }
@@ -65,6 +68,9 @@ public class DoctorController {
         Message message = new Message();
         if (token == null ||  token.length() <=0 ){
             token = request.getHeader("token");
+        }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
         }
         if (ValidateAdminTool.isAdmin(request,adminCode)){
             validateAndOpt(token,doctor,RequestMethod.POST,message);
@@ -83,6 +89,9 @@ public class DoctorController {
         if (token == null ||  token.length() <=0 ){
             token = request.getHeader("token");
         }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
+        }
         if (ValidateAdminTool.isAdmin(request,adminCode) || ValidateAdminTool.isAdmin(request,doctorCode)){
             validateAndOpt(token,doctor,RequestMethod.PUT,message);
         }else {
@@ -99,6 +108,9 @@ public class DoctorController {
         Message message = new Message();
         if (token == null ||  token.length() <=0 ){
             token = request.getHeader("token");
+        }
+        if (token == null || token.length() <=0 ){
+            token = (String) request.getAttribute("token");
         }else {
             if (ValidateAdminTool.isAdmin(request,adminCode) || ValidateAdminTool.isAdmin(request,doctorCode)){
                 if (idCard != null && idCard.length()>0 && RegularTool.isIdCard(idCard)){

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author zjhfyq
@@ -34,7 +35,7 @@ public class ErrorController extends AbstractErrorController {
     }
 
     @RequestMapping(value = "/error")
-    public Message error(HttpServletRequest request,Exception exception) {
+    public Message error(HttpServletRequest request, Exception exception, HttpServletResponse response) {
         logger.info(request.getRemoteAddr() + " " + request.getMethod() + " " + request.getRequestURL()+ " " +getStatus(request));
         Message message  = new ExceptionMessage();
         HttpStatus status = getStatus(request);
@@ -57,7 +58,7 @@ public class ErrorController extends AbstractErrorController {
             message.setCode(500);
             message.setInfo("没有相关服务或服务正忙");
         }
-
+        response.setStatus(200);
         return message;
     }
 }

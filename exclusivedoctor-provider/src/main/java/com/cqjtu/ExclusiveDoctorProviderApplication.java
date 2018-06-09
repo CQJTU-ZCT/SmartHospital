@@ -21,6 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableEurekaClient
 @EnableHystrix
 @ServletComponentScan
+@ComponentScan("com.cqjtu")
 @MapperScan(value = {"com.cqjtu.mapper","com.cqjtu.mapperexp"})
 public class ExclusiveDoctorProviderApplication {
 
