@@ -3,6 +3,7 @@ package com.cqjtu.service;
 import com.cqjtu.mapper.EmrMapper;
 import com.cqjtu.mapperexp.EmrRecordMapperExp;
 import com.cqjtu.model.EmrRecord;
+import com.cqjtu.modelexp.EmrRecordExp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,6 @@ public class EmrRecordServiceImpl implements EmrRecordService, Pageable {
     public EmrRecord insert(EmrRecord emrRecord) {
         if (emrService.getEmrById(emrRecord.getEmrId()) == null) {
             //emr不存在
-            //todo verify other filed
             return null;
         }
         return mapper.insert(emrRecord) == 1 ? emrRecord : null;
@@ -68,5 +68,10 @@ public class EmrRecordServiceImpl implements EmrRecordService, Pageable {
             return mapper.getById(emrRecord.getRecordId());
         }
         return null;
+    }
+
+    @Override
+    public List<EmrRecordExp> getEmrRecord(String emrId) {
+        return mapper.getEmrRecord(emrId);
     }
 }

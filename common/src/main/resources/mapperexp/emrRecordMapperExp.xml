@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqjtu.mapperexp.EmrRecordMapperExp">
+
+
+    <resultMap id="selectEmrRecord" type="com.cqjtu.modelexp.EmrRecordExp">
+        <result column="emr_id" property="emrId"/>
+        <result column="title" property="title"/>
+        <result column="description" property="desc"/>
+        <result column="create_time" property="time"/>
+        <result column="record_id" property="recordId"/>
+        <association property="doctor" javaType="com.cqjtu.model.Doctor">
+            <result property="idCard" column="doctor_id"/>
+            <result property="name" column="doctor_name"/>
+            <result property="phone" column="phone"/>
+        </association>
+        <association property="branch" javaType="com.cqjtu.model.Branch">
+            <result property="branchId" column="branch_id"/>
+            <result property="name" column="name"/>
+        </association>
+        <association property="hospital" javaType="com.cqjtu.model.Hospital">
+            <result property="hospitalId" column="hospital_id"/>
+            <result property="hospitalName" column="hospital_name"/>
+        </association>
+    </resultMap>
+
+    <select id="select" resultMap="selectEmrRecord" parameterType="String">
+        SELECT record_id,emr_id,create_time,title,description,
+        doctor_id,branch_id,hospital_id, doctor_name,
+        doctor.phone, branch.name, hospital_name
+        from emr_record
+        left join doctor on doctor_id = doctor.id_card
+        left join branch on branch_id = branch.branch_id
+        left join hospital on hospital_id = hospital.hospital_id
+        <where>
+                <if test="emrId != null ">
+                    and  emr_id=#{emrId}
+                </if>
+        </where>
+    </select>
+</mapper>

@@ -1,6 +1,7 @@
 package com.cqjtu.service;
 
 import com.cqjtu.model.EmrRecord;
+import com.cqjtu.modelexp.EmrRecordExp;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,6 @@ public interface EmrRecordService {
     EmrRecord delete(String id);
 
     EmrRecord update(EmrRecord emrRecord);
+
+    List<EmrRecordExp> getEmrRecord(String emrId);
 }

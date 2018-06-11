@@ -3,10 +3,11 @@ package com.cqjtu.controller;
 import com.cqjtu.domain.PageInfo;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.EmrRecord;
+import com.cqjtu.model.EmrRecordExample;
+import com.cqjtu.model.Users;
+import com.cqjtu.modelexp.EmrRecordExp;
 import com.cqjtu.service.EmrRecordServiceImpl;
-import com.cqjtu.tools.PageHandler;
-import com.cqjtu.tools.PagesHelper;
-import com.cqjtu.tools.SnowFlakeWorker;
+import com.cqjtu.tools.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Year;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author mevur
@@ -54,6 +52,30 @@ public class EmrRecordController {
         return msg;
     }
 
+    @RequestMapping(value = "/emr/record", method = RequestMethod.GET)
+    public Message getEmrRecords(String emrId, String token) {
+        Message msg = new Message(200);
+        if (null == token || token.length() != 32) {
+            msg.setCode(401);
+            msg.setInfo("未授权");
+        }
+        Users users = TokenData.getUserByToken(token);
+        if (null == users) {
+            msg.setCode(401);
+            msg.setInfo("未授权");
+        } else {
+            List<EmrRecordExp> emrRecords = service.getEmrRecord(emrId);
+            if (null == emrRecords) {
+                emrRecords = new ArrayList<>();
+                msg.setInfo("没有emr记录数据");
+            } else {
+                msg.setInfo("查询emr记录数据成功");
+            }
+            msg.put("emrRecords", emrRecords);
+        }
+        return msg;
+    }
+
     @RequestMapping(value = "/emr/{emrId}/page", method = RequestMethod.GET)
     public Message pages(@PathVariable("emrId") String emrId, Integer limit) {
         Message msg = new Message(200, "");
@@ -73,12 +95,20 @@ public class EmrRecordController {
         }
     }
 
-    @RequestMapping(value = "/emr/{emrId}/record", method = RequestMethod.POST)
-    public Message add(@PathVariable("emrId") String emrId, EmrRecord emrRecord) {
-        emrRecord.setEmrId(emrId);
+    @RequestMapping(value = "/emr/record", method = RequestMethod.POST)
+    public Message add(String token, EmrRecord emrRecord) {
+        Message msg = new Message(200);
+        if (null == token || token.length() != 32) {
+            msg.setCode(401);
+            msg.setInfo("未授权");
+        }
+        Users users = TokenData.getUserByToken(token);
+        if (null == users) {
+            msg.setCode(401);
+            msg.setInfo("未授权");
+        }
         emrRecord.setRecordId(String.valueOf(idWorker.nextId()));
         EmrRecord record = service.insert(emrRecord);
-        Message msg = new Message(200, "");
         if (null == record) {
             msg.setInfo("插入病例纪录失败");
         }

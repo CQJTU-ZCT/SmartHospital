@@ -1,6 +1,7 @@
 package com.cqjtu.mapperexp;
 
 import com.cqjtu.model.EmrRecord;
+import com.cqjtu.modelexp.EmrRecordExp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface EmrRecordMapperExp {
     int delete(@Param("id") String id);
 
     int update(EmrRecord emrRecord);
+
+    List<EmrRecordExp> getEmrRecord(@Param("emrId") String emrId);
 }
