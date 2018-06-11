@@ -10,6 +10,7 @@
     <result column="doctor_id" jdbcType="VARCHAR" property="doctorId" />
     <result column="preorder_time" jdbcType="VARCHAR" property="preorderTime" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="branch_id" jdbcType="VARCHAR" property="branchId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List">
     order_id, appointment_status_id, create_time, cancel_time, finish_time, doctor_id, 
-    preorder_time, user_id
+    preorder_time, user_id, branch_id
   </sql>
   <select id="selectByExample" parameterType="com.cqjtu.model.PreOrdersExample" resultMap="BaseResultMap">
     select
@@ -106,10 +107,12 @@
   <insert id="insert" parameterType="com.cqjtu.model.PreOrders">
     insert into preorders (order_id, appointment_status_id, create_time, 
       cancel_time, finish_time, doctor_id, 
-      preorder_time, user_id)
+      preorder_time, user_id, branch_id
+      )
     values (#{orderId,jdbcType=VARCHAR}, #{appointmentStatusId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{cancelTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{doctorId,jdbcType=VARCHAR}, 
-      #{preorderTime,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+      #{preorderTime,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{branchId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cqjtu.model.PreOrders">
     insert into preorders
@@ -138,6 +141,9 @@
       <if test="userId != null">
         user_id,
       </if>
+      <if test="branchId != null">
+        branch_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -163,6 +169,9 @@
       </if>
       <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchId != null">
+        #{branchId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -199,6 +208,9 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
+      <if test="record.branchId != null">
+        branch_id = #{record.branchId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,7 +225,8 @@
       finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       doctor_id = #{record.doctorId,jdbcType=VARCHAR},
       preorder_time = #{record.preorderTime,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=VARCHAR}
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      branch_id = #{record.branchId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,6 +255,9 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=VARCHAR},
       </if>
+      <if test="branchId != null">
+        branch_id = #{branchId,jdbcType=VARCHAR},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
@@ -253,7 +269,8 @@
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
       doctor_id = #{doctorId,jdbcType=VARCHAR},
       preorder_time = #{preorderTime,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR}
+      user_id = #{userId,jdbcType=VARCHAR},
+      branch_id = #{branchId,jdbcType=VARCHAR}
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
 </mapper>

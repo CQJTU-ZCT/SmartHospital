@@ -31,7 +31,10 @@
         position.position_id , position.name as pname,
         bdp_id,
         doctor.id_card, doctor.name as dname
-        from branch_doctor_position,branch,doctor,position
+        from branch_doctor_position
+        left  join branch on  branch_doctor_position.branch_id = branch.branch_id
+        left join  doctor on branch_doctor_position.id_card = doctor.id_card
+        left  join  position on branch_doctor_position.position_id = position.position_id
         <where>
             <trim prefixOverrides="and">
                 <if test="positionId != null">
@@ -46,9 +49,6 @@
                 <if test="bdpId != null">
                     and branch_doctor_position.bdp_id = #{bdpId}
                 </if>
-                and branch_doctor_position.id_card = doctor.id_card
-                and branch_doctor_position.position_id = position.position_id
-                and branch_doctor_position.branch_id = branch.branch_id
             </trim>
         </where>
     </select>

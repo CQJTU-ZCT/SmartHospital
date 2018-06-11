@@ -30,7 +30,10 @@
                 title.title_id , title.name as tname,
                 bdt_id,
                 doctor.id_card, doctor.name as dname
-        from branch_doctor_title,branch,doctor,title
+        from branch_doctor_title
+        left  join branch on branch_doctor_title.branch_id = branch.branch_id
+        left  join doctor on branch_doctor_title.id_card = doctor.id_card
+        left join  title on branch_doctor_title.title_id = title.title_id
         <where>
             <trim prefixOverrides="and">
                 <if test="titleId != null">
@@ -45,9 +48,6 @@
                 <if test="bdtId != null">
                     and branch_doctor_title.bdt_id = #{bdtId}
                 </if>
-                and branch_doctor_title.id_card = doctor.id_card
-                and branch_doctor_title.title_id = title.title_id
-                and branch_doctor_title.branch_id = branch.branch_id
             </trim>
         </where>
     </select>
@@ -108,6 +108,13 @@
         </trim>
 
     </insert>
-
+    
+    
+    
+    <select id="exitsBranchDoctor" resultType="com.cqjtu.model.BranchDoctorTitle">
+        select branch_id , id_card from branch_doctor_title
+        where
+        branch_id = #{branchId} and id_card = #{doctorId}
+    </select>
 
 </mapper>

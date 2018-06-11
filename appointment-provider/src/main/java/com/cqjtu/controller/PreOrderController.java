@@ -3,6 +3,7 @@ package com.cqjtu.controller;
 import com.cqjtu.messages.Message;
 import com.cqjtu.model.PreOrders;
 import com.cqjtu.model.Users;
+import com.cqjtu.modelexp.PreorderExp;
 import com.cqjtu.service.PreOrderService;
 import com.cqjtu.tools.LoggerTool;
 import com.cqjtu.tools.RegularTool;
@@ -70,7 +71,7 @@ public class PreOrderController {
                     }else  if (users.getRoleId() == 1){
                         preOrders.setUserId(users.getIdCard());
                     }
-                    List<PreOrders> orders = preOrderService.select(preOrders);
+                    List<PreorderExp> orders = preOrderService.select(preOrders);
                     message.setInfo("查询成功");
                     message.put("preorders",orders);
                 }
@@ -210,8 +211,8 @@ public class PreOrderController {
                                 if (date.before(new Date())){
                                     message.setInfo("不合法的预约时间");
                                 }else {
-                                    preOrders.setPreorderTime(sdf.format(date));
-                                    if (preOrderService.exitsDoctor(preOrders.getDoctorId())){
+                                    if (preOrderService.exitsBranchDoctor(preOrders.getBranchId(),preOrders.getDoctorId())){
+                                        preOrders.setPreorderTime(sdf.format(date));
                                         preOrders.setOrderId(Token.getToken32WithoutLine());
                                         preOrders.setAppointmentStatusId(1);
                                         preOrders.setUserId(users.getIdCard());
@@ -222,7 +223,7 @@ public class PreOrderController {
                                             message.setInfo("预约失败,请检查预约参数");
                                         }
                                     }else {
-                                        message.setInfo("不存在的医生");
+                                        message.setInfo("该科室下没有该医生");
                                     }
                                 }
                             } catch (ParseException e) {

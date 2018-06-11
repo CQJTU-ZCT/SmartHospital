@@ -2,6 +2,7 @@ package com.cqjtu.mapperexp;
 
 import com.cqjtu.model.BranchDoctorTitle;
 import com.cqjtu.modelexp.BranchDoctorTitleExp;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -33,5 +34,8 @@ public interface BranchDoctorTitleMapperExp {
      * @return
      */
     List<BranchDoctorTitleExp> queryBranchDoctorTitle(BranchDoctorTitle branchDoctorTitle);
+
+
+    BranchDoctorTitle exitsBranchDoctor(@Param("branchId") String branchId,@Param("doctorId") String doctorId);
 
 }

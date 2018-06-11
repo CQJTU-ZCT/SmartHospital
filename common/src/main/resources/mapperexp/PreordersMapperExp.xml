@@ -2,9 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqjtu.mapperexp.PreordersMapperExp">
 
-    <select id="select" resultType="com.cqjtu.model.PreOrders" parameterType="com.cqjtu.model.PreOrders">
-        SELECT order_id,appointment_status_id,create_time,cancel_time,finish_time,doctor_id,preorder_time,user_id
+
+    <resultMap id="selectPreorders" type="com.cqjtu.modelexp.PreorderExp">
+        <association property="preOrders" javaType="com.cqjtu.model.PreOrders">
+            <result property="orderId" column="order_id"></result>
+            <result property="appointmentStatusId" column="appointment_status_id"></result>
+            <result property="createTime" column="create_time"></result>
+            <result property="cancelTime" column="cancel_time"></result>
+            <result property="finishTime" column="finish_time"></result>
+            <result property="doctorId" column="doctor_id"></result>
+            <result property="preorderTime" column="preorder_time"></result>
+            <result property="userId" column="user_id"></result>
+            <result property="branchId" column="branch_id"></result>
+        </association>
+        <association property="doctor" javaType="com.cqjtu.model.Doctor">
+            <result property="idCard" column="doctor_id"></result>
+            <result property="name" column="dname"></result>
+            <result property="phone" column="phone"></result>
+        </association>
+        <association property="branch" javaType="com.cqjtu.model.Branch">
+            <result property="branchId" column="branch_id"></result>
+            <result property="name" column="name"></result>
+        </association>
+        <association property="preorderStatus" javaType="com.cqjtu.model.PreorderStatus">
+            <result property="appointmentStatusId" column="appointment_status_id"></result>
+            <result property="description" column="description"></result>
+        </association>
+    </resultMap>
+
+    <select id="select" resultMap="selectPreorders" parameterType="com.cqjtu.model.PreOrders">
+        SELECT order_id,preorders.appointment_status_id,create_time,cancel_time,finish_time,
+        doctor_id,preorder_time,user_id,preorders.branch_id , branch.name ,
+        doctor.name as dname , doctor.phone ,
+        description
         from preorders
+        left  join doctor on doctor_id = doctor.id_card
+        left  join  branch on preorders.branch_id = branch.branch_id
+        left join preorder_status on preorder_status.appointment_status_id = preorders.appointment_status_id
         <where>
             <trim prefixOverrides="and">
                 <if test="orderId != null ">
@@ -23,13 +57,16 @@
                     and   finish_time =#{finishTime}
                 </if>
                 <if test="doctorId != null ">
-                    and   doctor_id LIKE  CONCAT(CONCAT('%', #{doctorId}), '%')
+                    and   doctor_id = #{doctorId}
                 </if>
                 <if test="preorderTime != null ">
                     and   preorder_time = #{preorderTime}
                 </if>
                 <if test="userId != null ">
-                    and   user_id LIKE  CONCAT(CONCAT('%', #{userId}), '%')
+                    and   user_id =#{userId}
+                </if>
+                <if test="branchId != null ">
+                    and   branch_id =#{branchId}
                 </if>
             </trim>
         </where>
@@ -57,6 +94,9 @@
             <if test="null != userId">
                 user_id,
             </if>
+            <if test="null != branchId">
+                branch_id,
+            </if>
         </trim>
         VALUES
         <trim prefix="(" suffixOverrides="," suffix=")">
@@ -75,6 +115,9 @@
             </if>
             <if test="null != userId">
                 #{userId},
+            </if>
+            <if test="null != branchId">
+                #{branchId},
             </if>
         </trim>
     </insert>

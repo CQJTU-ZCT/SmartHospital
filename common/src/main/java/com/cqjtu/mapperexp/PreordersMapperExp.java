@@ -1,6 +1,7 @@
 package com.cqjtu.mapperexp;
 
 import com.cqjtu.model.PreOrders;
+import com.cqjtu.modelexp.PreorderExp;
 
 import java.util.List;
 
@@ -18,6 +19,6 @@ public interface PreordersMapperExp {
     int updateFinishTime(PreOrders preOrders);
 
 
-    List<PreOrders>   select(PreOrders preOrders);
+    List<PreorderExp>   select(PreOrders preOrders);
 
 }

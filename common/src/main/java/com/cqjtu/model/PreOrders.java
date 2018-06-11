@@ -19,6 +19,8 @@ public class PreOrders {
 
     private String userId;
 
+    private String branchId;
+
     public String getOrderId() {
         return orderId;
     }
@@ -81,5 +83,13 @@ public class PreOrders {
 
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId == null ? null : branchId.trim();
     }
 }
