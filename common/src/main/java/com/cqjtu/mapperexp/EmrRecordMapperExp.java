@@ -25,6 +25,4 @@ public interface EmrRecordMapperExp {
     int delete(@Param("id") String id);
 
     int update(EmrRecord emrRecord);
-
-    List<EmrRecordExp> getEmrRecord(@Param("emrId") String emrId);
 }

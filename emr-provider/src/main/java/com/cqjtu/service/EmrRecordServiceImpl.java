@@ -2,6 +2,7 @@ package com.cqjtu.service;
 
 import com.cqjtu.mapper.EmrMapper;
 import com.cqjtu.mapperexp.EmrRecordMapperExp;
+import com.cqjtu.mapperexp.EmrRecordsMapperExp;
 import com.cqjtu.model.EmrRecord;
 import com.cqjtu.modelexp.EmrRecordExp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class EmrRecordServiceImpl implements EmrRecordService, Pageable {
     @Autowired
     EmrRecordMapperExp mapper;
+
+    @Autowired
+    EmrRecordsMapperExp emrRecordsMapperExp;
 
     @Autowired
     EmrServiceImpl emrService;
@@ -72,6 +76,6 @@ public class EmrRecordServiceImpl implements EmrRecordService, Pageable {
 
     @Override
     public List<EmrRecordExp> getEmrRecord(String emrId) {
-        return mapper.getEmrRecord(emrId);
+        return emrRecordsMapperExp.getEmrRecords(emrId);
     }
 }

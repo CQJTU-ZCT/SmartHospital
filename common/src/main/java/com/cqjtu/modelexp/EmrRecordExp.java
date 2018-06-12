@@ -8,11 +8,11 @@ public class EmrRecordExp {
     private String recordId;
     private String emrId;
     private Doctor doctor;
-    private Hospital hospital;
     private Branch branch;
     private String title;
     private String time;
     private String desc;
+    private String treatment;
 
     public String getRecordId() {
         return recordId;
@@ -36,14 +36,6 @@ public class EmrRecordExp {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
-    }
-
-    public Hospital getHospital() {
-        return hospital;
-    }
-
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
     }
 
     public Branch getBranch() {
@@ -76,5 +68,13 @@ public class EmrRecordExp {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(String treatment) {
+        this.treatment = treatment;
     }
 }
